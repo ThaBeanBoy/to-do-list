@@ -1,11 +1,3 @@
-/*
- * ATTENTION: The "eval" devtool has been used (maybe by default in mode: "development").
- * This devtool is neither made for production nor for readable output files.
- * It uses "eval()" calls to create a separate source file in the browser devtools.
- * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
- * or disable the default devtool with "devtool: false".
- * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
- */
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
@@ -16,7 +8,103 @@
   \*********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"unwrap\": () => (/* reexport safe */ _wrap_idb_value_js__WEBPACK_IMPORTED_MODULE_0__.u),\n/* harmony export */   \"wrap\": () => (/* reexport safe */ _wrap_idb_value_js__WEBPACK_IMPORTED_MODULE_0__.w),\n/* harmony export */   \"deleteDB\": () => (/* binding */ deleteDB),\n/* harmony export */   \"openDB\": () => (/* binding */ openDB)\n/* harmony export */ });\n/* harmony import */ var _wrap_idb_value_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./wrap-idb-value.js */ \"./node_modules/idb/build/esm/wrap-idb-value.js\");\n\n\n\n/**\n * Open a database.\n *\n * @param name Name of the database.\n * @param version Schema version.\n * @param callbacks Additional callbacks.\n */\nfunction openDB(name, version, { blocked, upgrade, blocking, terminated } = {}) {\n    const request = indexedDB.open(name, version);\n    const openPromise = (0,_wrap_idb_value_js__WEBPACK_IMPORTED_MODULE_0__.w)(request);\n    if (upgrade) {\n        request.addEventListener('upgradeneeded', (event) => {\n            upgrade((0,_wrap_idb_value_js__WEBPACK_IMPORTED_MODULE_0__.w)(request.result), event.oldVersion, event.newVersion, (0,_wrap_idb_value_js__WEBPACK_IMPORTED_MODULE_0__.w)(request.transaction));\n        });\n    }\n    if (blocked)\n        request.addEventListener('blocked', () => blocked());\n    openPromise\n        .then((db) => {\n        if (terminated)\n            db.addEventListener('close', () => terminated());\n        if (blocking)\n            db.addEventListener('versionchange', () => blocking());\n    })\n        .catch(() => { });\n    return openPromise;\n}\n/**\n * Delete a database.\n *\n * @param name Name of the database.\n */\nfunction deleteDB(name, { blocked } = {}) {\n    const request = indexedDB.deleteDatabase(name);\n    if (blocked)\n        request.addEventListener('blocked', () => blocked());\n    return (0,_wrap_idb_value_js__WEBPACK_IMPORTED_MODULE_0__.w)(request).then(() => undefined);\n}\n\nconst readMethods = ['get', 'getKey', 'getAll', 'getAllKeys', 'count'];\nconst writeMethods = ['put', 'add', 'delete', 'clear'];\nconst cachedMethods = new Map();\nfunction getMethod(target, prop) {\n    if (!(target instanceof IDBDatabase &&\n        !(prop in target) &&\n        typeof prop === 'string')) {\n        return;\n    }\n    if (cachedMethods.get(prop))\n        return cachedMethods.get(prop);\n    const targetFuncName = prop.replace(/FromIndex$/, '');\n    const useIndex = prop !== targetFuncName;\n    const isWrite = writeMethods.includes(targetFuncName);\n    if (\n    // Bail if the target doesn't exist on the target. Eg, getAll isn't in Edge.\n    !(targetFuncName in (useIndex ? IDBIndex : IDBObjectStore).prototype) ||\n        !(isWrite || readMethods.includes(targetFuncName))) {\n        return;\n    }\n    const method = async function (storeName, ...args) {\n        // isWrite ? 'readwrite' : undefined gzipps better, but fails in Edge :(\n        const tx = this.transaction(storeName, isWrite ? 'readwrite' : 'readonly');\n        let target = tx.store;\n        if (useIndex)\n            target = target.index(args.shift());\n        // Must reject if op rejects.\n        // If it's a write operation, must reject if tx.done rejects.\n        // Must reject with op rejection first.\n        // Must resolve with op value.\n        // Must handle both promises (no unhandled rejections)\n        return (await Promise.all([\n            target[targetFuncName](...args),\n            isWrite && tx.done,\n        ]))[0];\n    };\n    cachedMethods.set(prop, method);\n    return method;\n}\n(0,_wrap_idb_value_js__WEBPACK_IMPORTED_MODULE_0__.r)((oldTraps) => ({\n    ...oldTraps,\n    get: (target, prop, receiver) => getMethod(target, prop) || oldTraps.get(target, prop, receiver),\n    has: (target, prop) => !!getMethod(target, prop) || oldTraps.has(target, prop),\n}));\n\n\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/idb/build/esm/index.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "unwrap": () => (/* reexport safe */ _wrap_idb_value_js__WEBPACK_IMPORTED_MODULE_0__.u),
+/* harmony export */   "wrap": () => (/* reexport safe */ _wrap_idb_value_js__WEBPACK_IMPORTED_MODULE_0__.w),
+/* harmony export */   "deleteDB": () => (/* binding */ deleteDB),
+/* harmony export */   "openDB": () => (/* binding */ openDB)
+/* harmony export */ });
+/* harmony import */ var _wrap_idb_value_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./wrap-idb-value.js */ "./node_modules/idb/build/esm/wrap-idb-value.js");
+
+
+
+/**
+ * Open a database.
+ *
+ * @param name Name of the database.
+ * @param version Schema version.
+ * @param callbacks Additional callbacks.
+ */
+function openDB(name, version, { blocked, upgrade, blocking, terminated } = {}) {
+    const request = indexedDB.open(name, version);
+    const openPromise = (0,_wrap_idb_value_js__WEBPACK_IMPORTED_MODULE_0__.w)(request);
+    if (upgrade) {
+        request.addEventListener('upgradeneeded', (event) => {
+            upgrade((0,_wrap_idb_value_js__WEBPACK_IMPORTED_MODULE_0__.w)(request.result), event.oldVersion, event.newVersion, (0,_wrap_idb_value_js__WEBPACK_IMPORTED_MODULE_0__.w)(request.transaction));
+        });
+    }
+    if (blocked)
+        request.addEventListener('blocked', () => blocked());
+    openPromise
+        .then((db) => {
+        if (terminated)
+            db.addEventListener('close', () => terminated());
+        if (blocking)
+            db.addEventListener('versionchange', () => blocking());
+    })
+        .catch(() => { });
+    return openPromise;
+}
+/**
+ * Delete a database.
+ *
+ * @param name Name of the database.
+ */
+function deleteDB(name, { blocked } = {}) {
+    const request = indexedDB.deleteDatabase(name);
+    if (blocked)
+        request.addEventListener('blocked', () => blocked());
+    return (0,_wrap_idb_value_js__WEBPACK_IMPORTED_MODULE_0__.w)(request).then(() => undefined);
+}
+
+const readMethods = ['get', 'getKey', 'getAll', 'getAllKeys', 'count'];
+const writeMethods = ['put', 'add', 'delete', 'clear'];
+const cachedMethods = new Map();
+function getMethod(target, prop) {
+    if (!(target instanceof IDBDatabase &&
+        !(prop in target) &&
+        typeof prop === 'string')) {
+        return;
+    }
+    if (cachedMethods.get(prop))
+        return cachedMethods.get(prop);
+    const targetFuncName = prop.replace(/FromIndex$/, '');
+    const useIndex = prop !== targetFuncName;
+    const isWrite = writeMethods.includes(targetFuncName);
+    if (
+    // Bail if the target doesn't exist on the target. Eg, getAll isn't in Edge.
+    !(targetFuncName in (useIndex ? IDBIndex : IDBObjectStore).prototype) ||
+        !(isWrite || readMethods.includes(targetFuncName))) {
+        return;
+    }
+    const method = async function (storeName, ...args) {
+        // isWrite ? 'readwrite' : undefined gzipps better, but fails in Edge :(
+        const tx = this.transaction(storeName, isWrite ? 'readwrite' : 'readonly');
+        let target = tx.store;
+        if (useIndex)
+            target = target.index(args.shift());
+        // Must reject if op rejects.
+        // If it's a write operation, must reject if tx.done rejects.
+        // Must reject with op rejection first.
+        // Must resolve with op value.
+        // Must handle both promises (no unhandled rejections)
+        return (await Promise.all([
+            target[targetFuncName](...args),
+            isWrite && tx.done,
+        ]))[0];
+    };
+    cachedMethods.set(prop, method);
+    return method;
+}
+(0,_wrap_idb_value_js__WEBPACK_IMPORTED_MODULE_0__.r)((oldTraps) => ({
+    ...oldTraps,
+    get: (target, prop, receiver) => getMethod(target, prop) || oldTraps.get(target, prop, receiver),
+    has: (target, prop) => !!getMethod(target, prop) || oldTraps.has(target, prop),
+}));
+
+
+
 
 /***/ }),
 
@@ -26,7 +114,200 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \******************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"a\": () => (/* binding */ reverseTransformCache),\n/* harmony export */   \"i\": () => (/* binding */ instanceOfAny),\n/* harmony export */   \"r\": () => (/* binding */ replaceTraps),\n/* harmony export */   \"u\": () => (/* binding */ unwrap),\n/* harmony export */   \"w\": () => (/* binding */ wrap)\n/* harmony export */ });\nconst instanceOfAny = (object, constructors) => constructors.some((c) => object instanceof c);\n\nlet idbProxyableTypes;\nlet cursorAdvanceMethods;\n// This is a function to prevent it throwing up in node environments.\nfunction getIdbProxyableTypes() {\n    return (idbProxyableTypes ||\n        (idbProxyableTypes = [\n            IDBDatabase,\n            IDBObjectStore,\n            IDBIndex,\n            IDBCursor,\n            IDBTransaction,\n        ]));\n}\n// This is a function to prevent it throwing up in node environments.\nfunction getCursorAdvanceMethods() {\n    return (cursorAdvanceMethods ||\n        (cursorAdvanceMethods = [\n            IDBCursor.prototype.advance,\n            IDBCursor.prototype.continue,\n            IDBCursor.prototype.continuePrimaryKey,\n        ]));\n}\nconst cursorRequestMap = new WeakMap();\nconst transactionDoneMap = new WeakMap();\nconst transactionStoreNamesMap = new WeakMap();\nconst transformCache = new WeakMap();\nconst reverseTransformCache = new WeakMap();\nfunction promisifyRequest(request) {\n    const promise = new Promise((resolve, reject) => {\n        const unlisten = () => {\n            request.removeEventListener('success', success);\n            request.removeEventListener('error', error);\n        };\n        const success = () => {\n            resolve(wrap(request.result));\n            unlisten();\n        };\n        const error = () => {\n            reject(request.error);\n            unlisten();\n        };\n        request.addEventListener('success', success);\n        request.addEventListener('error', error);\n    });\n    promise\n        .then((value) => {\n        // Since cursoring reuses the IDBRequest (*sigh*), we cache it for later retrieval\n        // (see wrapFunction).\n        if (value instanceof IDBCursor) {\n            cursorRequestMap.set(value, request);\n        }\n        // Catching to avoid \"Uncaught Promise exceptions\"\n    })\n        .catch(() => { });\n    // This mapping exists in reverseTransformCache but doesn't doesn't exist in transformCache. This\n    // is because we create many promises from a single IDBRequest.\n    reverseTransformCache.set(promise, request);\n    return promise;\n}\nfunction cacheDonePromiseForTransaction(tx) {\n    // Early bail if we've already created a done promise for this transaction.\n    if (transactionDoneMap.has(tx))\n        return;\n    const done = new Promise((resolve, reject) => {\n        const unlisten = () => {\n            tx.removeEventListener('complete', complete);\n            tx.removeEventListener('error', error);\n            tx.removeEventListener('abort', error);\n        };\n        const complete = () => {\n            resolve();\n            unlisten();\n        };\n        const error = () => {\n            reject(tx.error || new DOMException('AbortError', 'AbortError'));\n            unlisten();\n        };\n        tx.addEventListener('complete', complete);\n        tx.addEventListener('error', error);\n        tx.addEventListener('abort', error);\n    });\n    // Cache it for later retrieval.\n    transactionDoneMap.set(tx, done);\n}\nlet idbProxyTraps = {\n    get(target, prop, receiver) {\n        if (target instanceof IDBTransaction) {\n            // Special handling for transaction.done.\n            if (prop === 'done')\n                return transactionDoneMap.get(target);\n            // Polyfill for objectStoreNames because of Edge.\n            if (prop === 'objectStoreNames') {\n                return target.objectStoreNames || transactionStoreNamesMap.get(target);\n            }\n            // Make tx.store return the only store in the transaction, or undefined if there are many.\n            if (prop === 'store') {\n                return receiver.objectStoreNames[1]\n                    ? undefined\n                    : receiver.objectStore(receiver.objectStoreNames[0]);\n            }\n        }\n        // Else transform whatever we get back.\n        return wrap(target[prop]);\n    },\n    set(target, prop, value) {\n        target[prop] = value;\n        return true;\n    },\n    has(target, prop) {\n        if (target instanceof IDBTransaction &&\n            (prop === 'done' || prop === 'store')) {\n            return true;\n        }\n        return prop in target;\n    },\n};\nfunction replaceTraps(callback) {\n    idbProxyTraps = callback(idbProxyTraps);\n}\nfunction wrapFunction(func) {\n    // Due to expected object equality (which is enforced by the caching in `wrap`), we\n    // only create one new func per func.\n    // Edge doesn't support objectStoreNames (booo), so we polyfill it here.\n    if (func === IDBDatabase.prototype.transaction &&\n        !('objectStoreNames' in IDBTransaction.prototype)) {\n        return function (storeNames, ...args) {\n            const tx = func.call(unwrap(this), storeNames, ...args);\n            transactionStoreNamesMap.set(tx, storeNames.sort ? storeNames.sort() : [storeNames]);\n            return wrap(tx);\n        };\n    }\n    // Cursor methods are special, as the behaviour is a little more different to standard IDB. In\n    // IDB, you advance the cursor and wait for a new 'success' on the IDBRequest that gave you the\n    // cursor. It's kinda like a promise that can resolve with many values. That doesn't make sense\n    // with real promises, so each advance methods returns a new promise for the cursor object, or\n    // undefined if the end of the cursor has been reached.\n    if (getCursorAdvanceMethods().includes(func)) {\n        return function (...args) {\n            // Calling the original function with the proxy as 'this' causes ILLEGAL INVOCATION, so we use\n            // the original object.\n            func.apply(unwrap(this), args);\n            return wrap(cursorRequestMap.get(this));\n        };\n    }\n    return function (...args) {\n        // Calling the original function with the proxy as 'this' causes ILLEGAL INVOCATION, so we use\n        // the original object.\n        return wrap(func.apply(unwrap(this), args));\n    };\n}\nfunction transformCachableValue(value) {\n    if (typeof value === 'function')\n        return wrapFunction(value);\n    // This doesn't return, it just creates a 'done' promise for the transaction,\n    // which is later returned for transaction.done (see idbObjectHandler).\n    if (value instanceof IDBTransaction)\n        cacheDonePromiseForTransaction(value);\n    if (instanceOfAny(value, getIdbProxyableTypes()))\n        return new Proxy(value, idbProxyTraps);\n    // Return the same value back if we're not going to transform it.\n    return value;\n}\nfunction wrap(value) {\n    // We sometimes generate multiple promises from a single IDBRequest (eg when cursoring), because\n    // IDB is weird and a single IDBRequest can yield many responses, so these can't be cached.\n    if (value instanceof IDBRequest)\n        return promisifyRequest(value);\n    // If we've already transformed this value before, reuse the transformed value.\n    // This is faster, but it also provides object equality.\n    if (transformCache.has(value))\n        return transformCache.get(value);\n    const newValue = transformCachableValue(value);\n    // Not all types are transformed.\n    // These may be primitive types, so they can't be WeakMap keys.\n    if (newValue !== value) {\n        transformCache.set(value, newValue);\n        reverseTransformCache.set(newValue, value);\n    }\n    return newValue;\n}\nconst unwrap = (value) => reverseTransformCache.get(value);\n\n\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/idb/build/esm/wrap-idb-value.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "a": () => (/* binding */ reverseTransformCache),
+/* harmony export */   "i": () => (/* binding */ instanceOfAny),
+/* harmony export */   "r": () => (/* binding */ replaceTraps),
+/* harmony export */   "u": () => (/* binding */ unwrap),
+/* harmony export */   "w": () => (/* binding */ wrap)
+/* harmony export */ });
+const instanceOfAny = (object, constructors) => constructors.some((c) => object instanceof c);
+
+let idbProxyableTypes;
+let cursorAdvanceMethods;
+// This is a function to prevent it throwing up in node environments.
+function getIdbProxyableTypes() {
+    return (idbProxyableTypes ||
+        (idbProxyableTypes = [
+            IDBDatabase,
+            IDBObjectStore,
+            IDBIndex,
+            IDBCursor,
+            IDBTransaction,
+        ]));
+}
+// This is a function to prevent it throwing up in node environments.
+function getCursorAdvanceMethods() {
+    return (cursorAdvanceMethods ||
+        (cursorAdvanceMethods = [
+            IDBCursor.prototype.advance,
+            IDBCursor.prototype.continue,
+            IDBCursor.prototype.continuePrimaryKey,
+        ]));
+}
+const cursorRequestMap = new WeakMap();
+const transactionDoneMap = new WeakMap();
+const transactionStoreNamesMap = new WeakMap();
+const transformCache = new WeakMap();
+const reverseTransformCache = new WeakMap();
+function promisifyRequest(request) {
+    const promise = new Promise((resolve, reject) => {
+        const unlisten = () => {
+            request.removeEventListener('success', success);
+            request.removeEventListener('error', error);
+        };
+        const success = () => {
+            resolve(wrap(request.result));
+            unlisten();
+        };
+        const error = () => {
+            reject(request.error);
+            unlisten();
+        };
+        request.addEventListener('success', success);
+        request.addEventListener('error', error);
+    });
+    promise
+        .then((value) => {
+        // Since cursoring reuses the IDBRequest (*sigh*), we cache it for later retrieval
+        // (see wrapFunction).
+        if (value instanceof IDBCursor) {
+            cursorRequestMap.set(value, request);
+        }
+        // Catching to avoid "Uncaught Promise exceptions"
+    })
+        .catch(() => { });
+    // This mapping exists in reverseTransformCache but doesn't doesn't exist in transformCache. This
+    // is because we create many promises from a single IDBRequest.
+    reverseTransformCache.set(promise, request);
+    return promise;
+}
+function cacheDonePromiseForTransaction(tx) {
+    // Early bail if we've already created a done promise for this transaction.
+    if (transactionDoneMap.has(tx))
+        return;
+    const done = new Promise((resolve, reject) => {
+        const unlisten = () => {
+            tx.removeEventListener('complete', complete);
+            tx.removeEventListener('error', error);
+            tx.removeEventListener('abort', error);
+        };
+        const complete = () => {
+            resolve();
+            unlisten();
+        };
+        const error = () => {
+            reject(tx.error || new DOMException('AbortError', 'AbortError'));
+            unlisten();
+        };
+        tx.addEventListener('complete', complete);
+        tx.addEventListener('error', error);
+        tx.addEventListener('abort', error);
+    });
+    // Cache it for later retrieval.
+    transactionDoneMap.set(tx, done);
+}
+let idbProxyTraps = {
+    get(target, prop, receiver) {
+        if (target instanceof IDBTransaction) {
+            // Special handling for transaction.done.
+            if (prop === 'done')
+                return transactionDoneMap.get(target);
+            // Polyfill for objectStoreNames because of Edge.
+            if (prop === 'objectStoreNames') {
+                return target.objectStoreNames || transactionStoreNamesMap.get(target);
+            }
+            // Make tx.store return the only store in the transaction, or undefined if there are many.
+            if (prop === 'store') {
+                return receiver.objectStoreNames[1]
+                    ? undefined
+                    : receiver.objectStore(receiver.objectStoreNames[0]);
+            }
+        }
+        // Else transform whatever we get back.
+        return wrap(target[prop]);
+    },
+    set(target, prop, value) {
+        target[prop] = value;
+        return true;
+    },
+    has(target, prop) {
+        if (target instanceof IDBTransaction &&
+            (prop === 'done' || prop === 'store')) {
+            return true;
+        }
+        return prop in target;
+    },
+};
+function replaceTraps(callback) {
+    idbProxyTraps = callback(idbProxyTraps);
+}
+function wrapFunction(func) {
+    // Due to expected object equality (which is enforced by the caching in `wrap`), we
+    // only create one new func per func.
+    // Edge doesn't support objectStoreNames (booo), so we polyfill it here.
+    if (func === IDBDatabase.prototype.transaction &&
+        !('objectStoreNames' in IDBTransaction.prototype)) {
+        return function (storeNames, ...args) {
+            const tx = func.call(unwrap(this), storeNames, ...args);
+            transactionStoreNamesMap.set(tx, storeNames.sort ? storeNames.sort() : [storeNames]);
+            return wrap(tx);
+        };
+    }
+    // Cursor methods are special, as the behaviour is a little more different to standard IDB. In
+    // IDB, you advance the cursor and wait for a new 'success' on the IDBRequest that gave you the
+    // cursor. It's kinda like a promise that can resolve with many values. That doesn't make sense
+    // with real promises, so each advance methods returns a new promise for the cursor object, or
+    // undefined if the end of the cursor has been reached.
+    if (getCursorAdvanceMethods().includes(func)) {
+        return function (...args) {
+            // Calling the original function with the proxy as 'this' causes ILLEGAL INVOCATION, so we use
+            // the original object.
+            func.apply(unwrap(this), args);
+            return wrap(cursorRequestMap.get(this));
+        };
+    }
+    return function (...args) {
+        // Calling the original function with the proxy as 'this' causes ILLEGAL INVOCATION, so we use
+        // the original object.
+        return wrap(func.apply(unwrap(this), args));
+    };
+}
+function transformCachableValue(value) {
+    if (typeof value === 'function')
+        return wrapFunction(value);
+    // This doesn't return, it just creates a 'done' promise for the transaction,
+    // which is later returned for transaction.done (see idbObjectHandler).
+    if (value instanceof IDBTransaction)
+        cacheDonePromiseForTransaction(value);
+    if (instanceOfAny(value, getIdbProxyableTypes()))
+        return new Proxy(value, idbProxyTraps);
+    // Return the same value back if we're not going to transform it.
+    return value;
+}
+function wrap(value) {
+    // We sometimes generate multiple promises from a single IDBRequest (eg when cursoring), because
+    // IDB is weird and a single IDBRequest can yield many responses, so these can't be cached.
+    if (value instanceof IDBRequest)
+        return promisifyRequest(value);
+    // If we've already transformed this value before, reuse the transformed value.
+    // This is faster, but it also provides object equality.
+    if (transformCache.has(value))
+        return transformCache.get(value);
+    const newValue = transformCachableValue(value);
+    // Not all types are transformed.
+    // These may be primitive types, so they can't be WeakMap keys.
+    if (newValue !== value) {
+        transformCache.set(value, newValue);
+        reverseTransformCache.set(newValue, value);
+    }
+    return newValue;
+}
+const unwrap = (value) => reverseTransformCache.get(value);
+
+
+
 
 /***/ }),
 
@@ -36,7 +317,139 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \**********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"CacheableResponse\": () => (/* binding */ CacheableResponse)\n/* harmony export */ });\n/* harmony import */ var workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! workbox-core/_private/assert.js */ \"./node_modules/workbox-core/_private/assert.js\");\n/* harmony import */ var workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! workbox-core/_private/WorkboxError.js */ \"./node_modules/workbox-core/_private/WorkboxError.js\");\n/* harmony import */ var workbox_core_private_getFriendlyURL_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! workbox-core/_private/getFriendlyURL.js */ \"./node_modules/workbox-core/_private/getFriendlyURL.js\");\n/* harmony import */ var workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! workbox-core/_private/logger.js */ \"./node_modules/workbox-core/_private/logger.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./_version.js */ \"./node_modules/workbox-cacheable-response/_version.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_4__);\n/*\n  Copyright 2018 Google LLC\n\n  Use of this source code is governed by an MIT-style\n  license that can be found in the LICENSE file or at\n  https://opensource.org/licenses/MIT.\n*/\n\n\n\n\n\n/**\n * This class allows you to set up rules determining what\n * status codes and/or headers need to be present in order for a\n * [`Response`](https://developer.mozilla.org/en-US/docs/Web/API/Response)\n * to be considered cacheable.\n *\n * @memberof module:workbox-cacheable-response\n */\nclass CacheableResponse {\n    /**\n     * To construct a new CacheableResponse instance you must provide at least\n     * one of the `config` properties.\n     *\n     * If both `statuses` and `headers` are specified, then both conditions must\n     * be met for the `Response` to be considered cacheable.\n     *\n     * @param {Object} config\n     * @param {Array<number>} [config.statuses] One or more status codes that a\n     * `Response` can have and be considered cacheable.\n     * @param {Object<string,string>} [config.headers] A mapping of header names\n     * and expected values that a `Response` can have and be considered cacheable.\n     * If multiple headers are provided, only one needs to be present.\n     */\n    constructor(config = {}) {\n        if (true) {\n            if (!(config.statuses || config.headers)) {\n                throw new workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_1__.WorkboxError('statuses-or-headers-required', {\n                    moduleName: 'workbox-cacheable-response',\n                    className: 'CacheableResponse',\n                    funcName: 'constructor',\n                });\n            }\n            if (config.statuses) {\n                workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isArray(config.statuses, {\n                    moduleName: 'workbox-cacheable-response',\n                    className: 'CacheableResponse',\n                    funcName: 'constructor',\n                    paramName: 'config.statuses',\n                });\n            }\n            if (config.headers) {\n                workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isType(config.headers, 'object', {\n                    moduleName: 'workbox-cacheable-response',\n                    className: 'CacheableResponse',\n                    funcName: 'constructor',\n                    paramName: 'config.headers',\n                });\n            }\n        }\n        this._statuses = config.statuses;\n        this._headers = config.headers;\n    }\n    /**\n     * Checks a response to see whether it's cacheable or not, based on this\n     * object's configuration.\n     *\n     * @param {Response} response The response whose cacheability is being\n     * checked.\n     * @return {boolean} `true` if the `Response` is cacheable, and `false`\n     * otherwise.\n     */\n    isResponseCacheable(response) {\n        if (true) {\n            workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isInstance(response, Response, {\n                moduleName: 'workbox-cacheable-response',\n                className: 'CacheableResponse',\n                funcName: 'isResponseCacheable',\n                paramName: 'response',\n            });\n        }\n        let cacheable = true;\n        if (this._statuses) {\n            cacheable = this._statuses.includes(response.status);\n        }\n        if (this._headers && cacheable) {\n            cacheable = Object.keys(this._headers).some((headerName) => {\n                return response.headers.get(headerName) === this._headers[headerName];\n            });\n        }\n        if (true) {\n            if (!cacheable) {\n                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.groupCollapsed(`The request for ` +\n                    `'${(0,workbox_core_private_getFriendlyURL_js__WEBPACK_IMPORTED_MODULE_2__.getFriendlyURL)(response.url)}' returned a response that does ` +\n                    `not meet the criteria for being cached.`);\n                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.groupCollapsed(`View cacheability criteria here.`);\n                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.log(`Cacheable statuses: ` +\n                    JSON.stringify(this._statuses));\n                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.log(`Cacheable headers: ` +\n                    JSON.stringify(this._headers, null, 2));\n                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.groupEnd();\n                const logFriendlyHeaders = {};\n                response.headers.forEach((value, key) => {\n                    logFriendlyHeaders[key] = value;\n                });\n                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.groupCollapsed(`View response status and headers here.`);\n                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.log(`Response status: ${response.status}`);\n                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.log(`Response headers: ` +\n                    JSON.stringify(logFriendlyHeaders, null, 2));\n                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.groupEnd();\n                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.groupCollapsed(`View full response details here.`);\n                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.log(response.headers);\n                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.log(response);\n                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.groupEnd();\n                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.groupEnd();\n            }\n        }\n        return cacheable;\n    }\n}\n\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-cacheable-response/CacheableResponse.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "CacheableResponse": () => (/* binding */ CacheableResponse)
+/* harmony export */ });
+/* harmony import */ var workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! workbox-core/_private/assert.js */ "./node_modules/workbox-core/_private/assert.js");
+/* harmony import */ var workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! workbox-core/_private/WorkboxError.js */ "./node_modules/workbox-core/_private/WorkboxError.js");
+/* harmony import */ var workbox_core_private_getFriendlyURL_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! workbox-core/_private/getFriendlyURL.js */ "./node_modules/workbox-core/_private/getFriendlyURL.js");
+/* harmony import */ var workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! workbox-core/_private/logger.js */ "./node_modules/workbox-core/_private/logger.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./_version.js */ "./node_modules/workbox-cacheable-response/_version.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_4__);
+/*
+  Copyright 2018 Google LLC
+
+  Use of this source code is governed by an MIT-style
+  license that can be found in the LICENSE file or at
+  https://opensource.org/licenses/MIT.
+*/
+
+
+
+
+
+/**
+ * This class allows you to set up rules determining what
+ * status codes and/or headers need to be present in order for a
+ * [`Response`](https://developer.mozilla.org/en-US/docs/Web/API/Response)
+ * to be considered cacheable.
+ *
+ * @memberof module:workbox-cacheable-response
+ */
+class CacheableResponse {
+    /**
+     * To construct a new CacheableResponse instance you must provide at least
+     * one of the `config` properties.
+     *
+     * If both `statuses` and `headers` are specified, then both conditions must
+     * be met for the `Response` to be considered cacheable.
+     *
+     * @param {Object} config
+     * @param {Array<number>} [config.statuses] One or more status codes that a
+     * `Response` can have and be considered cacheable.
+     * @param {Object<string,string>} [config.headers] A mapping of header names
+     * and expected values that a `Response` can have and be considered cacheable.
+     * If multiple headers are provided, only one needs to be present.
+     */
+    constructor(config = {}) {
+        if (true) {
+            if (!(config.statuses || config.headers)) {
+                throw new workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_1__.WorkboxError('statuses-or-headers-required', {
+                    moduleName: 'workbox-cacheable-response',
+                    className: 'CacheableResponse',
+                    funcName: 'constructor',
+                });
+            }
+            if (config.statuses) {
+                workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isArray(config.statuses, {
+                    moduleName: 'workbox-cacheable-response',
+                    className: 'CacheableResponse',
+                    funcName: 'constructor',
+                    paramName: 'config.statuses',
+                });
+            }
+            if (config.headers) {
+                workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isType(config.headers, 'object', {
+                    moduleName: 'workbox-cacheable-response',
+                    className: 'CacheableResponse',
+                    funcName: 'constructor',
+                    paramName: 'config.headers',
+                });
+            }
+        }
+        this._statuses = config.statuses;
+        this._headers = config.headers;
+    }
+    /**
+     * Checks a response to see whether it's cacheable or not, based on this
+     * object's configuration.
+     *
+     * @param {Response} response The response whose cacheability is being
+     * checked.
+     * @return {boolean} `true` if the `Response` is cacheable, and `false`
+     * otherwise.
+     */
+    isResponseCacheable(response) {
+        if (true) {
+            workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isInstance(response, Response, {
+                moduleName: 'workbox-cacheable-response',
+                className: 'CacheableResponse',
+                funcName: 'isResponseCacheable',
+                paramName: 'response',
+            });
+        }
+        let cacheable = true;
+        if (this._statuses) {
+            cacheable = this._statuses.includes(response.status);
+        }
+        if (this._headers && cacheable) {
+            cacheable = Object.keys(this._headers).some((headerName) => {
+                return response.headers.get(headerName) === this._headers[headerName];
+            });
+        }
+        if (true) {
+            if (!cacheable) {
+                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.groupCollapsed(`The request for ` +
+                    `'${(0,workbox_core_private_getFriendlyURL_js__WEBPACK_IMPORTED_MODULE_2__.getFriendlyURL)(response.url)}' returned a response that does ` +
+                    `not meet the criteria for being cached.`);
+                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.groupCollapsed(`View cacheability criteria here.`);
+                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.log(`Cacheable statuses: ` +
+                    JSON.stringify(this._statuses));
+                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.log(`Cacheable headers: ` +
+                    JSON.stringify(this._headers, null, 2));
+                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.groupEnd();
+                const logFriendlyHeaders = {};
+                response.headers.forEach((value, key) => {
+                    logFriendlyHeaders[key] = value;
+                });
+                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.groupCollapsed(`View response status and headers here.`);
+                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.log(`Response status: ${response.status}`);
+                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.log(`Response headers: ` +
+                    JSON.stringify(logFriendlyHeaders, null, 2));
+                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.groupEnd();
+                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.groupCollapsed(`View full response details here.`);
+                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.log(response.headers);
+                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.log(response);
+                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.groupEnd();
+                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.groupEnd();
+            }
+        }
+        return cacheable;
+    }
+}
+
+
 
 /***/ }),
 
@@ -46,7 +459,62 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \****************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"CacheableResponsePlugin\": () => (/* binding */ CacheableResponsePlugin)\n/* harmony export */ });\n/* harmony import */ var _CacheableResponse_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CacheableResponse.js */ \"./node_modules/workbox-cacheable-response/CacheableResponse.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_version.js */ \"./node_modules/workbox-cacheable-response/_version.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_1__);\n/*\n  Copyright 2018 Google LLC\n\n  Use of this source code is governed by an MIT-style\n  license that can be found in the LICENSE file or at\n  https://opensource.org/licenses/MIT.\n*/\n\n\n/**\n * A class implementing the `cacheWillUpdate` lifecycle callback. This makes it\n * easier to add in cacheability checks to requests made via Workbox's built-in\n * strategies.\n *\n * @memberof module:workbox-cacheable-response\n */\nclass CacheableResponsePlugin {\n    /**\n     * To construct a new CacheableResponsePlugin instance you must provide at\n     * least one of the `config` properties.\n     *\n     * If both `statuses` and `headers` are specified, then both conditions must\n     * be met for the `Response` to be considered cacheable.\n     *\n     * @param {Object} config\n     * @param {Array<number>} [config.statuses] One or more status codes that a\n     * `Response` can have and be considered cacheable.\n     * @param {Object<string,string>} [config.headers] A mapping of header names\n     * and expected values that a `Response` can have and be considered cacheable.\n     * If multiple headers are provided, only one needs to be present.\n     */\n    constructor(config) {\n        /**\n         * @param {Object} options\n         * @param {Response} options.response\n         * @return {Response|null}\n         * @private\n         */\n        this.cacheWillUpdate = async ({ response }) => {\n            if (this._cacheableResponse.isResponseCacheable(response)) {\n                return response;\n            }\n            return null;\n        };\n        this._cacheableResponse = new _CacheableResponse_js__WEBPACK_IMPORTED_MODULE_0__.CacheableResponse(config);\n    }\n}\n\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-cacheable-response/CacheableResponsePlugin.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "CacheableResponsePlugin": () => (/* binding */ CacheableResponsePlugin)
+/* harmony export */ });
+/* harmony import */ var _CacheableResponse_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CacheableResponse.js */ "./node_modules/workbox-cacheable-response/CacheableResponse.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_version.js */ "./node_modules/workbox-cacheable-response/_version.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_1__);
+/*
+  Copyright 2018 Google LLC
+
+  Use of this source code is governed by an MIT-style
+  license that can be found in the LICENSE file or at
+  https://opensource.org/licenses/MIT.
+*/
+
+
+/**
+ * A class implementing the `cacheWillUpdate` lifecycle callback. This makes it
+ * easier to add in cacheability checks to requests made via Workbox's built-in
+ * strategies.
+ *
+ * @memberof module:workbox-cacheable-response
+ */
+class CacheableResponsePlugin {
+    /**
+     * To construct a new CacheableResponsePlugin instance you must provide at
+     * least one of the `config` properties.
+     *
+     * If both `statuses` and `headers` are specified, then both conditions must
+     * be met for the `Response` to be considered cacheable.
+     *
+     * @param {Object} config
+     * @param {Array<number>} [config.statuses] One or more status codes that a
+     * `Response` can have and be considered cacheable.
+     * @param {Object<string,string>} [config.headers] A mapping of header names
+     * and expected values that a `Response` can have and be considered cacheable.
+     * If multiple headers are provided, only one needs to be present.
+     */
+    constructor(config) {
+        /**
+         * @param {Object} options
+         * @param {Response} options.response
+         * @return {Response|null}
+         * @private
+         */
+        this.cacheWillUpdate = async ({ response }) => {
+            if (this._cacheableResponse.isResponseCacheable(response)) {
+                return response;
+            }
+            return null;
+        };
+        this._cacheableResponse = new _CacheableResponse_js__WEBPACK_IMPORTED_MODULE_0__.CacheableResponse(config);
+    }
+}
+
+
 
 /***/ }),
 
@@ -56,7 +524,13 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \*************************************************************/
 /***/ (() => {
 
-eval("\n// @ts-ignore\ntry {\n    self['workbox:cacheable-response:6.2.4'] && _();\n}\ncatch (e) { }\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-cacheable-response/_version.js?");
+
+// @ts-ignore
+try {
+    self['workbox:cacheable-response:6.2.4'] && _();
+}
+catch (e) { }
+
 
 /***/ }),
 
@@ -66,7 +540,30 @@ eval("\n// @ts-ignore\ntry {\n    self['workbox:cacheable-response:6.2.4'] && _(
   \**********************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"CacheableResponse\": () => (/* reexport safe */ _CacheableResponse_js__WEBPACK_IMPORTED_MODULE_0__.CacheableResponse),\n/* harmony export */   \"CacheableResponsePlugin\": () => (/* reexport safe */ _CacheableResponsePlugin_js__WEBPACK_IMPORTED_MODULE_1__.CacheableResponsePlugin)\n/* harmony export */ });\n/* harmony import */ var _CacheableResponse_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CacheableResponse.js */ \"./node_modules/workbox-cacheable-response/CacheableResponse.js\");\n/* harmony import */ var _CacheableResponsePlugin_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CacheableResponsePlugin.js */ \"./node_modules/workbox-cacheable-response/CacheableResponsePlugin.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./_version.js */ \"./node_modules/workbox-cacheable-response/_version.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_2__);\n/*\n  Copyright 2018 Google LLC\n\n  Use of this source code is governed by an MIT-style\n  license that can be found in the LICENSE file or at\n  https://opensource.org/licenses/MIT.\n*/\n\n\n\n/**\n * @module workbox-cacheable-response\n */\n\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-cacheable-response/index.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "CacheableResponse": () => (/* reexport safe */ _CacheableResponse_js__WEBPACK_IMPORTED_MODULE_0__.CacheableResponse),
+/* harmony export */   "CacheableResponsePlugin": () => (/* reexport safe */ _CacheableResponsePlugin_js__WEBPACK_IMPORTED_MODULE_1__.CacheableResponsePlugin)
+/* harmony export */ });
+/* harmony import */ var _CacheableResponse_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CacheableResponse.js */ "./node_modules/workbox-cacheable-response/CacheableResponse.js");
+/* harmony import */ var _CacheableResponsePlugin_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CacheableResponsePlugin.js */ "./node_modules/workbox-cacheable-response/CacheableResponsePlugin.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./_version.js */ "./node_modules/workbox-cacheable-response/_version.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_2__);
+/*
+  Copyright 2018 Google LLC
+
+  Use of this source code is governed by an MIT-style
+  license that can be found in the LICENSE file or at
+  https://opensource.org/licenses/MIT.
+*/
+
+
+
+/**
+ * @module workbox-cacheable-response
+ */
+
+
 
 /***/ }),
 
@@ -76,7 +573,41 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \********************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"Deferred\": () => (/* binding */ Deferred)\n/* harmony export */ });\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_version.js */ \"./node_modules/workbox-core/_version.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_0__);\n/*\n  Copyright 2018 Google LLC\n\n  Use of this source code is governed by an MIT-style\n  license that can be found in the LICENSE file or at\n  https://opensource.org/licenses/MIT.\n*/\n\n/**\n * The Deferred class composes Promises in a way that allows for them to be\n * resolved or rejected from outside the constructor. In most cases promises\n * should be used directly, but Deferreds can be necessary when the logic to\n * resolve a promise must be separate.\n *\n * @private\n */\nclass Deferred {\n    /**\n     * Creates a promise and exposes its resolve and reject functions as methods.\n     */\n    constructor() {\n        this.promise = new Promise((resolve, reject) => {\n            this.resolve = resolve;\n            this.reject = reject;\n        });\n    }\n}\n\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-core/_private/Deferred.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Deferred": () => (/* binding */ Deferred)
+/* harmony export */ });
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_version.js */ "./node_modules/workbox-core/_version.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_0__);
+/*
+  Copyright 2018 Google LLC
+
+  Use of this source code is governed by an MIT-style
+  license that can be found in the LICENSE file or at
+  https://opensource.org/licenses/MIT.
+*/
+
+/**
+ * The Deferred class composes Promises in a way that allows for them to be
+ * resolved or rejected from outside the constructor. In most cases promises
+ * should be used directly, but Deferreds can be necessary when the logic to
+ * resolve a promise must be separate.
+ *
+ * @private
+ */
+class Deferred {
+    /**
+     * Creates a promise and exposes its resolve and reject functions as methods.
+     */
+    constructor() {
+        this.promise = new Promise((resolve, reject) => {
+            this.resolve = resolve;
+            this.reject = reject;
+        });
+    }
+}
+
+
 
 /***/ }),
 
@@ -86,7 +617,49 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"WorkboxError\": () => (/* binding */ WorkboxError)\n/* harmony export */ });\n/* harmony import */ var _models_messages_messageGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../models/messages/messageGenerator.js */ \"./node_modules/workbox-core/models/messages/messageGenerator.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../_version.js */ \"./node_modules/workbox-core/_version.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_1__);\n/*\n  Copyright 2018 Google LLC\n\n  Use of this source code is governed by an MIT-style\n  license that can be found in the LICENSE file or at\n  https://opensource.org/licenses/MIT.\n*/\n\n\n/**\n * Workbox errors should be thrown with this class.\n * This allows use to ensure the type easily in tests,\n * helps developers identify errors from workbox\n * easily and allows use to optimise error\n * messages correctly.\n *\n * @private\n */\nclass WorkboxError extends Error {\n    /**\n     *\n     * @param {string} errorCode The error code that\n     * identifies this particular error.\n     * @param {Object=} details Any relevant arguments\n     * that will help developers identify issues should\n     * be added as a key on the context object.\n     */\n    constructor(errorCode, details) {\n        const message = (0,_models_messages_messageGenerator_js__WEBPACK_IMPORTED_MODULE_0__.messageGenerator)(errorCode, details);\n        super(message);\n        this.name = errorCode;\n        this.details = details;\n    }\n}\n\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-core/_private/WorkboxError.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "WorkboxError": () => (/* binding */ WorkboxError)
+/* harmony export */ });
+/* harmony import */ var _models_messages_messageGenerator_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../models/messages/messageGenerator.js */ "./node_modules/workbox-core/models/messages/messageGenerator.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../_version.js */ "./node_modules/workbox-core/_version.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_1__);
+/*
+  Copyright 2018 Google LLC
+
+  Use of this source code is governed by an MIT-style
+  license that can be found in the LICENSE file or at
+  https://opensource.org/licenses/MIT.
+*/
+
+
+/**
+ * Workbox errors should be thrown with this class.
+ * This allows use to ensure the type easily in tests,
+ * helps developers identify errors from workbox
+ * easily and allows use to optimise error
+ * messages correctly.
+ *
+ * @private
+ */
+class WorkboxError extends Error {
+    /**
+     *
+     * @param {string} errorCode The error code that
+     * identifies this particular error.
+     * @param {Object=} details Any relevant arguments
+     * that will help developers identify issues should
+     * be added as a key on the context object.
+     */
+    constructor(errorCode, details) {
+        const message = (0,_models_messages_messageGenerator_js__WEBPACK_IMPORTED_MODULE_0__.messageGenerator)(errorCode, details);
+        super(message);
+        this.name = errorCode;
+        this.details = details;
+    }
+}
+
+
 
 /***/ }),
 
@@ -96,7 +669,86 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \******************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"assert\": () => (/* binding */ finalAssertExports)\n/* harmony export */ });\n/* harmony import */ var _private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_private/WorkboxError.js */ \"./node_modules/workbox-core/_private/WorkboxError.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../_version.js */ \"./node_modules/workbox-core/_version.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_1__);\n/*\n  Copyright 2018 Google LLC\n\n  Use of this source code is governed by an MIT-style\n  license that can be found in the LICENSE file or at\n  https://opensource.org/licenses/MIT.\n*/\n\n\n/*\n * This method throws if the supplied value is not an array.\n * The destructed values are required to produce a meaningful error for users.\n * The destructed and restructured object is so it's clear what is\n * needed.\n */\nconst isArray = (value, details) => {\n    if (!Array.isArray(value)) {\n        throw new _private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_0__.WorkboxError('not-an-array', details);\n    }\n};\nconst hasMethod = (object, expectedMethod, details) => {\n    const type = typeof object[expectedMethod];\n    if (type !== 'function') {\n        details['expectedMethod'] = expectedMethod;\n        throw new _private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_0__.WorkboxError('missing-a-method', details);\n    }\n};\nconst isType = (object, expectedType, details) => {\n    if (typeof object !== expectedType) {\n        details['expectedType'] = expectedType;\n        throw new _private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_0__.WorkboxError('incorrect-type', details);\n    }\n};\nconst isInstance = (object, \n// Need the general type to do the check later.\n// eslint-disable-next-line @typescript-eslint/ban-types\nexpectedClass, details) => {\n    if (!(object instanceof expectedClass)) {\n        details['expectedClassName'] = expectedClass.name;\n        throw new _private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_0__.WorkboxError('incorrect-class', details);\n    }\n};\nconst isOneOf = (value, validValues, details) => {\n    if (!validValues.includes(value)) {\n        details['validValueDescription'] =\n            `Valid values are ${JSON.stringify(validValues)}.`;\n        throw new _private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_0__.WorkboxError('invalid-value', details);\n    }\n};\nconst isArrayOfClass = (value, \n// Need general type to do check later.\nexpectedClass, // eslint-disable-line\ndetails) => {\n    const error = new _private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_0__.WorkboxError('not-array-of-class', details);\n    if (!Array.isArray(value)) {\n        throw error;\n    }\n    for (const item of value) {\n        if (!(item instanceof expectedClass)) {\n            throw error;\n        }\n    }\n};\nconst finalAssertExports =  false ? 0 : {\n    hasMethod,\n    isArray,\n    isInstance,\n    isOneOf,\n    isType,\n    isArrayOfClass,\n};\n\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-core/_private/assert.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "assert": () => (/* binding */ finalAssertExports)
+/* harmony export */ });
+/* harmony import */ var _private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_private/WorkboxError.js */ "./node_modules/workbox-core/_private/WorkboxError.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../_version.js */ "./node_modules/workbox-core/_version.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_1__);
+/*
+  Copyright 2018 Google LLC
+
+  Use of this source code is governed by an MIT-style
+  license that can be found in the LICENSE file or at
+  https://opensource.org/licenses/MIT.
+*/
+
+
+/*
+ * This method throws if the supplied value is not an array.
+ * The destructed values are required to produce a meaningful error for users.
+ * The destructed and restructured object is so it's clear what is
+ * needed.
+ */
+const isArray = (value, details) => {
+    if (!Array.isArray(value)) {
+        throw new _private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_0__.WorkboxError('not-an-array', details);
+    }
+};
+const hasMethod = (object, expectedMethod, details) => {
+    const type = typeof object[expectedMethod];
+    if (type !== 'function') {
+        details['expectedMethod'] = expectedMethod;
+        throw new _private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_0__.WorkboxError('missing-a-method', details);
+    }
+};
+const isType = (object, expectedType, details) => {
+    if (typeof object !== expectedType) {
+        details['expectedType'] = expectedType;
+        throw new _private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_0__.WorkboxError('incorrect-type', details);
+    }
+};
+const isInstance = (object, 
+// Need the general type to do the check later.
+// eslint-disable-next-line @typescript-eslint/ban-types
+expectedClass, details) => {
+    if (!(object instanceof expectedClass)) {
+        details['expectedClassName'] = expectedClass.name;
+        throw new _private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_0__.WorkboxError('incorrect-class', details);
+    }
+};
+const isOneOf = (value, validValues, details) => {
+    if (!validValues.includes(value)) {
+        details['validValueDescription'] =
+            `Valid values are ${JSON.stringify(validValues)}.`;
+        throw new _private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_0__.WorkboxError('invalid-value', details);
+    }
+};
+const isArrayOfClass = (value, 
+// Need general type to do check later.
+expectedClass, // eslint-disable-line
+details) => {
+    const error = new _private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_0__.WorkboxError('not-array-of-class', details);
+    if (!Array.isArray(value)) {
+        throw error;
+    }
+    for (const item of value) {
+        if (!(item instanceof expectedClass)) {
+            throw error;
+        }
+    }
+};
+const finalAssertExports =  false ? 0 : {
+    hasMethod,
+    isArray,
+    isInstance,
+    isOneOf,
+    isType,
+    isArrayOfClass,
+};
+
+
 
 /***/ }),
 
@@ -106,7 +758,57 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \**********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"cacheMatchIgnoreParams\": () => (/* binding */ cacheMatchIgnoreParams)\n/* harmony export */ });\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_version.js */ \"./node_modules/workbox-core/_version.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_0__);\n/*\n  Copyright 2020 Google LLC\n  Use of this source code is governed by an MIT-style\n  license that can be found in the LICENSE file or at\n  https://opensource.org/licenses/MIT.\n*/\n\nfunction stripParams(fullURL, ignoreParams) {\n    const strippedURL = new URL(fullURL);\n    for (const param of ignoreParams) {\n        strippedURL.searchParams.delete(param);\n    }\n    return strippedURL.href;\n}\n/**\n * Matches an item in the cache, ignoring specific URL params. This is similar\n * to the `ignoreSearch` option, but it allows you to ignore just specific\n * params (while continuing to match on the others).\n *\n * @private\n * @param {Cache} cache\n * @param {Request} request\n * @param {Object} matchOptions\n * @param {Array<string>} ignoreParams\n * @return {Promise<Response|undefined>}\n */\nasync function cacheMatchIgnoreParams(cache, request, ignoreParams, matchOptions) {\n    const strippedRequestURL = stripParams(request.url, ignoreParams);\n    // If the request doesn't include any ignored params, match as normal.\n    if (request.url === strippedRequestURL) {\n        return cache.match(request, matchOptions);\n    }\n    // Otherwise, match by comparing keys\n    const keysOptions = Object.assign(Object.assign({}, matchOptions), { ignoreSearch: true });\n    const cacheKeys = await cache.keys(request, keysOptions);\n    for (const cacheKey of cacheKeys) {\n        const strippedCacheKeyURL = stripParams(cacheKey.url, ignoreParams);\n        if (strippedRequestURL === strippedCacheKeyURL) {\n            return cache.match(cacheKey, matchOptions);\n        }\n    }\n    return;\n}\n\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-core/_private/cacheMatchIgnoreParams.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "cacheMatchIgnoreParams": () => (/* binding */ cacheMatchIgnoreParams)
+/* harmony export */ });
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_version.js */ "./node_modules/workbox-core/_version.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_0__);
+/*
+  Copyright 2020 Google LLC
+  Use of this source code is governed by an MIT-style
+  license that can be found in the LICENSE file or at
+  https://opensource.org/licenses/MIT.
+*/
+
+function stripParams(fullURL, ignoreParams) {
+    const strippedURL = new URL(fullURL);
+    for (const param of ignoreParams) {
+        strippedURL.searchParams.delete(param);
+    }
+    return strippedURL.href;
+}
+/**
+ * Matches an item in the cache, ignoring specific URL params. This is similar
+ * to the `ignoreSearch` option, but it allows you to ignore just specific
+ * params (while continuing to match on the others).
+ *
+ * @private
+ * @param {Cache} cache
+ * @param {Request} request
+ * @param {Object} matchOptions
+ * @param {Array<string>} ignoreParams
+ * @return {Promise<Response|undefined>}
+ */
+async function cacheMatchIgnoreParams(cache, request, ignoreParams, matchOptions) {
+    const strippedRequestURL = stripParams(request.url, ignoreParams);
+    // If the request doesn't include any ignored params, match as normal.
+    if (request.url === strippedRequestURL) {
+        return cache.match(request, matchOptions);
+    }
+    // Otherwise, match by comparing keys
+    const keysOptions = Object.assign(Object.assign({}, matchOptions), { ignoreSearch: true });
+    const cacheKeys = await cache.keys(request, keysOptions);
+    for (const cacheKey of cacheKeys) {
+        const strippedCacheKeyURL = stripParams(cacheKey.url, ignoreParams);
+        if (strippedRequestURL === strippedCacheKeyURL) {
+            return cache.match(cacheKey, matchOptions);
+        }
+    }
+    return;
+}
+
+
 
 /***/ }),
 
@@ -116,7 +818,62 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \**********************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"cacheNames\": () => (/* binding */ cacheNames)\n/* harmony export */ });\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_version.js */ \"./node_modules/workbox-core/_version.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_0__);\n/*\n  Copyright 2018 Google LLC\n\n  Use of this source code is governed by an MIT-style\n  license that can be found in the LICENSE file or at\n  https://opensource.org/licenses/MIT.\n*/\n\nconst _cacheNameDetails = {\n    googleAnalytics: 'googleAnalytics',\n    precache: 'precache-v2',\n    prefix: 'workbox',\n    runtime: 'runtime',\n    suffix: typeof registration !== 'undefined' ? registration.scope : '',\n};\nconst _createCacheName = (cacheName) => {\n    return [_cacheNameDetails.prefix, cacheName, _cacheNameDetails.suffix]\n        .filter((value) => value && value.length > 0)\n        .join('-');\n};\nconst eachCacheNameDetail = (fn) => {\n    for (const key of Object.keys(_cacheNameDetails)) {\n        fn(key);\n    }\n};\nconst cacheNames = {\n    updateDetails: (details) => {\n        eachCacheNameDetail((key) => {\n            if (typeof details[key] === 'string') {\n                _cacheNameDetails[key] = details[key];\n            }\n        });\n    },\n    getGoogleAnalyticsName: (userCacheName) => {\n        return userCacheName || _createCacheName(_cacheNameDetails.googleAnalytics);\n    },\n    getPrecacheName: (userCacheName) => {\n        return userCacheName || _createCacheName(_cacheNameDetails.precache);\n    },\n    getPrefix: () => {\n        return _cacheNameDetails.prefix;\n    },\n    getRuntimeName: (userCacheName) => {\n        return userCacheName || _createCacheName(_cacheNameDetails.runtime);\n    },\n    getSuffix: () => {\n        return _cacheNameDetails.suffix;\n    },\n};\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-core/_private/cacheNames.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "cacheNames": () => (/* binding */ cacheNames)
+/* harmony export */ });
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_version.js */ "./node_modules/workbox-core/_version.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_0__);
+/*
+  Copyright 2018 Google LLC
+
+  Use of this source code is governed by an MIT-style
+  license that can be found in the LICENSE file or at
+  https://opensource.org/licenses/MIT.
+*/
+
+const _cacheNameDetails = {
+    googleAnalytics: 'googleAnalytics',
+    precache: 'precache-v2',
+    prefix: 'workbox',
+    runtime: 'runtime',
+    suffix: typeof registration !== 'undefined' ? registration.scope : '',
+};
+const _createCacheName = (cacheName) => {
+    return [_cacheNameDetails.prefix, cacheName, _cacheNameDetails.suffix]
+        .filter((value) => value && value.length > 0)
+        .join('-');
+};
+const eachCacheNameDetail = (fn) => {
+    for (const key of Object.keys(_cacheNameDetails)) {
+        fn(key);
+    }
+};
+const cacheNames = {
+    updateDetails: (details) => {
+        eachCacheNameDetail((key) => {
+            if (typeof details[key] === 'string') {
+                _cacheNameDetails[key] = details[key];
+            }
+        });
+    },
+    getGoogleAnalyticsName: (userCacheName) => {
+        return userCacheName || _createCacheName(_cacheNameDetails.googleAnalytics);
+    },
+    getPrecacheName: (userCacheName) => {
+        return userCacheName || _createCacheName(_cacheNameDetails.precache);
+    },
+    getPrefix: () => {
+        return _cacheNameDetails.prefix;
+    },
+    getRuntimeName: (userCacheName) => {
+        return userCacheName || _createCacheName(_cacheNameDetails.runtime);
+    },
+    getSuffix: () => {
+        return _cacheNameDetails.suffix;
+    },
+};
+
 
 /***/ }),
 
@@ -126,7 +883,29 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \***********************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"dontWaitFor\": () => (/* binding */ dontWaitFor)\n/* harmony export */ });\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_version.js */ \"./node_modules/workbox-core/_version.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_0__);\n/*\n  Copyright 2019 Google LLC\n  Use of this source code is governed by an MIT-style\n  license that can be found in the LICENSE file or at\n  https://opensource.org/licenses/MIT.\n*/\n\n/**\n * A helper function that prevents a promise from being flagged as unused.\n *\n * @private\n **/\nfunction dontWaitFor(promise) {\n    // Effective no-op.\n    void promise.then(() => { });\n}\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-core/_private/dontWaitFor.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "dontWaitFor": () => (/* binding */ dontWaitFor)
+/* harmony export */ });
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_version.js */ "./node_modules/workbox-core/_version.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_0__);
+/*
+  Copyright 2019 Google LLC
+  Use of this source code is governed by an MIT-style
+  license that can be found in the LICENSE file or at
+  https://opensource.org/licenses/MIT.
+*/
+
+/**
+ * A helper function that prevents a promise from being flagged as unused.
+ *
+ * @private
+ **/
+function dontWaitFor(promise) {
+    // Effective no-op.
+    void promise.then(() => { });
+}
+
 
 /***/ }),
 
@@ -136,7 +915,48 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \**************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"executeQuotaErrorCallbacks\": () => (/* binding */ executeQuotaErrorCallbacks)\n/* harmony export */ });\n/* harmony import */ var _private_logger_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_private/logger.js */ \"./node_modules/workbox-core/_private/logger.js\");\n/* harmony import */ var _models_quotaErrorCallbacks_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../models/quotaErrorCallbacks.js */ \"./node_modules/workbox-core/models/quotaErrorCallbacks.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../_version.js */ \"./node_modules/workbox-core/_version.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_2__);\n/*\n  Copyright 2018 Google LLC\n\n  Use of this source code is governed by an MIT-style\n  license that can be found in the LICENSE file or at\n  https://opensource.org/licenses/MIT.\n*/\n\n\n\n/**\n * Runs all of the callback functions, one at a time sequentially, in the order\n * in which they were registered.\n *\n * @memberof module:workbox-core\n * @private\n */\nasync function executeQuotaErrorCallbacks() {\n    if (true) {\n        _private_logger_js__WEBPACK_IMPORTED_MODULE_0__.logger.log(`About to run ${_models_quotaErrorCallbacks_js__WEBPACK_IMPORTED_MODULE_1__.quotaErrorCallbacks.size} ` +\n            `callbacks to clean up caches.`);\n    }\n    for (const callback of _models_quotaErrorCallbacks_js__WEBPACK_IMPORTED_MODULE_1__.quotaErrorCallbacks) {\n        await callback();\n        if (true) {\n            _private_logger_js__WEBPACK_IMPORTED_MODULE_0__.logger.log(callback, 'is complete.');\n        }\n    }\n    if (true) {\n        _private_logger_js__WEBPACK_IMPORTED_MODULE_0__.logger.log('Finished running callbacks.');\n    }\n}\n\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-core/_private/executeQuotaErrorCallbacks.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "executeQuotaErrorCallbacks": () => (/* binding */ executeQuotaErrorCallbacks)
+/* harmony export */ });
+/* harmony import */ var _private_logger_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_private/logger.js */ "./node_modules/workbox-core/_private/logger.js");
+/* harmony import */ var _models_quotaErrorCallbacks_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../models/quotaErrorCallbacks.js */ "./node_modules/workbox-core/models/quotaErrorCallbacks.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../_version.js */ "./node_modules/workbox-core/_version.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_2__);
+/*
+  Copyright 2018 Google LLC
+
+  Use of this source code is governed by an MIT-style
+  license that can be found in the LICENSE file or at
+  https://opensource.org/licenses/MIT.
+*/
+
+
+
+/**
+ * Runs all of the callback functions, one at a time sequentially, in the order
+ * in which they were registered.
+ *
+ * @memberof module:workbox-core
+ * @private
+ */
+async function executeQuotaErrorCallbacks() {
+    if (true) {
+        _private_logger_js__WEBPACK_IMPORTED_MODULE_0__.logger.log(`About to run ${_models_quotaErrorCallbacks_js__WEBPACK_IMPORTED_MODULE_1__.quotaErrorCallbacks.size} ` +
+            `callbacks to clean up caches.`);
+    }
+    for (const callback of _models_quotaErrorCallbacks_js__WEBPACK_IMPORTED_MODULE_1__.quotaErrorCallbacks) {
+        await callback();
+        if (true) {
+            _private_logger_js__WEBPACK_IMPORTED_MODULE_0__.logger.log(callback, 'is complete.');
+        }
+    }
+    if (true) {
+        _private_logger_js__WEBPACK_IMPORTED_MODULE_0__.logger.log('Finished running callbacks.');
+    }
+}
+
+
 
 /***/ }),
 
@@ -146,7 +966,28 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \**************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"getFriendlyURL\": () => (/* binding */ getFriendlyURL)\n/* harmony export */ });\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_version.js */ \"./node_modules/workbox-core/_version.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_0__);\n/*\n  Copyright 2018 Google LLC\n\n  Use of this source code is governed by an MIT-style\n  license that can be found in the LICENSE file or at\n  https://opensource.org/licenses/MIT.\n*/\n\nconst getFriendlyURL = (url) => {\n    const urlObj = new URL(String(url), location.href);\n    // See https://github.com/GoogleChrome/workbox/issues/2323\n    // We want to include everything, except for the origin if it's same-origin.\n    return urlObj.href.replace(new RegExp(`^${location.origin}`), '');\n};\n\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-core/_private/getFriendlyURL.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getFriendlyURL": () => (/* binding */ getFriendlyURL)
+/* harmony export */ });
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_version.js */ "./node_modules/workbox-core/_version.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_0__);
+/*
+  Copyright 2018 Google LLC
+
+  Use of this source code is governed by an MIT-style
+  license that can be found in the LICENSE file or at
+  https://opensource.org/licenses/MIT.
+*/
+
+const getFriendlyURL = (url) => {
+    const urlObj = new URL(String(url), location.href);
+    // See https://github.com/GoogleChrome/workbox/issues/2323
+    // We want to include everything, except for the origin if it's same-origin.
+    return urlObj.href.replace(new RegExp(`^${location.origin}`), '');
+};
+
+
 
 /***/ }),
 
@@ -156,7 +997,76 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \******************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"logger\": () => (/* binding */ logger)\n/* harmony export */ });\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_version.js */ \"./node_modules/workbox-core/_version.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_0__);\n/*\n  Copyright 2019 Google LLC\n  Use of this source code is governed by an MIT-style\n  license that can be found in the LICENSE file or at\n  https://opensource.org/licenses/MIT.\n*/\n\nconst logger = ( false ? 0 : (() => {\n    // Don't overwrite this value if it's already set.\n    // See https://github.com/GoogleChrome/workbox/pull/2284#issuecomment-560470923\n    if (!('__WB_DISABLE_DEV_LOGS' in self)) {\n        self.__WB_DISABLE_DEV_LOGS = false;\n    }\n    let inGroup = false;\n    const methodToColorMap = {\n        debug: `#7f8c8d`,\n        log: `#2ecc71`,\n        warn: `#f39c12`,\n        error: `#c0392b`,\n        groupCollapsed: `#3498db`,\n        groupEnd: null,\n    };\n    const print = function (method, args) {\n        if (self.__WB_DISABLE_DEV_LOGS) {\n            return;\n        }\n        if (method === 'groupCollapsed') {\n            // Safari doesn't print all console.groupCollapsed() arguments:\n            // https://bugs.webkit.org/show_bug.cgi?id=182754\n            if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {\n                console[method](...args);\n                return;\n            }\n        }\n        const styles = [\n            `background: ${methodToColorMap[method]}`,\n            `border-radius: 0.5em`,\n            `color: white`,\n            `font-weight: bold`,\n            `padding: 2px 0.5em`,\n        ];\n        // When in a group, the workbox prefix is not displayed.\n        const logPrefix = inGroup ? [] : ['%cworkbox', styles.join(';')];\n        console[method](...logPrefix, ...args);\n        if (method === 'groupCollapsed') {\n            inGroup = true;\n        }\n        if (method === 'groupEnd') {\n            inGroup = false;\n        }\n    };\n    // eslint-disable-next-line @typescript-eslint/ban-types\n    const api = {};\n    const loggerMethods = Object.keys(methodToColorMap);\n    for (const key of loggerMethods) {\n        const method = key;\n        api[method] = (...args) => {\n            print(method, args);\n        };\n    }\n    return api;\n})());\n\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-core/_private/logger.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "logger": () => (/* binding */ logger)
+/* harmony export */ });
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_version.js */ "./node_modules/workbox-core/_version.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_0__);
+/*
+  Copyright 2019 Google LLC
+  Use of this source code is governed by an MIT-style
+  license that can be found in the LICENSE file or at
+  https://opensource.org/licenses/MIT.
+*/
+
+const logger = ( false ? 0 : (() => {
+    // Don't overwrite this value if it's already set.
+    // See https://github.com/GoogleChrome/workbox/pull/2284#issuecomment-560470923
+    if (!('__WB_DISABLE_DEV_LOGS' in self)) {
+        self.__WB_DISABLE_DEV_LOGS = false;
+    }
+    let inGroup = false;
+    const methodToColorMap = {
+        debug: `#7f8c8d`,
+        log: `#2ecc71`,
+        warn: `#f39c12`,
+        error: `#c0392b`,
+        groupCollapsed: `#3498db`,
+        groupEnd: null,
+    };
+    const print = function (method, args) {
+        if (self.__WB_DISABLE_DEV_LOGS) {
+            return;
+        }
+        if (method === 'groupCollapsed') {
+            // Safari doesn't print all console.groupCollapsed() arguments:
+            // https://bugs.webkit.org/show_bug.cgi?id=182754
+            if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
+                console[method](...args);
+                return;
+            }
+        }
+        const styles = [
+            `background: ${methodToColorMap[method]}`,
+            `border-radius: 0.5em`,
+            `color: white`,
+            `font-weight: bold`,
+            `padding: 2px 0.5em`,
+        ];
+        // When in a group, the workbox prefix is not displayed.
+        const logPrefix = inGroup ? [] : ['%cworkbox', styles.join(';')];
+        console[method](...logPrefix, ...args);
+        if (method === 'groupCollapsed') {
+            inGroup = true;
+        }
+        if (method === 'groupEnd') {
+            inGroup = false;
+        }
+    };
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    const api = {};
+    const loggerMethods = Object.keys(methodToColorMap);
+    for (const key of loggerMethods) {
+        const method = key;
+        api[method] = (...args) => {
+            print(method, args);
+        };
+    }
+    return api;
+})());
+
+
 
 /***/ }),
 
@@ -166,7 +1076,31 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \*******************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"timeout\": () => (/* binding */ timeout)\n/* harmony export */ });\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_version.js */ \"./node_modules/workbox-core/_version.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_0__);\n/*\n  Copyright 2019 Google LLC\n  Use of this source code is governed by an MIT-style\n  license that can be found in the LICENSE file or at\n  https://opensource.org/licenses/MIT.\n*/\n\n/**\n * Returns a promise that resolves and the passed number of milliseconds.\n * This utility is an async/await-friendly version of `setTimeout`.\n *\n * @param {number} ms\n * @return {Promise}\n * @private\n */\nfunction timeout(ms) {\n    return new Promise((resolve) => setTimeout(resolve, ms));\n}\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-core/_private/timeout.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "timeout": () => (/* binding */ timeout)
+/* harmony export */ });
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_version.js */ "./node_modules/workbox-core/_version.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_0__);
+/*
+  Copyright 2019 Google LLC
+  Use of this source code is governed by an MIT-style
+  license that can be found in the LICENSE file or at
+  https://opensource.org/licenses/MIT.
+*/
+
+/**
+ * Returns a promise that resolves and the passed number of milliseconds.
+ * This utility is an async/await-friendly version of `setTimeout`.
+ *
+ * @param {number} ms
+ * @return {Promise}
+ * @private
+ */
+function timeout(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 
 /***/ }),
 
@@ -176,7 +1110,13 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \***********************************************/
 /***/ (() => {
 
-eval("\n// @ts-ignore\ntry {\n    self['workbox:core:6.2.4'] && _();\n}\ncatch (e) { }\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-core/_version.js?");
+
+// @ts-ignore
+try {
+    self['workbox:core:6.2.4'] && _();
+}
+catch (e) { }
+
 
 /***/ }),
 
@@ -186,7 +1126,39 @@ eval("\n// @ts-ignore\ntry {\n    self['workbox:core:6.2.4'] && _();\n}\ncatch (
   \***********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"messageGenerator\": () => (/* binding */ messageGenerator)\n/* harmony export */ });\n/* harmony import */ var _messages_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./messages.js */ \"./node_modules/workbox-core/models/messages/messages.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../_version.js */ \"./node_modules/workbox-core/_version.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_1__);\n/*\n  Copyright 2018 Google LLC\n\n  Use of this source code is governed by an MIT-style\n  license that can be found in the LICENSE file or at\n  https://opensource.org/licenses/MIT.\n*/\n\n\nconst fallback = (code, ...args) => {\n    let msg = code;\n    if (args.length > 0) {\n        msg += ` :: ${JSON.stringify(args)}`;\n    }\n    return msg;\n};\nconst generatorFunction = (code, details = {}) => {\n    const message = _messages_js__WEBPACK_IMPORTED_MODULE_0__.messages[code];\n    if (!message) {\n        throw new Error(`Unable to find message for code '${code}'.`);\n    }\n    return message(details);\n};\nconst messageGenerator = ( false) ?\n    0 : generatorFunction;\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-core/models/messages/messageGenerator.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "messageGenerator": () => (/* binding */ messageGenerator)
+/* harmony export */ });
+/* harmony import */ var _messages_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./messages.js */ "./node_modules/workbox-core/models/messages/messages.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../_version.js */ "./node_modules/workbox-core/_version.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_1__);
+/*
+  Copyright 2018 Google LLC
+
+  Use of this source code is governed by an MIT-style
+  license that can be found in the LICENSE file or at
+  https://opensource.org/licenses/MIT.
+*/
+
+
+const fallback = (code, ...args) => {
+    let msg = code;
+    if (args.length > 0) {
+        msg += ` :: ${JSON.stringify(args)}`;
+    }
+    return msg;
+};
+const generatorFunction = (code, details = {}) => {
+    const message = _messages_js__WEBPACK_IMPORTED_MODULE_0__.messages[code];
+    if (!message) {
+        throw new Error(`Unable to find message for code '${code}'.`);
+    }
+    return message(details);
+};
+const messageGenerator = ( false) ?
+    0 : generatorFunction;
+
 
 /***/ }),
 
@@ -196,7 +1168,231 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \***************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"messages\": () => (/* binding */ messages)\n/* harmony export */ });\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../_version.js */ \"./node_modules/workbox-core/_version.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_0__);\n/*\n  Copyright 2018 Google LLC\n\n  Use of this source code is governed by an MIT-style\n  license that can be found in the LICENSE file or at\n  https://opensource.org/licenses/MIT.\n*/\n\nconst messages = {\n    'invalid-value': ({ paramName, validValueDescription, value }) => {\n        if (!paramName || !validValueDescription) {\n            throw new Error(`Unexpected input to 'invalid-value' error.`);\n        }\n        return `The '${paramName}' parameter was given a value with an ` +\n            `unexpected value. ${validValueDescription} Received a value of ` +\n            `${JSON.stringify(value)}.`;\n    },\n    'not-an-array': ({ moduleName, className, funcName, paramName }) => {\n        if (!moduleName || !className || !funcName || !paramName) {\n            throw new Error(`Unexpected input to 'not-an-array' error.`);\n        }\n        return `The parameter '${paramName}' passed into ` +\n            `'${moduleName}.${className}.${funcName}()' must be an array.`;\n    },\n    'incorrect-type': ({ expectedType, paramName, moduleName, className, funcName }) => {\n        if (!expectedType || !paramName || !moduleName || !funcName) {\n            throw new Error(`Unexpected input to 'incorrect-type' error.`);\n        }\n        const classNameStr = className ? `${className}.` : '';\n        return `The parameter '${paramName}' passed into ` +\n            `'${moduleName}.${classNameStr}` +\n            `${funcName}()' must be of type ${expectedType}.`;\n    },\n    'incorrect-class': ({ expectedClassName, paramName, moduleName, className, funcName, isReturnValueProblem }) => {\n        if (!expectedClassName || !moduleName || !funcName) {\n            throw new Error(`Unexpected input to 'incorrect-class' error.`);\n        }\n        const classNameStr = className ? `${className}.` : '';\n        if (isReturnValueProblem) {\n            return `The return value from ` +\n                `'${moduleName}.${classNameStr}${funcName}()' ` +\n                `must be an instance of class ${expectedClassName}.`;\n        }\n        return `The parameter '${paramName}' passed into ` +\n            `'${moduleName}.${classNameStr}${funcName}()' ` +\n            `must be an instance of class ${expectedClassName}.`;\n    },\n    'missing-a-method': ({ expectedMethod, paramName, moduleName, className, funcName }) => {\n        if (!expectedMethod || !paramName || !moduleName || !className\n            || !funcName) {\n            throw new Error(`Unexpected input to 'missing-a-method' error.`);\n        }\n        return `${moduleName}.${className}.${funcName}() expected the ` +\n            `'${paramName}' parameter to expose a '${expectedMethod}' method.`;\n    },\n    'add-to-cache-list-unexpected-type': ({ entry }) => {\n        return `An unexpected entry was passed to ` +\n            `'workbox-precaching.PrecacheController.addToCacheList()' The entry ` +\n            `'${JSON.stringify(entry)}' isn't supported. You must supply an array of ` +\n            `strings with one or more characters, objects with a url property or ` +\n            `Request objects.`;\n    },\n    'add-to-cache-list-conflicting-entries': ({ firstEntry, secondEntry }) => {\n        if (!firstEntry || !secondEntry) {\n            throw new Error(`Unexpected input to ` +\n                `'add-to-cache-list-duplicate-entries' error.`);\n        }\n        return `Two of the entries passed to ` +\n            `'workbox-precaching.PrecacheController.addToCacheList()' had the URL ` +\n            `${firstEntry} but different revision details. Workbox is ` +\n            `unable to cache and version the asset correctly. Please remove one ` +\n            `of the entries.`;\n    },\n    'plugin-error-request-will-fetch': ({ thrownErrorMessage }) => {\n        if (!thrownErrorMessage) {\n            throw new Error(`Unexpected input to ` +\n                `'plugin-error-request-will-fetch', error.`);\n        }\n        return `An error was thrown by a plugins 'requestWillFetch()' method. ` +\n            `The thrown error message was: '${thrownErrorMessage}'.`;\n    },\n    'invalid-cache-name': ({ cacheNameId, value }) => {\n        if (!cacheNameId) {\n            throw new Error(`Expected a 'cacheNameId' for error 'invalid-cache-name'`);\n        }\n        return `You must provide a name containing at least one character for ` +\n            `setCacheDetails({${cacheNameId}: '...'}). Received a value of ` +\n            `'${JSON.stringify(value)}'`;\n    },\n    'unregister-route-but-not-found-with-method': ({ method }) => {\n        if (!method) {\n            throw new Error(`Unexpected input to ` +\n                `'unregister-route-but-not-found-with-method' error.`);\n        }\n        return `The route you're trying to unregister was not  previously ` +\n            `registered for the method type '${method}'.`;\n    },\n    'unregister-route-route-not-registered': () => {\n        return `The route you're trying to unregister was not previously ` +\n            `registered.`;\n    },\n    'queue-replay-failed': ({ name }) => {\n        return `Replaying the background sync queue '${name}' failed.`;\n    },\n    'duplicate-queue-name': ({ name }) => {\n        return `The Queue name '${name}' is already being used. ` +\n            `All instances of backgroundSync.Queue must be given unique names.`;\n    },\n    'expired-test-without-max-age': ({ methodName, paramName }) => {\n        return `The '${methodName}()' method can only be used when the ` +\n            `'${paramName}' is used in the constructor.`;\n    },\n    'unsupported-route-type': ({ moduleName, className, funcName, paramName }) => {\n        return `The supplied '${paramName}' parameter was an unsupported type. ` +\n            `Please check the docs for ${moduleName}.${className}.${funcName} for ` +\n            `valid input types.`;\n    },\n    'not-array-of-class': ({ value, expectedClass, moduleName, className, funcName, paramName }) => {\n        return `The supplied '${paramName}' parameter must be an array of ` +\n            `'${expectedClass}' objects. Received '${JSON.stringify(value)},'. ` +\n            `Please check the call to ${moduleName}.${className}.${funcName}() ` +\n            `to fix the issue.`;\n    },\n    'max-entries-or-age-required': ({ moduleName, className, funcName }) => {\n        return `You must define either config.maxEntries or config.maxAgeSeconds` +\n            `in ${moduleName}.${className}.${funcName}`;\n    },\n    'statuses-or-headers-required': ({ moduleName, className, funcName }) => {\n        return `You must define either config.statuses or config.headers` +\n            `in ${moduleName}.${className}.${funcName}`;\n    },\n    'invalid-string': ({ moduleName, funcName, paramName }) => {\n        if (!paramName || !moduleName || !funcName) {\n            throw new Error(`Unexpected input to 'invalid-string' error.`);\n        }\n        return `When using strings, the '${paramName}' parameter must start with ` +\n            `'http' (for cross-origin matches) or '/' (for same-origin matches). ` +\n            `Please see the docs for ${moduleName}.${funcName}() for ` +\n            `more info.`;\n    },\n    'channel-name-required': () => {\n        return `You must provide a channelName to construct a ` +\n            `BroadcastCacheUpdate instance.`;\n    },\n    'invalid-responses-are-same-args': () => {\n        return `The arguments passed into responsesAreSame() appear to be ` +\n            `invalid. Please ensure valid Responses are used.`;\n    },\n    'expire-custom-caches-only': () => {\n        return `You must provide a 'cacheName' property when using the ` +\n            `expiration plugin with a runtime caching strategy.`;\n    },\n    'unit-must-be-bytes': ({ normalizedRangeHeader }) => {\n        if (!normalizedRangeHeader) {\n            throw new Error(`Unexpected input to 'unit-must-be-bytes' error.`);\n        }\n        return `The 'unit' portion of the Range header must be set to 'bytes'. ` +\n            `The Range header provided was \"${normalizedRangeHeader}\"`;\n    },\n    'single-range-only': ({ normalizedRangeHeader }) => {\n        if (!normalizedRangeHeader) {\n            throw new Error(`Unexpected input to 'single-range-only' error.`);\n        }\n        return `Multiple ranges are not supported. Please use a  single start ` +\n            `value, and optional end value. The Range header provided was ` +\n            `\"${normalizedRangeHeader}\"`;\n    },\n    'invalid-range-values': ({ normalizedRangeHeader }) => {\n        if (!normalizedRangeHeader) {\n            throw new Error(`Unexpected input to 'invalid-range-values' error.`);\n        }\n        return `The Range header is missing both start and end values. At least ` +\n            `one of those values is needed. The Range header provided was ` +\n            `\"${normalizedRangeHeader}\"`;\n    },\n    'no-range-header': () => {\n        return `No Range header was found in the Request provided.`;\n    },\n    'range-not-satisfiable': ({ size, start, end }) => {\n        return `The start (${start}) and end (${end}) values in the Range are ` +\n            `not satisfiable by the cached response, which is ${size} bytes.`;\n    },\n    'attempt-to-cache-non-get-request': ({ url, method }) => {\n        return `Unable to cache '${url}' because it is a '${method}' request and ` +\n            `only 'GET' requests can be cached.`;\n    },\n    'cache-put-with-no-response': ({ url }) => {\n        return `There was an attempt to cache '${url}' but the response was not ` +\n            `defined.`;\n    },\n    'no-response': ({ url, error }) => {\n        let message = `The strategy could not generate a response for '${url}'.`;\n        if (error) {\n            message += ` The underlying error is ${error}.`;\n        }\n        return message;\n    },\n    'bad-precaching-response': ({ url, status }) => {\n        return `The precaching request for '${url}' failed` +\n            (status ? ` with an HTTP status of ${status}.` : `.`);\n    },\n    'non-precached-url': ({ url }) => {\n        return `createHandlerBoundToURL('${url}') was called, but that URL is ` +\n            `not precached. Please pass in a URL that is precached instead.`;\n    },\n    'add-to-cache-list-conflicting-integrities': ({ url }) => {\n        return `Two of the entries passed to ` +\n            `'workbox-precaching.PrecacheController.addToCacheList()' had the URL ` +\n            `${url} with different integrity values. Please remove one of them.`;\n    },\n    'missing-precache-entry': ({ cacheName, url }) => {\n        return `Unable to find a precached response in ${cacheName} for ${url}.`;\n    },\n    'cross-origin-copy-response': ({ origin }) => {\n        return `workbox-core.copyResponse() can only be used with same-origin ` +\n            `responses. It was passed a response with origin ${origin}.`;\n    },\n};\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-core/models/messages/messages.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "messages": () => (/* binding */ messages)
+/* harmony export */ });
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../_version.js */ "./node_modules/workbox-core/_version.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_0__);
+/*
+  Copyright 2018 Google LLC
+
+  Use of this source code is governed by an MIT-style
+  license that can be found in the LICENSE file or at
+  https://opensource.org/licenses/MIT.
+*/
+
+const messages = {
+    'invalid-value': ({ paramName, validValueDescription, value }) => {
+        if (!paramName || !validValueDescription) {
+            throw new Error(`Unexpected input to 'invalid-value' error.`);
+        }
+        return `The '${paramName}' parameter was given a value with an ` +
+            `unexpected value. ${validValueDescription} Received a value of ` +
+            `${JSON.stringify(value)}.`;
+    },
+    'not-an-array': ({ moduleName, className, funcName, paramName }) => {
+        if (!moduleName || !className || !funcName || !paramName) {
+            throw new Error(`Unexpected input to 'not-an-array' error.`);
+        }
+        return `The parameter '${paramName}' passed into ` +
+            `'${moduleName}.${className}.${funcName}()' must be an array.`;
+    },
+    'incorrect-type': ({ expectedType, paramName, moduleName, className, funcName }) => {
+        if (!expectedType || !paramName || !moduleName || !funcName) {
+            throw new Error(`Unexpected input to 'incorrect-type' error.`);
+        }
+        const classNameStr = className ? `${className}.` : '';
+        return `The parameter '${paramName}' passed into ` +
+            `'${moduleName}.${classNameStr}` +
+            `${funcName}()' must be of type ${expectedType}.`;
+    },
+    'incorrect-class': ({ expectedClassName, paramName, moduleName, className, funcName, isReturnValueProblem }) => {
+        if (!expectedClassName || !moduleName || !funcName) {
+            throw new Error(`Unexpected input to 'incorrect-class' error.`);
+        }
+        const classNameStr = className ? `${className}.` : '';
+        if (isReturnValueProblem) {
+            return `The return value from ` +
+                `'${moduleName}.${classNameStr}${funcName}()' ` +
+                `must be an instance of class ${expectedClassName}.`;
+        }
+        return `The parameter '${paramName}' passed into ` +
+            `'${moduleName}.${classNameStr}${funcName}()' ` +
+            `must be an instance of class ${expectedClassName}.`;
+    },
+    'missing-a-method': ({ expectedMethod, paramName, moduleName, className, funcName }) => {
+        if (!expectedMethod || !paramName || !moduleName || !className
+            || !funcName) {
+            throw new Error(`Unexpected input to 'missing-a-method' error.`);
+        }
+        return `${moduleName}.${className}.${funcName}() expected the ` +
+            `'${paramName}' parameter to expose a '${expectedMethod}' method.`;
+    },
+    'add-to-cache-list-unexpected-type': ({ entry }) => {
+        return `An unexpected entry was passed to ` +
+            `'workbox-precaching.PrecacheController.addToCacheList()' The entry ` +
+            `'${JSON.stringify(entry)}' isn't supported. You must supply an array of ` +
+            `strings with one or more characters, objects with a url property or ` +
+            `Request objects.`;
+    },
+    'add-to-cache-list-conflicting-entries': ({ firstEntry, secondEntry }) => {
+        if (!firstEntry || !secondEntry) {
+            throw new Error(`Unexpected input to ` +
+                `'add-to-cache-list-duplicate-entries' error.`);
+        }
+        return `Two of the entries passed to ` +
+            `'workbox-precaching.PrecacheController.addToCacheList()' had the URL ` +
+            `${firstEntry} but different revision details. Workbox is ` +
+            `unable to cache and version the asset correctly. Please remove one ` +
+            `of the entries.`;
+    },
+    'plugin-error-request-will-fetch': ({ thrownErrorMessage }) => {
+        if (!thrownErrorMessage) {
+            throw new Error(`Unexpected input to ` +
+                `'plugin-error-request-will-fetch', error.`);
+        }
+        return `An error was thrown by a plugins 'requestWillFetch()' method. ` +
+            `The thrown error message was: '${thrownErrorMessage}'.`;
+    },
+    'invalid-cache-name': ({ cacheNameId, value }) => {
+        if (!cacheNameId) {
+            throw new Error(`Expected a 'cacheNameId' for error 'invalid-cache-name'`);
+        }
+        return `You must provide a name containing at least one character for ` +
+            `setCacheDetails({${cacheNameId}: '...'}). Received a value of ` +
+            `'${JSON.stringify(value)}'`;
+    },
+    'unregister-route-but-not-found-with-method': ({ method }) => {
+        if (!method) {
+            throw new Error(`Unexpected input to ` +
+                `'unregister-route-but-not-found-with-method' error.`);
+        }
+        return `The route you're trying to unregister was not  previously ` +
+            `registered for the method type '${method}'.`;
+    },
+    'unregister-route-route-not-registered': () => {
+        return `The route you're trying to unregister was not previously ` +
+            `registered.`;
+    },
+    'queue-replay-failed': ({ name }) => {
+        return `Replaying the background sync queue '${name}' failed.`;
+    },
+    'duplicate-queue-name': ({ name }) => {
+        return `The Queue name '${name}' is already being used. ` +
+            `All instances of backgroundSync.Queue must be given unique names.`;
+    },
+    'expired-test-without-max-age': ({ methodName, paramName }) => {
+        return `The '${methodName}()' method can only be used when the ` +
+            `'${paramName}' is used in the constructor.`;
+    },
+    'unsupported-route-type': ({ moduleName, className, funcName, paramName }) => {
+        return `The supplied '${paramName}' parameter was an unsupported type. ` +
+            `Please check the docs for ${moduleName}.${className}.${funcName} for ` +
+            `valid input types.`;
+    },
+    'not-array-of-class': ({ value, expectedClass, moduleName, className, funcName, paramName }) => {
+        return `The supplied '${paramName}' parameter must be an array of ` +
+            `'${expectedClass}' objects. Received '${JSON.stringify(value)},'. ` +
+            `Please check the call to ${moduleName}.${className}.${funcName}() ` +
+            `to fix the issue.`;
+    },
+    'max-entries-or-age-required': ({ moduleName, className, funcName }) => {
+        return `You must define either config.maxEntries or config.maxAgeSeconds` +
+            `in ${moduleName}.${className}.${funcName}`;
+    },
+    'statuses-or-headers-required': ({ moduleName, className, funcName }) => {
+        return `You must define either config.statuses or config.headers` +
+            `in ${moduleName}.${className}.${funcName}`;
+    },
+    'invalid-string': ({ moduleName, funcName, paramName }) => {
+        if (!paramName || !moduleName || !funcName) {
+            throw new Error(`Unexpected input to 'invalid-string' error.`);
+        }
+        return `When using strings, the '${paramName}' parameter must start with ` +
+            `'http' (for cross-origin matches) or '/' (for same-origin matches). ` +
+            `Please see the docs for ${moduleName}.${funcName}() for ` +
+            `more info.`;
+    },
+    'channel-name-required': () => {
+        return `You must provide a channelName to construct a ` +
+            `BroadcastCacheUpdate instance.`;
+    },
+    'invalid-responses-are-same-args': () => {
+        return `The arguments passed into responsesAreSame() appear to be ` +
+            `invalid. Please ensure valid Responses are used.`;
+    },
+    'expire-custom-caches-only': () => {
+        return `You must provide a 'cacheName' property when using the ` +
+            `expiration plugin with a runtime caching strategy.`;
+    },
+    'unit-must-be-bytes': ({ normalizedRangeHeader }) => {
+        if (!normalizedRangeHeader) {
+            throw new Error(`Unexpected input to 'unit-must-be-bytes' error.`);
+        }
+        return `The 'unit' portion of the Range header must be set to 'bytes'. ` +
+            `The Range header provided was "${normalizedRangeHeader}"`;
+    },
+    'single-range-only': ({ normalizedRangeHeader }) => {
+        if (!normalizedRangeHeader) {
+            throw new Error(`Unexpected input to 'single-range-only' error.`);
+        }
+        return `Multiple ranges are not supported. Please use a  single start ` +
+            `value, and optional end value. The Range header provided was ` +
+            `"${normalizedRangeHeader}"`;
+    },
+    'invalid-range-values': ({ normalizedRangeHeader }) => {
+        if (!normalizedRangeHeader) {
+            throw new Error(`Unexpected input to 'invalid-range-values' error.`);
+        }
+        return `The Range header is missing both start and end values. At least ` +
+            `one of those values is needed. The Range header provided was ` +
+            `"${normalizedRangeHeader}"`;
+    },
+    'no-range-header': () => {
+        return `No Range header was found in the Request provided.`;
+    },
+    'range-not-satisfiable': ({ size, start, end }) => {
+        return `The start (${start}) and end (${end}) values in the Range are ` +
+            `not satisfiable by the cached response, which is ${size} bytes.`;
+    },
+    'attempt-to-cache-non-get-request': ({ url, method }) => {
+        return `Unable to cache '${url}' because it is a '${method}' request and ` +
+            `only 'GET' requests can be cached.`;
+    },
+    'cache-put-with-no-response': ({ url }) => {
+        return `There was an attempt to cache '${url}' but the response was not ` +
+            `defined.`;
+    },
+    'no-response': ({ url, error }) => {
+        let message = `The strategy could not generate a response for '${url}'.`;
+        if (error) {
+            message += ` The underlying error is ${error}.`;
+        }
+        return message;
+    },
+    'bad-precaching-response': ({ url, status }) => {
+        return `The precaching request for '${url}' failed` +
+            (status ? ` with an HTTP status of ${status}.` : `.`);
+    },
+    'non-precached-url': ({ url }) => {
+        return `createHandlerBoundToURL('${url}') was called, but that URL is ` +
+            `not precached. Please pass in a URL that is precached instead.`;
+    },
+    'add-to-cache-list-conflicting-integrities': ({ url }) => {
+        return `Two of the entries passed to ` +
+            `'workbox-precaching.PrecacheController.addToCacheList()' had the URL ` +
+            `${url} with different integrity values. Please remove one of them.`;
+    },
+    'missing-precache-entry': ({ cacheName, url }) => {
+        return `Unable to find a precached response in ${cacheName} for ${url}.`;
+    },
+    'cross-origin-copy-response': ({ origin }) => {
+        return `workbox-core.copyResponse() can only be used with same-origin ` +
+            `responses. It was passed a response with origin ${origin}.`;
+    },
+};
+
 
 /***/ }),
 
@@ -206,7 +1402,26 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \*****************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"quotaErrorCallbacks\": () => (/* binding */ quotaErrorCallbacks)\n/* harmony export */ });\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_version.js */ \"./node_modules/workbox-core/_version.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_0__);\n/*\n  Copyright 2018 Google LLC\n\n  Use of this source code is governed by an MIT-style\n  license that can be found in the LICENSE file or at\n  https://opensource.org/licenses/MIT.\n*/\n\n// Callbacks to be executed whenever there's a quota error.\n// Can't change Function type right now.\n// eslint-disable-next-line @typescript-eslint/ban-types\nconst quotaErrorCallbacks = new Set();\n\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-core/models/quotaErrorCallbacks.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "quotaErrorCallbacks": () => (/* binding */ quotaErrorCallbacks)
+/* harmony export */ });
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_version.js */ "./node_modules/workbox-core/_version.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_0__);
+/*
+  Copyright 2018 Google LLC
+
+  Use of this source code is governed by an MIT-style
+  license that can be found in the LICENSE file or at
+  https://opensource.org/licenses/MIT.
+*/
+
+// Callbacks to be executed whenever there's a quota error.
+// Can't change Function type right now.
+// eslint-disable-next-line @typescript-eslint/ban-types
+const quotaErrorCallbacks = new Set();
+
+
 
 /***/ }),
 
@@ -216,7 +1431,50 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \*****************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"registerQuotaErrorCallback\": () => (/* binding */ registerQuotaErrorCallback)\n/* harmony export */ });\n/* harmony import */ var _private_logger_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_private/logger.js */ \"./node_modules/workbox-core/_private/logger.js\");\n/* harmony import */ var _private_assert_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_private/assert.js */ \"./node_modules/workbox-core/_private/assert.js\");\n/* harmony import */ var _models_quotaErrorCallbacks_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./models/quotaErrorCallbacks.js */ \"./node_modules/workbox-core/models/quotaErrorCallbacks.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./_version.js */ \"./node_modules/workbox-core/_version.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_3__);\n/*\n  Copyright 2019 Google LLC\n\n  Use of this source code is governed by an MIT-style\n  license that can be found in the LICENSE file or at\n  https://opensource.org/licenses/MIT.\n*/\n\n\n\n\n/**\n * Adds a function to the set of quotaErrorCallbacks that will be executed if\n * there's a quota error.\n *\n * @param {Function} callback\n * @memberof module:workbox-core\n */\n// Can't change Function type\n// eslint-disable-next-line @typescript-eslint/ban-types\nfunction registerQuotaErrorCallback(callback) {\n    if (true) {\n        _private_assert_js__WEBPACK_IMPORTED_MODULE_1__.assert.isType(callback, 'function', {\n            moduleName: 'workbox-core',\n            funcName: 'register',\n            paramName: 'callback',\n        });\n    }\n    _models_quotaErrorCallbacks_js__WEBPACK_IMPORTED_MODULE_2__.quotaErrorCallbacks.add(callback);\n    if (true) {\n        _private_logger_js__WEBPACK_IMPORTED_MODULE_0__.logger.log('Registered a callback to respond to quota errors.', callback);\n    }\n}\n\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-core/registerQuotaErrorCallback.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "registerQuotaErrorCallback": () => (/* binding */ registerQuotaErrorCallback)
+/* harmony export */ });
+/* harmony import */ var _private_logger_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./_private/logger.js */ "./node_modules/workbox-core/_private/logger.js");
+/* harmony import */ var _private_assert_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_private/assert.js */ "./node_modules/workbox-core/_private/assert.js");
+/* harmony import */ var _models_quotaErrorCallbacks_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./models/quotaErrorCallbacks.js */ "./node_modules/workbox-core/models/quotaErrorCallbacks.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./_version.js */ "./node_modules/workbox-core/_version.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_3__);
+/*
+  Copyright 2019 Google LLC
+
+  Use of this source code is governed by an MIT-style
+  license that can be found in the LICENSE file or at
+  https://opensource.org/licenses/MIT.
+*/
+
+
+
+
+/**
+ * Adds a function to the set of quotaErrorCallbacks that will be executed if
+ * there's a quota error.
+ *
+ * @param {Function} callback
+ * @memberof module:workbox-core
+ */
+// Can't change Function type
+// eslint-disable-next-line @typescript-eslint/ban-types
+function registerQuotaErrorCallback(callback) {
+    if (true) {
+        _private_assert_js__WEBPACK_IMPORTED_MODULE_1__.assert.isType(callback, 'function', {
+            moduleName: 'workbox-core',
+            funcName: 'register',
+            paramName: 'callback',
+        });
+    }
+    _models_quotaErrorCallbacks_js__WEBPACK_IMPORTED_MODULE_2__.quotaErrorCallbacks.add(callback);
+    if (true) {
+        _private_logger_js__WEBPACK_IMPORTED_MODULE_0__.logger.log('Registered a callback to respond to quota errors.', callback);
+    }
+}
+
+
 
 /***/ }),
 
@@ -226,7 +1484,187 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"CacheExpiration\": () => (/* binding */ CacheExpiration)\n/* harmony export */ });\n/* harmony import */ var workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! workbox-core/_private/assert.js */ \"./node_modules/workbox-core/_private/assert.js\");\n/* harmony import */ var workbox_core_private_dontWaitFor_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! workbox-core/_private/dontWaitFor.js */ \"./node_modules/workbox-core/_private/dontWaitFor.js\");\n/* harmony import */ var workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! workbox-core/_private/logger.js */ \"./node_modules/workbox-core/_private/logger.js\");\n/* harmony import */ var workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! workbox-core/_private/WorkboxError.js */ \"./node_modules/workbox-core/_private/WorkboxError.js\");\n/* harmony import */ var _models_CacheTimestampsModel_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./models/CacheTimestampsModel.js */ \"./node_modules/workbox-expiration/models/CacheTimestampsModel.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./_version.js */ \"./node_modules/workbox-expiration/_version.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_5__);\n/*\n  Copyright 2018 Google LLC\n\n  Use of this source code is governed by an MIT-style\n  license that can be found in the LICENSE file or at\n  https://opensource.org/licenses/MIT.\n*/\n\n\n\n\n\n\n/**\n * The `CacheExpiration` class allows you define an expiration and / or\n * limit on the number of responses stored in a\n * [`Cache`](https://developer.mozilla.org/en-US/docs/Web/API/Cache).\n *\n * @memberof module:workbox-expiration\n */\nclass CacheExpiration {\n    /**\n     * To construct a new CacheExpiration instance you must provide at least\n     * one of the `config` properties.\n     *\n     * @param {string} cacheName Name of the cache to apply restrictions to.\n     * @param {Object} config\n     * @param {number} [config.maxEntries] The maximum number of entries to cache.\n     * Entries used the least will be removed as the maximum is reached.\n     * @param {number} [config.maxAgeSeconds] The maximum age of an entry before\n     * it's treated as stale and removed.\n     * @param {Object} [config.matchOptions] The [`CacheQueryOptions`](https://developer.mozilla.org/en-US/docs/Web/API/Cache/delete#Parameters)\n     * that will be used when calling `delete()` on the cache.\n     */\n    constructor(cacheName, config = {}) {\n        this._isRunning = false;\n        this._rerunRequested = false;\n        if (true) {\n            workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isType(cacheName, 'string', {\n                moduleName: 'workbox-expiration',\n                className: 'CacheExpiration',\n                funcName: 'constructor',\n                paramName: 'cacheName',\n            });\n            if (!(config.maxEntries || config.maxAgeSeconds)) {\n                throw new workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_3__.WorkboxError('max-entries-or-age-required', {\n                    moduleName: 'workbox-expiration',\n                    className: 'CacheExpiration',\n                    funcName: 'constructor',\n                });\n            }\n            if (config.maxEntries) {\n                workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isType(config.maxEntries, 'number', {\n                    moduleName: 'workbox-expiration',\n                    className: 'CacheExpiration',\n                    funcName: 'constructor',\n                    paramName: 'config.maxEntries',\n                });\n            }\n            if (config.maxAgeSeconds) {\n                workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isType(config.maxAgeSeconds, 'number', {\n                    moduleName: 'workbox-expiration',\n                    className: 'CacheExpiration',\n                    funcName: 'constructor',\n                    paramName: 'config.maxAgeSeconds',\n                });\n            }\n        }\n        this._maxEntries = config.maxEntries;\n        this._maxAgeSeconds = config.maxAgeSeconds;\n        this._matchOptions = config.matchOptions;\n        this._cacheName = cacheName;\n        this._timestampModel = new _models_CacheTimestampsModel_js__WEBPACK_IMPORTED_MODULE_4__.CacheTimestampsModel(cacheName);\n    }\n    /**\n     * Expires entries for the given cache and given criteria.\n     */\n    async expireEntries() {\n        if (this._isRunning) {\n            this._rerunRequested = true;\n            return;\n        }\n        this._isRunning = true;\n        const minTimestamp = this._maxAgeSeconds ?\n            Date.now() - (this._maxAgeSeconds * 1000) : 0;\n        const urlsExpired = await this._timestampModel.expireEntries(minTimestamp, this._maxEntries);\n        // Delete URLs from the cache\n        const cache = await self.caches.open(this._cacheName);\n        for (const url of urlsExpired) {\n            await cache.delete(url, this._matchOptions);\n        }\n        if (true) {\n            if (urlsExpired.length > 0) {\n                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_2__.logger.groupCollapsed(`Expired ${urlsExpired.length} ` +\n                    `${urlsExpired.length === 1 ? 'entry' : 'entries'} and removed ` +\n                    `${urlsExpired.length === 1 ? 'it' : 'them'} from the ` +\n                    `'${this._cacheName}' cache.`);\n                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_2__.logger.log(`Expired the following ${urlsExpired.length === 1 ?\n                    'URL' : 'URLs'}:`);\n                urlsExpired.forEach((url) => workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_2__.logger.log(`    ${url}`));\n                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_2__.logger.groupEnd();\n            }\n            else {\n                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_2__.logger.debug(`Cache expiration ran and found no entries to remove.`);\n            }\n        }\n        this._isRunning = false;\n        if (this._rerunRequested) {\n            this._rerunRequested = false;\n            (0,workbox_core_private_dontWaitFor_js__WEBPACK_IMPORTED_MODULE_1__.dontWaitFor)(this.expireEntries());\n        }\n    }\n    /**\n     * Update the timestamp for the given URL. This ensures the when\n     * removing entries based on maximum entries, most recently used\n     * is accurate or when expiring, the timestamp is up-to-date.\n     *\n     * @param {string} url\n     */\n    async updateTimestamp(url) {\n        if (true) {\n            workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isType(url, 'string', {\n                moduleName: 'workbox-expiration',\n                className: 'CacheExpiration',\n                funcName: 'updateTimestamp',\n                paramName: 'url',\n            });\n        }\n        await this._timestampModel.setTimestamp(url, Date.now());\n    }\n    /**\n     * Can be used to check if a URL has expired or not before it's used.\n     *\n     * This requires a look up from IndexedDB, so can be slow.\n     *\n     * Note: This method will not remove the cached entry, call\n     * `expireEntries()` to remove indexedDB and Cache entries.\n     *\n     * @param {string} url\n     * @return {boolean}\n     */\n    async isURLExpired(url) {\n        if (!this._maxAgeSeconds) {\n            if (true) {\n                throw new workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_3__.WorkboxError(`expired-test-without-max-age`, {\n                    methodName: 'isURLExpired',\n                    paramName: 'maxAgeSeconds',\n                });\n            }\n            return false;\n        }\n        else {\n            const timestamp = await this._timestampModel.getTimestamp(url);\n            const expireOlderThan = Date.now() - (this._maxAgeSeconds * 1000);\n            return timestamp !== undefined ? (timestamp < expireOlderThan) : true;\n        }\n    }\n    /**\n     * Removes the IndexedDB object store used to keep track of cache expiration\n     * metadata.\n     */\n    async delete() {\n        // Make sure we don't attempt another rerun if we're called in the middle of\n        // a cache expiration.\n        this._rerunRequested = false;\n        await this._timestampModel.expireEntries(Infinity); // Expires all.\n    }\n}\n\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-expiration/CacheExpiration.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "CacheExpiration": () => (/* binding */ CacheExpiration)
+/* harmony export */ });
+/* harmony import */ var workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! workbox-core/_private/assert.js */ "./node_modules/workbox-core/_private/assert.js");
+/* harmony import */ var workbox_core_private_dontWaitFor_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! workbox-core/_private/dontWaitFor.js */ "./node_modules/workbox-core/_private/dontWaitFor.js");
+/* harmony import */ var workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! workbox-core/_private/logger.js */ "./node_modules/workbox-core/_private/logger.js");
+/* harmony import */ var workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! workbox-core/_private/WorkboxError.js */ "./node_modules/workbox-core/_private/WorkboxError.js");
+/* harmony import */ var _models_CacheTimestampsModel_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./models/CacheTimestampsModel.js */ "./node_modules/workbox-expiration/models/CacheTimestampsModel.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./_version.js */ "./node_modules/workbox-expiration/_version.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_5__);
+/*
+  Copyright 2018 Google LLC
+
+  Use of this source code is governed by an MIT-style
+  license that can be found in the LICENSE file or at
+  https://opensource.org/licenses/MIT.
+*/
+
+
+
+
+
+
+/**
+ * The `CacheExpiration` class allows you define an expiration and / or
+ * limit on the number of responses stored in a
+ * [`Cache`](https://developer.mozilla.org/en-US/docs/Web/API/Cache).
+ *
+ * @memberof module:workbox-expiration
+ */
+class CacheExpiration {
+    /**
+     * To construct a new CacheExpiration instance you must provide at least
+     * one of the `config` properties.
+     *
+     * @param {string} cacheName Name of the cache to apply restrictions to.
+     * @param {Object} config
+     * @param {number} [config.maxEntries] The maximum number of entries to cache.
+     * Entries used the least will be removed as the maximum is reached.
+     * @param {number} [config.maxAgeSeconds] The maximum age of an entry before
+     * it's treated as stale and removed.
+     * @param {Object} [config.matchOptions] The [`CacheQueryOptions`](https://developer.mozilla.org/en-US/docs/Web/API/Cache/delete#Parameters)
+     * that will be used when calling `delete()` on the cache.
+     */
+    constructor(cacheName, config = {}) {
+        this._isRunning = false;
+        this._rerunRequested = false;
+        if (true) {
+            workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isType(cacheName, 'string', {
+                moduleName: 'workbox-expiration',
+                className: 'CacheExpiration',
+                funcName: 'constructor',
+                paramName: 'cacheName',
+            });
+            if (!(config.maxEntries || config.maxAgeSeconds)) {
+                throw new workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_3__.WorkboxError('max-entries-or-age-required', {
+                    moduleName: 'workbox-expiration',
+                    className: 'CacheExpiration',
+                    funcName: 'constructor',
+                });
+            }
+            if (config.maxEntries) {
+                workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isType(config.maxEntries, 'number', {
+                    moduleName: 'workbox-expiration',
+                    className: 'CacheExpiration',
+                    funcName: 'constructor',
+                    paramName: 'config.maxEntries',
+                });
+            }
+            if (config.maxAgeSeconds) {
+                workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isType(config.maxAgeSeconds, 'number', {
+                    moduleName: 'workbox-expiration',
+                    className: 'CacheExpiration',
+                    funcName: 'constructor',
+                    paramName: 'config.maxAgeSeconds',
+                });
+            }
+        }
+        this._maxEntries = config.maxEntries;
+        this._maxAgeSeconds = config.maxAgeSeconds;
+        this._matchOptions = config.matchOptions;
+        this._cacheName = cacheName;
+        this._timestampModel = new _models_CacheTimestampsModel_js__WEBPACK_IMPORTED_MODULE_4__.CacheTimestampsModel(cacheName);
+    }
+    /**
+     * Expires entries for the given cache and given criteria.
+     */
+    async expireEntries() {
+        if (this._isRunning) {
+            this._rerunRequested = true;
+            return;
+        }
+        this._isRunning = true;
+        const minTimestamp = this._maxAgeSeconds ?
+            Date.now() - (this._maxAgeSeconds * 1000) : 0;
+        const urlsExpired = await this._timestampModel.expireEntries(minTimestamp, this._maxEntries);
+        // Delete URLs from the cache
+        const cache = await self.caches.open(this._cacheName);
+        for (const url of urlsExpired) {
+            await cache.delete(url, this._matchOptions);
+        }
+        if (true) {
+            if (urlsExpired.length > 0) {
+                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_2__.logger.groupCollapsed(`Expired ${urlsExpired.length} ` +
+                    `${urlsExpired.length === 1 ? 'entry' : 'entries'} and removed ` +
+                    `${urlsExpired.length === 1 ? 'it' : 'them'} from the ` +
+                    `'${this._cacheName}' cache.`);
+                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_2__.logger.log(`Expired the following ${urlsExpired.length === 1 ?
+                    'URL' : 'URLs'}:`);
+                urlsExpired.forEach((url) => workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_2__.logger.log(`    ${url}`));
+                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_2__.logger.groupEnd();
+            }
+            else {
+                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_2__.logger.debug(`Cache expiration ran and found no entries to remove.`);
+            }
+        }
+        this._isRunning = false;
+        if (this._rerunRequested) {
+            this._rerunRequested = false;
+            (0,workbox_core_private_dontWaitFor_js__WEBPACK_IMPORTED_MODULE_1__.dontWaitFor)(this.expireEntries());
+        }
+    }
+    /**
+     * Update the timestamp for the given URL. This ensures the when
+     * removing entries based on maximum entries, most recently used
+     * is accurate or when expiring, the timestamp is up-to-date.
+     *
+     * @param {string} url
+     */
+    async updateTimestamp(url) {
+        if (true) {
+            workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isType(url, 'string', {
+                moduleName: 'workbox-expiration',
+                className: 'CacheExpiration',
+                funcName: 'updateTimestamp',
+                paramName: 'url',
+            });
+        }
+        await this._timestampModel.setTimestamp(url, Date.now());
+    }
+    /**
+     * Can be used to check if a URL has expired or not before it's used.
+     *
+     * This requires a look up from IndexedDB, so can be slow.
+     *
+     * Note: This method will not remove the cached entry, call
+     * `expireEntries()` to remove indexedDB and Cache entries.
+     *
+     * @param {string} url
+     * @return {boolean}
+     */
+    async isURLExpired(url) {
+        if (!this._maxAgeSeconds) {
+            if (true) {
+                throw new workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_3__.WorkboxError(`expired-test-without-max-age`, {
+                    methodName: 'isURLExpired',
+                    paramName: 'maxAgeSeconds',
+                });
+            }
+            return false;
+        }
+        else {
+            const timestamp = await this._timestampModel.getTimestamp(url);
+            const expireOlderThan = Date.now() - (this._maxAgeSeconds * 1000);
+            return timestamp !== undefined ? (timestamp < expireOlderThan) : true;
+        }
+    }
+    /**
+     * Removes the IndexedDB object store used to keep track of cache expiration
+     * metadata.
+     */
+    async delete() {
+        // Make sure we don't attempt another rerun if we're called in the middle of
+        // a cache expiration.
+        this._rerunRequested = false;
+        await this._timestampModel.expireEntries(Infinity); // Expires all.
+    }
+}
+
+
 
 /***/ }),
 
@@ -236,7 +1674,275 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \*************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"ExpirationPlugin\": () => (/* binding */ ExpirationPlugin)\n/* harmony export */ });\n/* harmony import */ var workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! workbox-core/_private/assert.js */ \"./node_modules/workbox-core/_private/assert.js\");\n/* harmony import */ var workbox_core_private_cacheNames_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! workbox-core/_private/cacheNames.js */ \"./node_modules/workbox-core/_private/cacheNames.js\");\n/* harmony import */ var workbox_core_private_dontWaitFor_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! workbox-core/_private/dontWaitFor.js */ \"./node_modules/workbox-core/_private/dontWaitFor.js\");\n/* harmony import */ var workbox_core_private_getFriendlyURL_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! workbox-core/_private/getFriendlyURL.js */ \"./node_modules/workbox-core/_private/getFriendlyURL.js\");\n/* harmony import */ var workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! workbox-core/_private/logger.js */ \"./node_modules/workbox-core/_private/logger.js\");\n/* harmony import */ var workbox_core_registerQuotaErrorCallback_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! workbox-core/registerQuotaErrorCallback.js */ \"./node_modules/workbox-core/registerQuotaErrorCallback.js\");\n/* harmony import */ var workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! workbox-core/_private/WorkboxError.js */ \"./node_modules/workbox-core/_private/WorkboxError.js\");\n/* harmony import */ var _CacheExpiration_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./CacheExpiration.js */ \"./node_modules/workbox-expiration/CacheExpiration.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./_version.js */ \"./node_modules/workbox-expiration/_version.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_8__);\n/*\n  Copyright 2018 Google LLC\n\n  Use of this source code is governed by an MIT-style\n  license that can be found in the LICENSE file or at\n  https://opensource.org/licenses/MIT.\n*/\n\n\n\n\n\n\n\n\n\n/**\n * This plugin can be used in a `workbox-strategy` to regularly enforce a\n * limit on the age and / or the number of cached requests.\n *\n * It can only be used with `workbox-strategy` instances that have a\n * [custom `cacheName` property set](/web/tools/workbox/guides/configure-workbox#custom_cache_names_in_strategies).\n * In other words, it can't be used to expire entries in strategy that uses the\n * default runtime cache name.\n *\n * Whenever a cached request is used or updated, this plugin will look\n * at the associated cache and remove any old or extra requests.\n *\n * When using `maxAgeSeconds`, requests may be used *once* after expiring\n * because the expiration clean up will not have occurred until *after* the\n * cached request has been used. If the request has a \"Date\" header, then\n * a light weight expiration check is performed and the request will not be\n * used immediately.\n *\n * When using `maxEntries`, the entry least-recently requested will be removed\n * from the cache first.\n *\n * @memberof module:workbox-expiration\n */\nclass ExpirationPlugin {\n    /**\n     * @param {ExpirationPluginOptions} config\n     * @param {number} [config.maxEntries] The maximum number of entries to cache.\n     * Entries used the least will be removed as the maximum is reached.\n     * @param {number} [config.maxAgeSeconds] The maximum age of an entry before\n     * it's treated as stale and removed.\n     * @param {Object} [config.matchOptions] The [`CacheQueryOptions`](https://developer.mozilla.org/en-US/docs/Web/API/Cache/delete#Parameters)\n     * that will be used when calling `delete()` on the cache.\n     * @param {boolean} [config.purgeOnQuotaError] Whether to opt this cache in to\n     * automatic deletion if the available storage quota has been exceeded.\n     */\n    constructor(config = {}) {\n        /**\n         * A \"lifecycle\" callback that will be triggered automatically by the\n         * `workbox-strategies` handlers when a `Response` is about to be returned\n         * from a [Cache](https://developer.mozilla.org/en-US/docs/Web/API/Cache) to\n         * the handler. It allows the `Response` to be inspected for freshness and\n         * prevents it from being used if the `Response`'s `Date` header value is\n         * older than the configured `maxAgeSeconds`.\n         *\n         * @param {Object} options\n         * @param {string} options.cacheName Name of the cache the response is in.\n         * @param {Response} options.cachedResponse The `Response` object that's been\n         *     read from a cache and whose freshness should be checked.\n         * @return {Response} Either the `cachedResponse`, if it's\n         *     fresh, or `null` if the `Response` is older than `maxAgeSeconds`.\n         *\n         * @private\n         */\n        this.cachedResponseWillBeUsed = async ({ event, request, cacheName, cachedResponse }) => {\n            if (!cachedResponse) {\n                return null;\n            }\n            const isFresh = this._isResponseDateFresh(cachedResponse);\n            // Expire entries to ensure that even if the expiration date has\n            // expired, it'll only be used once.\n            const cacheExpiration = this._getCacheExpiration(cacheName);\n            (0,workbox_core_private_dontWaitFor_js__WEBPACK_IMPORTED_MODULE_2__.dontWaitFor)(cacheExpiration.expireEntries());\n            // Update the metadata for the request URL to the current timestamp,\n            // but don't `await` it as we don't want to block the response.\n            const updateTimestampDone = cacheExpiration.updateTimestamp(request.url);\n            if (event) {\n                try {\n                    event.waitUntil(updateTimestampDone);\n                }\n                catch (error) {\n                    if (true) {\n                        // The event may not be a fetch event; only log the URL if it is.\n                        if ('request' in event) {\n                            workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_4__.logger.warn(`Unable to ensure service worker stays alive when ` +\n                                `updating cache entry for ` +\n                                `'${(0,workbox_core_private_getFriendlyURL_js__WEBPACK_IMPORTED_MODULE_3__.getFriendlyURL)(event.request.url)}'.`);\n                        }\n                    }\n                }\n            }\n            return isFresh ? cachedResponse : null;\n        };\n        /**\n         * A \"lifecycle\" callback that will be triggered automatically by the\n         * `workbox-strategies` handlers when an entry is added to a cache.\n         *\n         * @param {Object} options\n         * @param {string} options.cacheName Name of the cache that was updated.\n         * @param {string} options.request The Request for the cached entry.\n         *\n         * @private\n         */\n        this.cacheDidUpdate = async ({ cacheName, request }) => {\n            if (true) {\n                workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isType(cacheName, 'string', {\n                    moduleName: 'workbox-expiration',\n                    className: 'Plugin',\n                    funcName: 'cacheDidUpdate',\n                    paramName: 'cacheName',\n                });\n                workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isInstance(request, Request, {\n                    moduleName: 'workbox-expiration',\n                    className: 'Plugin',\n                    funcName: 'cacheDidUpdate',\n                    paramName: 'request',\n                });\n            }\n            const cacheExpiration = this._getCacheExpiration(cacheName);\n            await cacheExpiration.updateTimestamp(request.url);\n            await cacheExpiration.expireEntries();\n        };\n        if (true) {\n            if (!(config.maxEntries || config.maxAgeSeconds)) {\n                throw new workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_6__.WorkboxError('max-entries-or-age-required', {\n                    moduleName: 'workbox-expiration',\n                    className: 'Plugin',\n                    funcName: 'constructor',\n                });\n            }\n            if (config.maxEntries) {\n                workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isType(config.maxEntries, 'number', {\n                    moduleName: 'workbox-expiration',\n                    className: 'Plugin',\n                    funcName: 'constructor',\n                    paramName: 'config.maxEntries',\n                });\n            }\n            if (config.maxAgeSeconds) {\n                workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isType(config.maxAgeSeconds, 'number', {\n                    moduleName: 'workbox-expiration',\n                    className: 'Plugin',\n                    funcName: 'constructor',\n                    paramName: 'config.maxAgeSeconds',\n                });\n            }\n        }\n        this._config = config;\n        this._maxAgeSeconds = config.maxAgeSeconds;\n        this._cacheExpirations = new Map();\n        if (config.purgeOnQuotaError) {\n            (0,workbox_core_registerQuotaErrorCallback_js__WEBPACK_IMPORTED_MODULE_5__.registerQuotaErrorCallback)(() => this.deleteCacheAndMetadata());\n        }\n    }\n    /**\n     * A simple helper method to return a CacheExpiration instance for a given\n     * cache name.\n     *\n     * @param {string} cacheName\n     * @return {CacheExpiration}\n     *\n     * @private\n     */\n    _getCacheExpiration(cacheName) {\n        if (cacheName === workbox_core_private_cacheNames_js__WEBPACK_IMPORTED_MODULE_1__.cacheNames.getRuntimeName()) {\n            throw new workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_6__.WorkboxError('expire-custom-caches-only');\n        }\n        let cacheExpiration = this._cacheExpirations.get(cacheName);\n        if (!cacheExpiration) {\n            cacheExpiration = new _CacheExpiration_js__WEBPACK_IMPORTED_MODULE_7__.CacheExpiration(cacheName, this._config);\n            this._cacheExpirations.set(cacheName, cacheExpiration);\n        }\n        return cacheExpiration;\n    }\n    /**\n     * @param {Response} cachedResponse\n     * @return {boolean}\n     *\n     * @private\n     */\n    _isResponseDateFresh(cachedResponse) {\n        if (!this._maxAgeSeconds) {\n            // We aren't expiring by age, so return true, it's fresh\n            return true;\n        }\n        // Check if the 'date' header will suffice a quick expiration check.\n        // See https://github.com/GoogleChromeLabs/sw-toolbox/issues/164 for\n        // discussion.\n        const dateHeaderTimestamp = this._getDateHeaderTimestamp(cachedResponse);\n        if (dateHeaderTimestamp === null) {\n            // Unable to parse date, so assume it's fresh.\n            return true;\n        }\n        // If we have a valid headerTime, then our response is fresh iff the\n        // headerTime plus maxAgeSeconds is greater than the current time.\n        const now = Date.now();\n        return dateHeaderTimestamp >= now - (this._maxAgeSeconds * 1000);\n    }\n    /**\n     * This method will extract the data header and parse it into a useful\n     * value.\n     *\n     * @param {Response} cachedResponse\n     * @return {number|null}\n     *\n     * @private\n     */\n    _getDateHeaderTimestamp(cachedResponse) {\n        if (!cachedResponse.headers.has('date')) {\n            return null;\n        }\n        const dateHeader = cachedResponse.headers.get('date');\n        const parsedDate = new Date(dateHeader);\n        const headerTime = parsedDate.getTime();\n        // If the Date header was invalid for some reason, parsedDate.getTime()\n        // will return NaN.\n        if (isNaN(headerTime)) {\n            return null;\n        }\n        return headerTime;\n    }\n    /**\n     * This is a helper method that performs two operations:\n     *\n     * - Deletes *all* the underlying Cache instances associated with this plugin\n     * instance, by calling caches.delete() on your behalf.\n     * - Deletes the metadata from IndexedDB used to keep track of expiration\n     * details for each Cache instance.\n     *\n     * When using cache expiration, calling this method is preferable to calling\n     * `caches.delete()` directly, since this will ensure that the IndexedDB\n     * metadata is also cleanly removed and open IndexedDB instances are deleted.\n     *\n     * Note that if you're *not* using cache expiration for a given cache, calling\n     * `caches.delete()` and passing in the cache's name should be sufficient.\n     * There is no Workbox-specific method needed for cleanup in that case.\n     */\n    async deleteCacheAndMetadata() {\n        // Do this one at a time instead of all at once via `Promise.all()` to\n        // reduce the chance of inconsistency if a promise rejects.\n        for (const [cacheName, cacheExpiration] of this._cacheExpirations) {\n            await self.caches.delete(cacheName);\n            await cacheExpiration.delete();\n        }\n        // Reset this._cacheExpirations to its initial state.\n        this._cacheExpirations = new Map();\n    }\n}\n\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-expiration/ExpirationPlugin.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "ExpirationPlugin": () => (/* binding */ ExpirationPlugin)
+/* harmony export */ });
+/* harmony import */ var workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! workbox-core/_private/assert.js */ "./node_modules/workbox-core/_private/assert.js");
+/* harmony import */ var workbox_core_private_cacheNames_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! workbox-core/_private/cacheNames.js */ "./node_modules/workbox-core/_private/cacheNames.js");
+/* harmony import */ var workbox_core_private_dontWaitFor_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! workbox-core/_private/dontWaitFor.js */ "./node_modules/workbox-core/_private/dontWaitFor.js");
+/* harmony import */ var workbox_core_private_getFriendlyURL_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! workbox-core/_private/getFriendlyURL.js */ "./node_modules/workbox-core/_private/getFriendlyURL.js");
+/* harmony import */ var workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! workbox-core/_private/logger.js */ "./node_modules/workbox-core/_private/logger.js");
+/* harmony import */ var workbox_core_registerQuotaErrorCallback_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! workbox-core/registerQuotaErrorCallback.js */ "./node_modules/workbox-core/registerQuotaErrorCallback.js");
+/* harmony import */ var workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! workbox-core/_private/WorkboxError.js */ "./node_modules/workbox-core/_private/WorkboxError.js");
+/* harmony import */ var _CacheExpiration_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./CacheExpiration.js */ "./node_modules/workbox-expiration/CacheExpiration.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./_version.js */ "./node_modules/workbox-expiration/_version.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_8__);
+/*
+  Copyright 2018 Google LLC
+
+  Use of this source code is governed by an MIT-style
+  license that can be found in the LICENSE file or at
+  https://opensource.org/licenses/MIT.
+*/
+
+
+
+
+
+
+
+
+
+/**
+ * This plugin can be used in a `workbox-strategy` to regularly enforce a
+ * limit on the age and / or the number of cached requests.
+ *
+ * It can only be used with `workbox-strategy` instances that have a
+ * [custom `cacheName` property set](/web/tools/workbox/guides/configure-workbox#custom_cache_names_in_strategies).
+ * In other words, it can't be used to expire entries in strategy that uses the
+ * default runtime cache name.
+ *
+ * Whenever a cached request is used or updated, this plugin will look
+ * at the associated cache and remove any old or extra requests.
+ *
+ * When using `maxAgeSeconds`, requests may be used *once* after expiring
+ * because the expiration clean up will not have occurred until *after* the
+ * cached request has been used. If the request has a "Date" header, then
+ * a light weight expiration check is performed and the request will not be
+ * used immediately.
+ *
+ * When using `maxEntries`, the entry least-recently requested will be removed
+ * from the cache first.
+ *
+ * @memberof module:workbox-expiration
+ */
+class ExpirationPlugin {
+    /**
+     * @param {ExpirationPluginOptions} config
+     * @param {number} [config.maxEntries] The maximum number of entries to cache.
+     * Entries used the least will be removed as the maximum is reached.
+     * @param {number} [config.maxAgeSeconds] The maximum age of an entry before
+     * it's treated as stale and removed.
+     * @param {Object} [config.matchOptions] The [`CacheQueryOptions`](https://developer.mozilla.org/en-US/docs/Web/API/Cache/delete#Parameters)
+     * that will be used when calling `delete()` on the cache.
+     * @param {boolean} [config.purgeOnQuotaError] Whether to opt this cache in to
+     * automatic deletion if the available storage quota has been exceeded.
+     */
+    constructor(config = {}) {
+        /**
+         * A "lifecycle" callback that will be triggered automatically by the
+         * `workbox-strategies` handlers when a `Response` is about to be returned
+         * from a [Cache](https://developer.mozilla.org/en-US/docs/Web/API/Cache) to
+         * the handler. It allows the `Response` to be inspected for freshness and
+         * prevents it from being used if the `Response`'s `Date` header value is
+         * older than the configured `maxAgeSeconds`.
+         *
+         * @param {Object} options
+         * @param {string} options.cacheName Name of the cache the response is in.
+         * @param {Response} options.cachedResponse The `Response` object that's been
+         *     read from a cache and whose freshness should be checked.
+         * @return {Response} Either the `cachedResponse`, if it's
+         *     fresh, or `null` if the `Response` is older than `maxAgeSeconds`.
+         *
+         * @private
+         */
+        this.cachedResponseWillBeUsed = async ({ event, request, cacheName, cachedResponse }) => {
+            if (!cachedResponse) {
+                return null;
+            }
+            const isFresh = this._isResponseDateFresh(cachedResponse);
+            // Expire entries to ensure that even if the expiration date has
+            // expired, it'll only be used once.
+            const cacheExpiration = this._getCacheExpiration(cacheName);
+            (0,workbox_core_private_dontWaitFor_js__WEBPACK_IMPORTED_MODULE_2__.dontWaitFor)(cacheExpiration.expireEntries());
+            // Update the metadata for the request URL to the current timestamp,
+            // but don't `await` it as we don't want to block the response.
+            const updateTimestampDone = cacheExpiration.updateTimestamp(request.url);
+            if (event) {
+                try {
+                    event.waitUntil(updateTimestampDone);
+                }
+                catch (error) {
+                    if (true) {
+                        // The event may not be a fetch event; only log the URL if it is.
+                        if ('request' in event) {
+                            workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_4__.logger.warn(`Unable to ensure service worker stays alive when ` +
+                                `updating cache entry for ` +
+                                `'${(0,workbox_core_private_getFriendlyURL_js__WEBPACK_IMPORTED_MODULE_3__.getFriendlyURL)(event.request.url)}'.`);
+                        }
+                    }
+                }
+            }
+            return isFresh ? cachedResponse : null;
+        };
+        /**
+         * A "lifecycle" callback that will be triggered automatically by the
+         * `workbox-strategies` handlers when an entry is added to a cache.
+         *
+         * @param {Object} options
+         * @param {string} options.cacheName Name of the cache that was updated.
+         * @param {string} options.request The Request for the cached entry.
+         *
+         * @private
+         */
+        this.cacheDidUpdate = async ({ cacheName, request }) => {
+            if (true) {
+                workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isType(cacheName, 'string', {
+                    moduleName: 'workbox-expiration',
+                    className: 'Plugin',
+                    funcName: 'cacheDidUpdate',
+                    paramName: 'cacheName',
+                });
+                workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isInstance(request, Request, {
+                    moduleName: 'workbox-expiration',
+                    className: 'Plugin',
+                    funcName: 'cacheDidUpdate',
+                    paramName: 'request',
+                });
+            }
+            const cacheExpiration = this._getCacheExpiration(cacheName);
+            await cacheExpiration.updateTimestamp(request.url);
+            await cacheExpiration.expireEntries();
+        };
+        if (true) {
+            if (!(config.maxEntries || config.maxAgeSeconds)) {
+                throw new workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_6__.WorkboxError('max-entries-or-age-required', {
+                    moduleName: 'workbox-expiration',
+                    className: 'Plugin',
+                    funcName: 'constructor',
+                });
+            }
+            if (config.maxEntries) {
+                workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isType(config.maxEntries, 'number', {
+                    moduleName: 'workbox-expiration',
+                    className: 'Plugin',
+                    funcName: 'constructor',
+                    paramName: 'config.maxEntries',
+                });
+            }
+            if (config.maxAgeSeconds) {
+                workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isType(config.maxAgeSeconds, 'number', {
+                    moduleName: 'workbox-expiration',
+                    className: 'Plugin',
+                    funcName: 'constructor',
+                    paramName: 'config.maxAgeSeconds',
+                });
+            }
+        }
+        this._config = config;
+        this._maxAgeSeconds = config.maxAgeSeconds;
+        this._cacheExpirations = new Map();
+        if (config.purgeOnQuotaError) {
+            (0,workbox_core_registerQuotaErrorCallback_js__WEBPACK_IMPORTED_MODULE_5__.registerQuotaErrorCallback)(() => this.deleteCacheAndMetadata());
+        }
+    }
+    /**
+     * A simple helper method to return a CacheExpiration instance for a given
+     * cache name.
+     *
+     * @param {string} cacheName
+     * @return {CacheExpiration}
+     *
+     * @private
+     */
+    _getCacheExpiration(cacheName) {
+        if (cacheName === workbox_core_private_cacheNames_js__WEBPACK_IMPORTED_MODULE_1__.cacheNames.getRuntimeName()) {
+            throw new workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_6__.WorkboxError('expire-custom-caches-only');
+        }
+        let cacheExpiration = this._cacheExpirations.get(cacheName);
+        if (!cacheExpiration) {
+            cacheExpiration = new _CacheExpiration_js__WEBPACK_IMPORTED_MODULE_7__.CacheExpiration(cacheName, this._config);
+            this._cacheExpirations.set(cacheName, cacheExpiration);
+        }
+        return cacheExpiration;
+    }
+    /**
+     * @param {Response} cachedResponse
+     * @return {boolean}
+     *
+     * @private
+     */
+    _isResponseDateFresh(cachedResponse) {
+        if (!this._maxAgeSeconds) {
+            // We aren't expiring by age, so return true, it's fresh
+            return true;
+        }
+        // Check if the 'date' header will suffice a quick expiration check.
+        // See https://github.com/GoogleChromeLabs/sw-toolbox/issues/164 for
+        // discussion.
+        const dateHeaderTimestamp = this._getDateHeaderTimestamp(cachedResponse);
+        if (dateHeaderTimestamp === null) {
+            // Unable to parse date, so assume it's fresh.
+            return true;
+        }
+        // If we have a valid headerTime, then our response is fresh iff the
+        // headerTime plus maxAgeSeconds is greater than the current time.
+        const now = Date.now();
+        return dateHeaderTimestamp >= now - (this._maxAgeSeconds * 1000);
+    }
+    /**
+     * This method will extract the data header and parse it into a useful
+     * value.
+     *
+     * @param {Response} cachedResponse
+     * @return {number|null}
+     *
+     * @private
+     */
+    _getDateHeaderTimestamp(cachedResponse) {
+        if (!cachedResponse.headers.has('date')) {
+            return null;
+        }
+        const dateHeader = cachedResponse.headers.get('date');
+        const parsedDate = new Date(dateHeader);
+        const headerTime = parsedDate.getTime();
+        // If the Date header was invalid for some reason, parsedDate.getTime()
+        // will return NaN.
+        if (isNaN(headerTime)) {
+            return null;
+        }
+        return headerTime;
+    }
+    /**
+     * This is a helper method that performs two operations:
+     *
+     * - Deletes *all* the underlying Cache instances associated with this plugin
+     * instance, by calling caches.delete() on your behalf.
+     * - Deletes the metadata from IndexedDB used to keep track of expiration
+     * details for each Cache instance.
+     *
+     * When using cache expiration, calling this method is preferable to calling
+     * `caches.delete()` directly, since this will ensure that the IndexedDB
+     * metadata is also cleanly removed and open IndexedDB instances are deleted.
+     *
+     * Note that if you're *not* using cache expiration for a given cache, calling
+     * `caches.delete()` and passing in the cache's name should be sufficient.
+     * There is no Workbox-specific method needed for cleanup in that case.
+     */
+    async deleteCacheAndMetadata() {
+        // Do this one at a time instead of all at once via `Promise.all()` to
+        // reduce the chance of inconsistency if a promise rejects.
+        for (const [cacheName, cacheExpiration] of this._cacheExpirations) {
+            await self.caches.delete(cacheName);
+            await cacheExpiration.delete();
+        }
+        // Reset this._cacheExpirations to its initial state.
+        this._cacheExpirations = new Map();
+    }
+}
+
+
 
 /***/ }),
 
@@ -246,7 +1952,13 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \*****************************************************/
 /***/ (() => {
 
-eval("\n// @ts-ignore\ntry {\n    self['workbox:expiration:6.2.4'] && _();\n}\ncatch (e) { }\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-expiration/_version.js?");
+
+// @ts-ignore
+try {
+    self['workbox:expiration:6.2.4'] && _();
+}
+catch (e) { }
+
 
 /***/ }),
 
@@ -256,7 +1968,30 @@ eval("\n// @ts-ignore\ntry {\n    self['workbox:expiration:6.2.4'] && _();\n}\nc
   \**************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"CacheExpiration\": () => (/* reexport safe */ _CacheExpiration_js__WEBPACK_IMPORTED_MODULE_0__.CacheExpiration),\n/* harmony export */   \"ExpirationPlugin\": () => (/* reexport safe */ _ExpirationPlugin_js__WEBPACK_IMPORTED_MODULE_1__.ExpirationPlugin)\n/* harmony export */ });\n/* harmony import */ var _CacheExpiration_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CacheExpiration.js */ \"./node_modules/workbox-expiration/CacheExpiration.js\");\n/* harmony import */ var _ExpirationPlugin_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ExpirationPlugin.js */ \"./node_modules/workbox-expiration/ExpirationPlugin.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./_version.js */ \"./node_modules/workbox-expiration/_version.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_2__);\n/*\n  Copyright 2018 Google LLC\n\n  Use of this source code is governed by an MIT-style\n  license that can be found in the LICENSE file or at\n  https://opensource.org/licenses/MIT.\n*/\n\n\n\n/**\n * @module workbox-expiration\n */\n\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-expiration/index.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "CacheExpiration": () => (/* reexport safe */ _CacheExpiration_js__WEBPACK_IMPORTED_MODULE_0__.CacheExpiration),
+/* harmony export */   "ExpirationPlugin": () => (/* reexport safe */ _ExpirationPlugin_js__WEBPACK_IMPORTED_MODULE_1__.ExpirationPlugin)
+/* harmony export */ });
+/* harmony import */ var _CacheExpiration_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CacheExpiration.js */ "./node_modules/workbox-expiration/CacheExpiration.js");
+/* harmony import */ var _ExpirationPlugin_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ExpirationPlugin.js */ "./node_modules/workbox-expiration/ExpirationPlugin.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./_version.js */ "./node_modules/workbox-expiration/_version.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_2__);
+/*
+  Copyright 2018 Google LLC
+
+  Use of this source code is governed by an MIT-style
+  license that can be found in the LICENSE file or at
+  https://opensource.org/licenses/MIT.
+*/
+
+
+
+/**
+ * @module workbox-expiration
+ */
+
+
 
 /***/ }),
 
@@ -266,7 +2001,192 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"CacheTimestampsModel\": () => (/* binding */ CacheTimestampsModel)\n/* harmony export */ });\n/* harmony import */ var idb__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! idb */ \"./node_modules/idb/build/esm/index.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../_version.js */ \"./node_modules/workbox-expiration/_version.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_1__);\n/*\n  Copyright 2018 Google LLC\n\n  Use of this source code is governed by an MIT-style\n  license that can be found in the LICENSE file or at\n  https://opensource.org/licenses/MIT.\n*/\n\n\nconst DB_NAME = 'workbox-expiration';\nconst CACHE_OBJECT_STORE = 'cache-entries';\nconst normalizeURL = (unNormalizedUrl) => {\n    const url = new URL(unNormalizedUrl, location.href);\n    url.hash = '';\n    return url.href;\n};\n/**\n * Returns the timestamp model.\n *\n * @private\n */\nclass CacheTimestampsModel {\n    /**\n     *\n     * @param {string} cacheName\n     *\n     * @private\n     */\n    constructor(cacheName) {\n        this._db = null;\n        this._cacheName = cacheName;\n    }\n    /**\n     * Performs an upgrade of indexedDB.\n     *\n     * @param {IDBPDatabase<CacheDbSchema>} db\n     *\n     * @private\n     */\n    _upgradeDb(db) {\n        // TODO(philipwalton): EdgeHTML doesn't support arrays as a keyPath, so we\n        // have to use the `id` keyPath here and create our own values (a\n        // concatenation of `url + cacheName`) instead of simply using\n        // `keyPath: ['url', 'cacheName']`, which is supported in other browsers.\n        const objStore = db.createObjectStore(CACHE_OBJECT_STORE, { keyPath: 'id' });\n        // TODO(philipwalton): once we don't have to support EdgeHTML, we can\n        // create a single index with the keyPath `['cacheName', 'timestamp']`\n        // instead of doing both these indexes.\n        objStore.createIndex('cacheName', 'cacheName', { unique: false });\n        objStore.createIndex('timestamp', 'timestamp', { unique: false });\n    }\n    /**\n     * Performs an upgrade of indexedDB and deletes deprecated DBs.\n     *\n     * @param {IDBPDatabase<CacheDbSchema>} db\n     *\n     * @private\n     */\n    _upgradeDbAndDeleteOldDbs(db) {\n        this._upgradeDb(db);\n        if (this._cacheName) {\n            void (0,idb__WEBPACK_IMPORTED_MODULE_0__.deleteDB)(this._cacheName);\n        }\n    }\n    /**\n     * @param {string} url\n     * @param {number} timestamp\n     *\n     * @private\n     */\n    async setTimestamp(url, timestamp) {\n        url = normalizeURL(url);\n        const entry = {\n            url,\n            timestamp,\n            cacheName: this._cacheName,\n            // Creating an ID from the URL and cache name won't be necessary once\n            // Edge switches to Chromium and all browsers we support work with\n            // array keyPaths.\n            id: this._getId(url),\n        };\n        const db = await this.getDb();\n        await db.put(CACHE_OBJECT_STORE, entry);\n    }\n    /**\n     * Returns the timestamp stored for a given URL.\n     *\n     * @param {string} url\n     * @return {number | undefined}\n     *\n     * @private\n     */\n    async getTimestamp(url) {\n        const db = await this.getDb();\n        const entry = await db.get(CACHE_OBJECT_STORE, this._getId(url));\n        return entry === null || entry === void 0 ? void 0 : entry.timestamp;\n    }\n    /**\n     * Iterates through all the entries in the object store (from newest to\n     * oldest) and removes entries once either `maxCount` is reached or the\n     * entry's timestamp is less than `minTimestamp`.\n     *\n     * @param {number} minTimestamp\n     * @param {number} maxCount\n     * @return {Array<string>}\n     *\n     * @private\n     */\n    async expireEntries(minTimestamp, maxCount) {\n        const db = await this.getDb();\n        let cursor = await db.transaction(CACHE_OBJECT_STORE).store.index('timestamp').openCursor(null, 'prev');\n        const entriesToDelete = [];\n        let entriesNotDeletedCount = 0;\n        while (cursor) {\n            const result = cursor.value;\n            // TODO(philipwalton): once we can use a multi-key index, we\n            // won't have to check `cacheName` here.\n            if (result.cacheName === this._cacheName) {\n                // Delete an entry if it's older than the max age or\n                // if we already have the max number allowed.\n                if ((minTimestamp && result.timestamp < minTimestamp) ||\n                    (maxCount && entriesNotDeletedCount >= maxCount)) {\n                    // TODO(philipwalton): we should be able to delete the\n                    // entry right here, but doing so causes an iteration\n                    // bug in Safari stable (fixed in TP). Instead we can\n                    // store the keys of the entries to delete, and then\n                    // delete the separate transactions.\n                    // https://github.com/GoogleChrome/workbox/issues/1978\n                    // cursor.delete();\n                    // We only need to return the URL, not the whole entry.\n                    entriesToDelete.push(cursor.value);\n                }\n                else {\n                    entriesNotDeletedCount++;\n                }\n            }\n            cursor = await cursor.continue();\n        }\n        // TODO(philipwalton): once the Safari bug in the following issue is fixed,\n        // we should be able to remove this loop and do the entry deletion in the\n        // cursor loop above:\n        // https://github.com/GoogleChrome/workbox/issues/1978\n        const urlsDeleted = [];\n        for (const entry of entriesToDelete) {\n            await db.delete(CACHE_OBJECT_STORE, entry.id);\n            urlsDeleted.push(entry.url);\n        }\n        return urlsDeleted;\n    }\n    /**\n     * Takes a URL and returns an ID that will be unique in the object store.\n     *\n     * @param {string} url\n     * @return {string}\n     *\n     * @private\n     */\n    _getId(url) {\n        // Creating an ID from the URL and cache name won't be necessary once\n        // Edge switches to Chromium and all browsers we support work with\n        // array keyPaths.\n        return this._cacheName + '|' + normalizeURL(url);\n    }\n    /**\n      * Returns an open connection to the database.\n      *\n      * @private\n      */\n    async getDb() {\n        if (!this._db) {\n            this._db = await (0,idb__WEBPACK_IMPORTED_MODULE_0__.openDB)(DB_NAME, 1, {\n                upgrade: this._upgradeDbAndDeleteOldDbs.bind(this),\n            });\n        }\n        return this._db;\n    }\n}\n\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-expiration/models/CacheTimestampsModel.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "CacheTimestampsModel": () => (/* binding */ CacheTimestampsModel)
+/* harmony export */ });
+/* harmony import */ var idb__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! idb */ "./node_modules/idb/build/esm/index.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../_version.js */ "./node_modules/workbox-expiration/_version.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_1__);
+/*
+  Copyright 2018 Google LLC
+
+  Use of this source code is governed by an MIT-style
+  license that can be found in the LICENSE file or at
+  https://opensource.org/licenses/MIT.
+*/
+
+
+const DB_NAME = 'workbox-expiration';
+const CACHE_OBJECT_STORE = 'cache-entries';
+const normalizeURL = (unNormalizedUrl) => {
+    const url = new URL(unNormalizedUrl, location.href);
+    url.hash = '';
+    return url.href;
+};
+/**
+ * Returns the timestamp model.
+ *
+ * @private
+ */
+class CacheTimestampsModel {
+    /**
+     *
+     * @param {string} cacheName
+     *
+     * @private
+     */
+    constructor(cacheName) {
+        this._db = null;
+        this._cacheName = cacheName;
+    }
+    /**
+     * Performs an upgrade of indexedDB.
+     *
+     * @param {IDBPDatabase<CacheDbSchema>} db
+     *
+     * @private
+     */
+    _upgradeDb(db) {
+        // TODO(philipwalton): EdgeHTML doesn't support arrays as a keyPath, so we
+        // have to use the `id` keyPath here and create our own values (a
+        // concatenation of `url + cacheName`) instead of simply using
+        // `keyPath: ['url', 'cacheName']`, which is supported in other browsers.
+        const objStore = db.createObjectStore(CACHE_OBJECT_STORE, { keyPath: 'id' });
+        // TODO(philipwalton): once we don't have to support EdgeHTML, we can
+        // create a single index with the keyPath `['cacheName', 'timestamp']`
+        // instead of doing both these indexes.
+        objStore.createIndex('cacheName', 'cacheName', { unique: false });
+        objStore.createIndex('timestamp', 'timestamp', { unique: false });
+    }
+    /**
+     * Performs an upgrade of indexedDB and deletes deprecated DBs.
+     *
+     * @param {IDBPDatabase<CacheDbSchema>} db
+     *
+     * @private
+     */
+    _upgradeDbAndDeleteOldDbs(db) {
+        this._upgradeDb(db);
+        if (this._cacheName) {
+            void (0,idb__WEBPACK_IMPORTED_MODULE_0__.deleteDB)(this._cacheName);
+        }
+    }
+    /**
+     * @param {string} url
+     * @param {number} timestamp
+     *
+     * @private
+     */
+    async setTimestamp(url, timestamp) {
+        url = normalizeURL(url);
+        const entry = {
+            url,
+            timestamp,
+            cacheName: this._cacheName,
+            // Creating an ID from the URL and cache name won't be necessary once
+            // Edge switches to Chromium and all browsers we support work with
+            // array keyPaths.
+            id: this._getId(url),
+        };
+        const db = await this.getDb();
+        await db.put(CACHE_OBJECT_STORE, entry);
+    }
+    /**
+     * Returns the timestamp stored for a given URL.
+     *
+     * @param {string} url
+     * @return {number | undefined}
+     *
+     * @private
+     */
+    async getTimestamp(url) {
+        const db = await this.getDb();
+        const entry = await db.get(CACHE_OBJECT_STORE, this._getId(url));
+        return entry === null || entry === void 0 ? void 0 : entry.timestamp;
+    }
+    /**
+     * Iterates through all the entries in the object store (from newest to
+     * oldest) and removes entries once either `maxCount` is reached or the
+     * entry's timestamp is less than `minTimestamp`.
+     *
+     * @param {number} minTimestamp
+     * @param {number} maxCount
+     * @return {Array<string>}
+     *
+     * @private
+     */
+    async expireEntries(minTimestamp, maxCount) {
+        const db = await this.getDb();
+        let cursor = await db.transaction(CACHE_OBJECT_STORE).store.index('timestamp').openCursor(null, 'prev');
+        const entriesToDelete = [];
+        let entriesNotDeletedCount = 0;
+        while (cursor) {
+            const result = cursor.value;
+            // TODO(philipwalton): once we can use a multi-key index, we
+            // won't have to check `cacheName` here.
+            if (result.cacheName === this._cacheName) {
+                // Delete an entry if it's older than the max age or
+                // if we already have the max number allowed.
+                if ((minTimestamp && result.timestamp < minTimestamp) ||
+                    (maxCount && entriesNotDeletedCount >= maxCount)) {
+                    // TODO(philipwalton): we should be able to delete the
+                    // entry right here, but doing so causes an iteration
+                    // bug in Safari stable (fixed in TP). Instead we can
+                    // store the keys of the entries to delete, and then
+                    // delete the separate transactions.
+                    // https://github.com/GoogleChrome/workbox/issues/1978
+                    // cursor.delete();
+                    // We only need to return the URL, not the whole entry.
+                    entriesToDelete.push(cursor.value);
+                }
+                else {
+                    entriesNotDeletedCount++;
+                }
+            }
+            cursor = await cursor.continue();
+        }
+        // TODO(philipwalton): once the Safari bug in the following issue is fixed,
+        // we should be able to remove this loop and do the entry deletion in the
+        // cursor loop above:
+        // https://github.com/GoogleChrome/workbox/issues/1978
+        const urlsDeleted = [];
+        for (const entry of entriesToDelete) {
+            await db.delete(CACHE_OBJECT_STORE, entry.id);
+            urlsDeleted.push(entry.url);
+        }
+        return urlsDeleted;
+    }
+    /**
+     * Takes a URL and returns an ID that will be unique in the object store.
+     *
+     * @param {string} url
+     * @return {string}
+     *
+     * @private
+     */
+    _getId(url) {
+        // Creating an ID from the URL and cache name won't be necessary once
+        // Edge switches to Chromium and all browsers we support work with
+        // array keyPaths.
+        return this._cacheName + '|' + normalizeURL(url);
+    }
+    /**
+      * Returns an open connection to the database.
+      *
+      * @private
+      */
+    async getDb() {
+        if (!this._db) {
+            this._db = await (0,idb__WEBPACK_IMPORTED_MODULE_0__.openDB)(DB_NAME, 1, {
+                upgrade: this._upgradeDbAndDeleteOldDbs.bind(this),
+            });
+        }
+        return this._db;
+    }
+}
+
+
 
 /***/ }),
 
@@ -276,7 +2196,122 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \*********************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"NavigationRoute\": () => (/* binding */ NavigationRoute)\n/* harmony export */ });\n/* harmony import */ var workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! workbox-core/_private/assert.js */ \"./node_modules/workbox-core/_private/assert.js\");\n/* harmony import */ var workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! workbox-core/_private/logger.js */ \"./node_modules/workbox-core/_private/logger.js\");\n/* harmony import */ var _Route_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Route.js */ \"./node_modules/workbox-routing/Route.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./_version.js */ \"./node_modules/workbox-routing/_version.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_3__);\n/*\n  Copyright 2018 Google LLC\n\n  Use of this source code is governed by an MIT-style\n  license that can be found in the LICENSE file or at\n  https://opensource.org/licenses/MIT.\n*/\n\n\n\n\n/**\n * NavigationRoute makes it easy to create a\n * [Route]{@link module:workbox-routing.Route} that matches for browser\n * [navigation requests]{@link https://developers.google.com/web/fundamentals/primers/service-workers/high-performance-loading#first_what_are_navigation_requests}.\n *\n * It will only match incoming Requests whose\n * [`mode`]{@link https://fetch.spec.whatwg.org/#concept-request-mode}\n * is set to `navigate`.\n *\n * You can optionally only apply this route to a subset of navigation requests\n * by using one or both of the `denylist` and `allowlist` parameters.\n *\n * @memberof module:workbox-routing\n * @extends module:workbox-routing.Route\n */\nclass NavigationRoute extends _Route_js__WEBPACK_IMPORTED_MODULE_2__.Route {\n    /**\n     * If both `denylist` and `allowlist` are provided, the `denylist` will\n     * take precedence and the request will not match this route.\n     *\n     * The regular expressions in `allowlist` and `denylist`\n     * are matched against the concatenated\n     * [`pathname`]{@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLHyperlinkElementUtils/pathname}\n     * and [`search`]{@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLHyperlinkElementUtils/search}\n     * portions of the requested URL.\n     *\n     * @param {module:workbox-routing~handlerCallback} handler A callback\n     * function that returns a Promise resulting in a Response.\n     * @param {Object} options\n     * @param {Array<RegExp>} [options.denylist] If any of these patterns match,\n     * the route will not handle the request (even if a allowlist RegExp matches).\n     * @param {Array<RegExp>} [options.allowlist=[/./]] If any of these patterns\n     * match the URL's pathname and search parameter, the route will handle the\n     * request (assuming the denylist doesn't match).\n     */\n    constructor(handler, { allowlist = [/./], denylist = [] } = {}) {\n        if (true) {\n            workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isArrayOfClass(allowlist, RegExp, {\n                moduleName: 'workbox-routing',\n                className: 'NavigationRoute',\n                funcName: 'constructor',\n                paramName: 'options.allowlist',\n            });\n            workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isArrayOfClass(denylist, RegExp, {\n                moduleName: 'workbox-routing',\n                className: 'NavigationRoute',\n                funcName: 'constructor',\n                paramName: 'options.denylist',\n            });\n        }\n        super((options) => this._match(options), handler);\n        this._allowlist = allowlist;\n        this._denylist = denylist;\n    }\n    /**\n     * Routes match handler.\n     *\n     * @param {Object} options\n     * @param {URL} options.url\n     * @param {Request} options.request\n     * @return {boolean}\n     *\n     * @private\n     */\n    _match({ url, request }) {\n        if (request && request.mode !== 'navigate') {\n            return false;\n        }\n        const pathnameAndSearch = url.pathname + url.search;\n        for (const regExp of this._denylist) {\n            if (regExp.test(pathnameAndSearch)) {\n                if (true) {\n                    workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__.logger.log(`The navigation route ${pathnameAndSearch} is not ` +\n                        `being used, since the URL matches this denylist pattern: ` +\n                        `${regExp.toString()}`);\n                }\n                return false;\n            }\n        }\n        if (this._allowlist.some((regExp) => regExp.test(pathnameAndSearch))) {\n            if (true) {\n                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__.logger.debug(`The navigation route ${pathnameAndSearch} ` +\n                    `is being used.`);\n            }\n            return true;\n        }\n        if (true) {\n            workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__.logger.log(`The navigation route ${pathnameAndSearch} is not ` +\n                `being used, since the URL being navigated to doesn't ` +\n                `match the allowlist.`);\n        }\n        return false;\n    }\n}\n\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-routing/NavigationRoute.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "NavigationRoute": () => (/* binding */ NavigationRoute)
+/* harmony export */ });
+/* harmony import */ var workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! workbox-core/_private/assert.js */ "./node_modules/workbox-core/_private/assert.js");
+/* harmony import */ var workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! workbox-core/_private/logger.js */ "./node_modules/workbox-core/_private/logger.js");
+/* harmony import */ var _Route_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Route.js */ "./node_modules/workbox-routing/Route.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./_version.js */ "./node_modules/workbox-routing/_version.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_3__);
+/*
+  Copyright 2018 Google LLC
+
+  Use of this source code is governed by an MIT-style
+  license that can be found in the LICENSE file or at
+  https://opensource.org/licenses/MIT.
+*/
+
+
+
+
+/**
+ * NavigationRoute makes it easy to create a
+ * [Route]{@link module:workbox-routing.Route} that matches for browser
+ * [navigation requests]{@link https://developers.google.com/web/fundamentals/primers/service-workers/high-performance-loading#first_what_are_navigation_requests}.
+ *
+ * It will only match incoming Requests whose
+ * [`mode`]{@link https://fetch.spec.whatwg.org/#concept-request-mode}
+ * is set to `navigate`.
+ *
+ * You can optionally only apply this route to a subset of navigation requests
+ * by using one or both of the `denylist` and `allowlist` parameters.
+ *
+ * @memberof module:workbox-routing
+ * @extends module:workbox-routing.Route
+ */
+class NavigationRoute extends _Route_js__WEBPACK_IMPORTED_MODULE_2__.Route {
+    /**
+     * If both `denylist` and `allowlist` are provided, the `denylist` will
+     * take precedence and the request will not match this route.
+     *
+     * The regular expressions in `allowlist` and `denylist`
+     * are matched against the concatenated
+     * [`pathname`]{@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLHyperlinkElementUtils/pathname}
+     * and [`search`]{@link https://developer.mozilla.org/en-US/docs/Web/API/HTMLHyperlinkElementUtils/search}
+     * portions of the requested URL.
+     *
+     * @param {module:workbox-routing~handlerCallback} handler A callback
+     * function that returns a Promise resulting in a Response.
+     * @param {Object} options
+     * @param {Array<RegExp>} [options.denylist] If any of these patterns match,
+     * the route will not handle the request (even if a allowlist RegExp matches).
+     * @param {Array<RegExp>} [options.allowlist=[/./]] If any of these patterns
+     * match the URL's pathname and search parameter, the route will handle the
+     * request (assuming the denylist doesn't match).
+     */
+    constructor(handler, { allowlist = [/./], denylist = [] } = {}) {
+        if (true) {
+            workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isArrayOfClass(allowlist, RegExp, {
+                moduleName: 'workbox-routing',
+                className: 'NavigationRoute',
+                funcName: 'constructor',
+                paramName: 'options.allowlist',
+            });
+            workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isArrayOfClass(denylist, RegExp, {
+                moduleName: 'workbox-routing',
+                className: 'NavigationRoute',
+                funcName: 'constructor',
+                paramName: 'options.denylist',
+            });
+        }
+        super((options) => this._match(options), handler);
+        this._allowlist = allowlist;
+        this._denylist = denylist;
+    }
+    /**
+     * Routes match handler.
+     *
+     * @param {Object} options
+     * @param {URL} options.url
+     * @param {Request} options.request
+     * @return {boolean}
+     *
+     * @private
+     */
+    _match({ url, request }) {
+        if (request && request.mode !== 'navigate') {
+            return false;
+        }
+        const pathnameAndSearch = url.pathname + url.search;
+        for (const regExp of this._denylist) {
+            if (regExp.test(pathnameAndSearch)) {
+                if (true) {
+                    workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__.logger.log(`The navigation route ${pathnameAndSearch} is not ` +
+                        `being used, since the URL matches this denylist pattern: ` +
+                        `${regExp.toString()}`);
+                }
+                return false;
+            }
+        }
+        if (this._allowlist.some((regExp) => regExp.test(pathnameAndSearch))) {
+            if (true) {
+                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__.logger.debug(`The navigation route ${pathnameAndSearch} ` +
+                    `is being used.`);
+            }
+            return true;
+        }
+        if (true) {
+            workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__.logger.log(`The navigation route ${pathnameAndSearch} is not ` +
+                `being used, since the URL being navigated to doesn't ` +
+                `match the allowlist.`);
+        }
+        return false;
+    }
+}
+
+
 
 /***/ }),
 
@@ -286,7 +2321,91 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \*****************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"RegExpRoute\": () => (/* binding */ RegExpRoute)\n/* harmony export */ });\n/* harmony import */ var workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! workbox-core/_private/assert.js */ \"./node_modules/workbox-core/_private/assert.js\");\n/* harmony import */ var workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! workbox-core/_private/logger.js */ \"./node_modules/workbox-core/_private/logger.js\");\n/* harmony import */ var _Route_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Route.js */ \"./node_modules/workbox-routing/Route.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./_version.js */ \"./node_modules/workbox-routing/_version.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_3__);\n/*\n  Copyright 2018 Google LLC\n\n  Use of this source code is governed by an MIT-style\n  license that can be found in the LICENSE file or at\n  https://opensource.org/licenses/MIT.\n*/\n\n\n\n\n/**\n * RegExpRoute makes it easy to create a regular expression based\n * [Route]{@link module:workbox-routing.Route}.\n *\n * For same-origin requests the RegExp only needs to match part of the URL. For\n * requests against third-party servers, you must define a RegExp that matches\n * the start of the URL.\n *\n * [See the module docs for info.]{@link https://developers.google.com/web/tools/workbox/modules/workbox-routing}\n *\n * @memberof module:workbox-routing\n * @extends module:workbox-routing.Route\n */\nclass RegExpRoute extends _Route_js__WEBPACK_IMPORTED_MODULE_2__.Route {\n    /**\n     * If the regular expression contains\n     * [capture groups]{@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp#grouping-back-references},\n     * the captured values will be passed to the\n     * [handler's]{@link module:workbox-routing~handlerCallback} `params`\n     * argument.\n     *\n     * @param {RegExp} regExp The regular expression to match against URLs.\n     * @param {module:workbox-routing~handlerCallback} handler A callback\n     * function that returns a Promise resulting in a Response.\n     * @param {string} [method='GET'] The HTTP method to match the Route\n     * against.\n     */\n    constructor(regExp, handler, method) {\n        if (true) {\n            workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isInstance(regExp, RegExp, {\n                moduleName: 'workbox-routing',\n                className: 'RegExpRoute',\n                funcName: 'constructor',\n                paramName: 'pattern',\n            });\n        }\n        const match = ({ url }) => {\n            const result = regExp.exec(url.href);\n            // Return immediately if there's no match.\n            if (!result) {\n                return;\n            }\n            // Require that the match start at the first character in the URL string\n            // if it's a cross-origin request.\n            // See https://github.com/GoogleChrome/workbox/issues/281 for the context\n            // behind this behavior.\n            if ((url.origin !== location.origin) && (result.index !== 0)) {\n                if (true) {\n                    workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__.logger.debug(`The regular expression '${regExp.toString()}' only partially matched ` +\n                        `against the cross-origin URL '${url.toString()}'. RegExpRoute's will only ` +\n                        `handle cross-origin requests if they match the entire URL.`);\n                }\n                return;\n            }\n            // If the route matches, but there aren't any capture groups defined, then\n            // this will return [], which is truthy and therefore sufficient to\n            // indicate a match.\n            // If there are capture groups, then it will return their values.\n            return result.slice(1);\n        };\n        super(match, handler, method);\n    }\n}\n\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-routing/RegExpRoute.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "RegExpRoute": () => (/* binding */ RegExpRoute)
+/* harmony export */ });
+/* harmony import */ var workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! workbox-core/_private/assert.js */ "./node_modules/workbox-core/_private/assert.js");
+/* harmony import */ var workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! workbox-core/_private/logger.js */ "./node_modules/workbox-core/_private/logger.js");
+/* harmony import */ var _Route_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Route.js */ "./node_modules/workbox-routing/Route.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./_version.js */ "./node_modules/workbox-routing/_version.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_3__);
+/*
+  Copyright 2018 Google LLC
+
+  Use of this source code is governed by an MIT-style
+  license that can be found in the LICENSE file or at
+  https://opensource.org/licenses/MIT.
+*/
+
+
+
+
+/**
+ * RegExpRoute makes it easy to create a regular expression based
+ * [Route]{@link module:workbox-routing.Route}.
+ *
+ * For same-origin requests the RegExp only needs to match part of the URL. For
+ * requests against third-party servers, you must define a RegExp that matches
+ * the start of the URL.
+ *
+ * [See the module docs for info.]{@link https://developers.google.com/web/tools/workbox/modules/workbox-routing}
+ *
+ * @memberof module:workbox-routing
+ * @extends module:workbox-routing.Route
+ */
+class RegExpRoute extends _Route_js__WEBPACK_IMPORTED_MODULE_2__.Route {
+    /**
+     * If the regular expression contains
+     * [capture groups]{@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp#grouping-back-references},
+     * the captured values will be passed to the
+     * [handler's]{@link module:workbox-routing~handlerCallback} `params`
+     * argument.
+     *
+     * @param {RegExp} regExp The regular expression to match against URLs.
+     * @param {module:workbox-routing~handlerCallback} handler A callback
+     * function that returns a Promise resulting in a Response.
+     * @param {string} [method='GET'] The HTTP method to match the Route
+     * against.
+     */
+    constructor(regExp, handler, method) {
+        if (true) {
+            workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isInstance(regExp, RegExp, {
+                moduleName: 'workbox-routing',
+                className: 'RegExpRoute',
+                funcName: 'constructor',
+                paramName: 'pattern',
+            });
+        }
+        const match = ({ url }) => {
+            const result = regExp.exec(url.href);
+            // Return immediately if there's no match.
+            if (!result) {
+                return;
+            }
+            // Require that the match start at the first character in the URL string
+            // if it's a cross-origin request.
+            // See https://github.com/GoogleChrome/workbox/issues/281 for the context
+            // behind this behavior.
+            if ((url.origin !== location.origin) && (result.index !== 0)) {
+                if (true) {
+                    workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__.logger.debug(`The regular expression '${regExp.toString()}' only partially matched ` +
+                        `against the cross-origin URL '${url.toString()}'. RegExpRoute's will only ` +
+                        `handle cross-origin requests if they match the entire URL.`);
+                }
+                return;
+            }
+            // If the route matches, but there aren't any capture groups defined, then
+            // this will return [], which is truthy and therefore sufficient to
+            // indicate a match.
+            // If there are capture groups, then it will return their values.
+            return result.slice(1);
+        };
+        super(match, handler, method);
+    }
+}
+
+
 
 /***/ }),
 
@@ -296,7 +2415,76 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \***********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"Route\": () => (/* binding */ Route)\n/* harmony export */ });\n/* harmony import */ var workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! workbox-core/_private/assert.js */ \"./node_modules/workbox-core/_private/assert.js\");\n/* harmony import */ var _utils_constants_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils/constants.js */ \"./node_modules/workbox-routing/utils/constants.js\");\n/* harmony import */ var _utils_normalizeHandler_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils/normalizeHandler.js */ \"./node_modules/workbox-routing/utils/normalizeHandler.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./_version.js */ \"./node_modules/workbox-routing/_version.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_3__);\n/*\n  Copyright 2018 Google LLC\n\n  Use of this source code is governed by an MIT-style\n  license that can be found in the LICENSE file or at\n  https://opensource.org/licenses/MIT.\n*/\n\n\n\n\n/**\n * A `Route` consists of a pair of callback functions, \"match\" and \"handler\".\n * The \"match\" callback determine if a route should be used to \"handle\" a\n * request by returning a non-falsy value if it can. The \"handler\" callback\n * is called when there is a match and should return a Promise that resolves\n * to a `Response`.\n *\n * @memberof module:workbox-routing\n */\nclass Route {\n    /**\n     * Constructor for Route class.\n     *\n     * @param {module:workbox-routing~matchCallback} match\n     * A callback function that determines whether the route matches a given\n     * `fetch` event by returning a non-falsy value.\n     * @param {module:workbox-routing~handlerCallback} handler A callback\n     * function that returns a Promise resolving to a Response.\n     * @param {string} [method='GET'] The HTTP method to match the Route\n     * against.\n     */\n    constructor(match, handler, method = _utils_constants_js__WEBPACK_IMPORTED_MODULE_1__.defaultMethod) {\n        if (true) {\n            workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isType(match, 'function', {\n                moduleName: 'workbox-routing',\n                className: 'Route',\n                funcName: 'constructor',\n                paramName: 'match',\n            });\n            if (method) {\n                workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isOneOf(method, _utils_constants_js__WEBPACK_IMPORTED_MODULE_1__.validMethods, { paramName: 'method' });\n            }\n        }\n        // These values are referenced directly by Router so cannot be\n        // altered by minificaton.\n        this.handler = (0,_utils_normalizeHandler_js__WEBPACK_IMPORTED_MODULE_2__.normalizeHandler)(handler);\n        this.match = match;\n        this.method = method;\n    }\n    /**\n     *\n     * @param {module:workbox-routing-handlerCallback} handler A callback\n     * function that returns a Promise resolving to a Response\n     */\n    setCatchHandler(handler) {\n        this.catchHandler = (0,_utils_normalizeHandler_js__WEBPACK_IMPORTED_MODULE_2__.normalizeHandler)(handler);\n    }\n}\n\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-routing/Route.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Route": () => (/* binding */ Route)
+/* harmony export */ });
+/* harmony import */ var workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! workbox-core/_private/assert.js */ "./node_modules/workbox-core/_private/assert.js");
+/* harmony import */ var _utils_constants_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utils/constants.js */ "./node_modules/workbox-routing/utils/constants.js");
+/* harmony import */ var _utils_normalizeHandler_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils/normalizeHandler.js */ "./node_modules/workbox-routing/utils/normalizeHandler.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./_version.js */ "./node_modules/workbox-routing/_version.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_3__);
+/*
+  Copyright 2018 Google LLC
+
+  Use of this source code is governed by an MIT-style
+  license that can be found in the LICENSE file or at
+  https://opensource.org/licenses/MIT.
+*/
+
+
+
+
+/**
+ * A `Route` consists of a pair of callback functions, "match" and "handler".
+ * The "match" callback determine if a route should be used to "handle" a
+ * request by returning a non-falsy value if it can. The "handler" callback
+ * is called when there is a match and should return a Promise that resolves
+ * to a `Response`.
+ *
+ * @memberof module:workbox-routing
+ */
+class Route {
+    /**
+     * Constructor for Route class.
+     *
+     * @param {module:workbox-routing~matchCallback} match
+     * A callback function that determines whether the route matches a given
+     * `fetch` event by returning a non-falsy value.
+     * @param {module:workbox-routing~handlerCallback} handler A callback
+     * function that returns a Promise resolving to a Response.
+     * @param {string} [method='GET'] The HTTP method to match the Route
+     * against.
+     */
+    constructor(match, handler, method = _utils_constants_js__WEBPACK_IMPORTED_MODULE_1__.defaultMethod) {
+        if (true) {
+            workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isType(match, 'function', {
+                moduleName: 'workbox-routing',
+                className: 'Route',
+                funcName: 'constructor',
+                paramName: 'match',
+            });
+            if (method) {
+                workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isOneOf(method, _utils_constants_js__WEBPACK_IMPORTED_MODULE_1__.validMethods, { paramName: 'method' });
+            }
+        }
+        // These values are referenced directly by Router so cannot be
+        // altered by minificaton.
+        this.handler = (0,_utils_normalizeHandler_js__WEBPACK_IMPORTED_MODULE_2__.normalizeHandler)(handler);
+        this.match = match;
+        this.method = method;
+    }
+    /**
+     *
+     * @param {module:workbox-routing-handlerCallback} handler A callback
+     * function that returns a Promise resolving to a Response
+     */
+    setCatchHandler(handler) {
+        this.catchHandler = (0,_utils_normalizeHandler_js__WEBPACK_IMPORTED_MODULE_2__.normalizeHandler)(handler);
+    }
+}
+
+
 
 /***/ }),
 
@@ -306,7 +2494,410 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"Router\": () => (/* binding */ Router)\n/* harmony export */ });\n/* harmony import */ var workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! workbox-core/_private/assert.js */ \"./node_modules/workbox-core/_private/assert.js\");\n/* harmony import */ var workbox_core_private_getFriendlyURL_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! workbox-core/_private/getFriendlyURL.js */ \"./node_modules/workbox-core/_private/getFriendlyURL.js\");\n/* harmony import */ var _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils/constants.js */ \"./node_modules/workbox-routing/utils/constants.js\");\n/* harmony import */ var workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! workbox-core/_private/logger.js */ \"./node_modules/workbox-core/_private/logger.js\");\n/* harmony import */ var _utils_normalizeHandler_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./utils/normalizeHandler.js */ \"./node_modules/workbox-routing/utils/normalizeHandler.js\");\n/* harmony import */ var workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! workbox-core/_private/WorkboxError.js */ \"./node_modules/workbox-core/_private/WorkboxError.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./_version.js */ \"./node_modules/workbox-routing/_version.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_6__);\n/*\n  Copyright 2018 Google LLC\n\n  Use of this source code is governed by an MIT-style\n  license that can be found in the LICENSE file or at\n  https://opensource.org/licenses/MIT.\n*/\n\n\n\n\n\n\n\n/**\n * The Router can be used to process a FetchEvent through one or more\n * [Routes]{@link module:workbox-routing.Route} responding  with a Request if\n * a matching route exists.\n *\n * If no route matches a given a request, the Router will use a \"default\"\n * handler if one is defined.\n *\n * Should the matching Route throw an error, the Router will use a \"catch\"\n * handler if one is defined to gracefully deal with issues and respond with a\n * Request.\n *\n * If a request matches multiple routes, the **earliest** registered route will\n * be used to respond to the request.\n *\n * @memberof module:workbox-routing\n */\nclass Router {\n    /**\n     * Initializes a new Router.\n     */\n    constructor() {\n        this._routes = new Map();\n        this._defaultHandlerMap = new Map();\n    }\n    /**\n     * @return {Map<string, Array<module:workbox-routing.Route>>} routes A `Map` of HTTP\n     * method name ('GET', etc.) to an array of all the corresponding `Route`\n     * instances that are registered.\n     */\n    get routes() {\n        return this._routes;\n    }\n    /**\n     * Adds a fetch event listener to respond to events when a route matches\n     * the event's request.\n     */\n    addFetchListener() {\n        // See https://github.com/Microsoft/TypeScript/issues/28357#issuecomment-436484705\n        self.addEventListener('fetch', ((event) => {\n            const { request } = event;\n            const responsePromise = this.handleRequest({ request, event });\n            if (responsePromise) {\n                event.respondWith(responsePromise);\n            }\n        }));\n    }\n    /**\n     * Adds a message event listener for URLs to cache from the window.\n     * This is useful to cache resources loaded on the page prior to when the\n     * service worker started controlling it.\n     *\n     * The format of the message data sent from the window should be as follows.\n     * Where the `urlsToCache` array may consist of URL strings or an array of\n     * URL string + `requestInit` object (the same as you'd pass to `fetch()`).\n     *\n     * ```\n     * {\n     *   type: 'CACHE_URLS',\n     *   payload: {\n     *     urlsToCache: [\n     *       './script1.js',\n     *       './script2.js',\n     *       ['./script3.js', {mode: 'no-cors'}],\n     *     ],\n     *   },\n     * }\n     * ```\n     */\n    addCacheListener() {\n        // See https://github.com/Microsoft/TypeScript/issues/28357#issuecomment-436484705\n        self.addEventListener('message', ((event) => {\n            // event.data is type 'any'\n            if (event.data && event.data.type === 'CACHE_URLS') { // eslint-disable-line\n                const { payload } = event.data; // eslint-disable-line\n                if (true) {\n                    workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.debug(`Caching URLs from the window`, payload.urlsToCache);\n                }\n                const requestPromises = Promise.all(payload.urlsToCache.map((entry) => {\n                    if (typeof entry === 'string') {\n                        entry = [entry];\n                    }\n                    const request = new Request(...entry);\n                    return this.handleRequest({ request, event });\n                    // TODO(philipwalton): TypeScript errors without this typecast for\n                    // some reason (probably a bug). The real type here should work but\n                    // doesn't: `Array<Promise<Response> | undefined>`.\n                })); // TypeScript\n                event.waitUntil(requestPromises);\n                // If a MessageChannel was used, reply to the message on success.\n                if (event.ports && event.ports[0]) {\n                    void requestPromises.then(() => event.ports[0].postMessage(true));\n                }\n            }\n        }));\n    }\n    /**\n     * Apply the routing rules to a FetchEvent object to get a Response from an\n     * appropriate Route's handler.\n     *\n     * @param {Object} options\n     * @param {Request} options.request The request to handle.\n     * @param {ExtendableEvent} options.event The event that triggered the\n     *     request.\n     * @return {Promise<Response>|undefined} A promise is returned if a\n     *     registered route can handle the request. If there is no matching\n     *     route and there's no `defaultHandler`, `undefined` is returned.\n     */\n    handleRequest({ request, event }) {\n        if (true) {\n            workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isInstance(request, Request, {\n                moduleName: 'workbox-routing',\n                className: 'Router',\n                funcName: 'handleRequest',\n                paramName: 'options.request',\n            });\n        }\n        const url = new URL(request.url, location.href);\n        if (!url.protocol.startsWith('http')) {\n            if (true) {\n                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.debug(`Workbox Router only supports URLs that start with 'http'.`);\n            }\n            return;\n        }\n        const sameOrigin = url.origin === location.origin;\n        const { params, route } = this.findMatchingRoute({\n            event,\n            request,\n            sameOrigin,\n            url,\n        });\n        let handler = route && route.handler;\n        const debugMessages = [];\n        if (true) {\n            if (handler) {\n                debugMessages.push([\n                    `Found a route to handle this request:`, route,\n                ]);\n                if (params) {\n                    debugMessages.push([\n                        `Passing the following params to the route's handler:`, params,\n                    ]);\n                }\n            }\n        }\n        // If we don't have a handler because there was no matching route, then\n        // fall back to defaultHandler if that's defined.\n        const method = request.method;\n        if (!handler && this._defaultHandlerMap.has(method)) {\n            if (true) {\n                debugMessages.push(`Failed to find a matching route. Falling ` +\n                    `back to the default handler for ${method}.`);\n            }\n            handler = this._defaultHandlerMap.get(method);\n        }\n        if (!handler) {\n            if (true) {\n                // No handler so Workbox will do nothing. If logs is set of debug\n                // i.e. verbose, we should print out this information.\n                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.debug(`No route found for: ${(0,workbox_core_private_getFriendlyURL_js__WEBPACK_IMPORTED_MODULE_1__.getFriendlyURL)(url)}`);\n            }\n            return;\n        }\n        if (true) {\n            // We have a handler, meaning Workbox is going to handle the route.\n            // print the routing details to the console.\n            workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.groupCollapsed(`Router is responding to: ${(0,workbox_core_private_getFriendlyURL_js__WEBPACK_IMPORTED_MODULE_1__.getFriendlyURL)(url)}`);\n            debugMessages.forEach((msg) => {\n                if (Array.isArray(msg)) {\n                    workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.log(...msg);\n                }\n                else {\n                    workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.log(msg);\n                }\n            });\n            workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.groupEnd();\n        }\n        // Wrap in try and catch in case the handle method throws a synchronous\n        // error. It should still callback to the catch handler.\n        let responsePromise;\n        try {\n            responsePromise = handler.handle({ url, request, event, params });\n        }\n        catch (err) {\n            responsePromise = Promise.reject(err);\n        }\n        // Get route's catch handler, if it exists\n        const catchHandler = route && route.catchHandler;\n        if (responsePromise instanceof Promise && (this._catchHandler || catchHandler)) {\n            responsePromise = responsePromise.catch(async (err) => {\n                // If there's a route catch handler, process that first\n                if (catchHandler) {\n                    if (true) {\n                        // Still include URL here as it will be async from the console group\n                        // and may not make sense without the URL\n                        workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.groupCollapsed(`Error thrown when responding to: ` +\n                            ` ${(0,workbox_core_private_getFriendlyURL_js__WEBPACK_IMPORTED_MODULE_1__.getFriendlyURL)(url)}. Falling back to route's Catch Handler.`);\n                        workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.error(`Error thrown by:`, route);\n                        workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.error(err);\n                        workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.groupEnd();\n                    }\n                    try {\n                        return await catchHandler.handle({ url, request, event, params });\n                    }\n                    catch (catchErr) {\n                        if (catchErr instanceof Error) {\n                            err = catchErr;\n                        }\n                    }\n                }\n                if (this._catchHandler) {\n                    if (true) {\n                        // Still include URL here as it will be async from the console group\n                        // and may not make sense without the URL\n                        workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.groupCollapsed(`Error thrown when responding to: ` +\n                            ` ${(0,workbox_core_private_getFriendlyURL_js__WEBPACK_IMPORTED_MODULE_1__.getFriendlyURL)(url)}. Falling back to global Catch Handler.`);\n                        workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.error(`Error thrown by:`, route);\n                        workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.error(err);\n                        workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.groupEnd();\n                    }\n                    return this._catchHandler.handle({ url, request, event });\n                }\n                throw err;\n            });\n        }\n        return responsePromise;\n    }\n    /**\n     * Checks a request and URL (and optionally an event) against the list of\n     * registered routes, and if there's a match, returns the corresponding\n     * route along with any params generated by the match.\n     *\n     * @param {Object} options\n     * @param {URL} options.url\n     * @param {boolean} options.sameOrigin The result of comparing `url.origin`\n     *     against the current origin.\n     * @param {Request} options.request The request to match.\n     * @param {Event} options.event The corresponding event.\n     * @return {Object} An object with `route` and `params` properties.\n     *     They are populated if a matching route was found or `undefined`\n     *     otherwise.\n     */\n    findMatchingRoute({ url, sameOrigin, request, event }) {\n        const routes = this._routes.get(request.method) || [];\n        for (const route of routes) {\n            let params;\n            // route.match returns type any, not possible to change right now.\n            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment\n            const matchResult = route.match({ url, sameOrigin, request, event });\n            if (matchResult) {\n                if (true) {\n                    // Warn developers that using an async matchCallback is almost always\n                    // not the right thing to do.\n                    if (matchResult instanceof Promise) {\n                        workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.warn(`While routing ${(0,workbox_core_private_getFriendlyURL_js__WEBPACK_IMPORTED_MODULE_1__.getFriendlyURL)(url)}, an async ` +\n                            `matchCallback function was used. Please convert the ` +\n                            `following route to use a synchronous matchCallback function:`, route);\n                    }\n                }\n                // See https://github.com/GoogleChrome/workbox/issues/2079\n                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment\n                params = matchResult;\n                if (Array.isArray(params) && params.length === 0) {\n                    // Instead of passing an empty array in as params, use undefined.\n                    params = undefined;\n                }\n                else if ((matchResult.constructor === Object && // eslint-disable-line\n                    Object.keys(matchResult).length === 0)) {\n                    // Instead of passing an empty object in as params, use undefined.\n                    params = undefined;\n                }\n                else if (typeof matchResult === 'boolean') {\n                    // For the boolean value true (rather than just something truth-y),\n                    // don't set params.\n                    // See https://github.com/GoogleChrome/workbox/pull/2134#issuecomment-513924353\n                    params = undefined;\n                }\n                // Return early if have a match.\n                return { route, params };\n            }\n        }\n        // If no match was found above, return and empty object.\n        return {};\n    }\n    /**\n     * Define a default `handler` that's called when no routes explicitly\n     * match the incoming request.\n     *\n     * Each HTTP method ('GET', 'POST', etc.) gets its own default handler.\n     *\n     * Without a default handler, unmatched requests will go against the\n     * network as if there were no service worker present.\n     *\n     * @param {module:workbox-routing~handlerCallback} handler A callback\n     * function that returns a Promise resulting in a Response.\n     * @param {string} [method='GET'] The HTTP method to associate with this\n     * default handler. Each method has its own default.\n     */\n    setDefaultHandler(handler, method = _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.defaultMethod) {\n        this._defaultHandlerMap.set(method, (0,_utils_normalizeHandler_js__WEBPACK_IMPORTED_MODULE_4__.normalizeHandler)(handler));\n    }\n    /**\n     * If a Route throws an error while handling a request, this `handler`\n     * will be called and given a chance to provide a response.\n     *\n     * @param {module:workbox-routing~handlerCallback} handler A callback\n     * function that returns a Promise resulting in a Response.\n     */\n    setCatchHandler(handler) {\n        this._catchHandler = (0,_utils_normalizeHandler_js__WEBPACK_IMPORTED_MODULE_4__.normalizeHandler)(handler);\n    }\n    /**\n     * Registers a route with the router.\n     *\n     * @param {module:workbox-routing.Route} route The route to register.\n     */\n    registerRoute(route) {\n        if (true) {\n            workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isType(route, 'object', {\n                moduleName: 'workbox-routing',\n                className: 'Router',\n                funcName: 'registerRoute',\n                paramName: 'route',\n            });\n            workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.hasMethod(route, 'match', {\n                moduleName: 'workbox-routing',\n                className: 'Router',\n                funcName: 'registerRoute',\n                paramName: 'route',\n            });\n            workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isType(route.handler, 'object', {\n                moduleName: 'workbox-routing',\n                className: 'Router',\n                funcName: 'registerRoute',\n                paramName: 'route',\n            });\n            workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.hasMethod(route.handler, 'handle', {\n                moduleName: 'workbox-routing',\n                className: 'Router',\n                funcName: 'registerRoute',\n                paramName: 'route.handler',\n            });\n            workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isType(route.method, 'string', {\n                moduleName: 'workbox-routing',\n                className: 'Router',\n                funcName: 'registerRoute',\n                paramName: 'route.method',\n            });\n        }\n        if (!this._routes.has(route.method)) {\n            this._routes.set(route.method, []);\n        }\n        // Give precedence to all of the earlier routes by adding this additional\n        // route to the end of the array.\n        this._routes.get(route.method).push(route);\n    }\n    /**\n     * Unregisters a route with the router.\n     *\n     * @param {module:workbox-routing.Route} route The route to unregister.\n     */\n    unregisterRoute(route) {\n        if (!this._routes.has(route.method)) {\n            throw new workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_5__.WorkboxError('unregister-route-but-not-found-with-method', {\n                method: route.method,\n            });\n        }\n        const routeIndex = this._routes.get(route.method).indexOf(route);\n        if (routeIndex > -1) {\n            this._routes.get(route.method).splice(routeIndex, 1);\n        }\n        else {\n            throw new workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_5__.WorkboxError('unregister-route-route-not-registered');\n        }\n    }\n}\n\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-routing/Router.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Router": () => (/* binding */ Router)
+/* harmony export */ });
+/* harmony import */ var workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! workbox-core/_private/assert.js */ "./node_modules/workbox-core/_private/assert.js");
+/* harmony import */ var workbox_core_private_getFriendlyURL_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! workbox-core/_private/getFriendlyURL.js */ "./node_modules/workbox-core/_private/getFriendlyURL.js");
+/* harmony import */ var _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./utils/constants.js */ "./node_modules/workbox-routing/utils/constants.js");
+/* harmony import */ var workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! workbox-core/_private/logger.js */ "./node_modules/workbox-core/_private/logger.js");
+/* harmony import */ var _utils_normalizeHandler_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./utils/normalizeHandler.js */ "./node_modules/workbox-routing/utils/normalizeHandler.js");
+/* harmony import */ var workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! workbox-core/_private/WorkboxError.js */ "./node_modules/workbox-core/_private/WorkboxError.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./_version.js */ "./node_modules/workbox-routing/_version.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_6__);
+/*
+  Copyright 2018 Google LLC
+
+  Use of this source code is governed by an MIT-style
+  license that can be found in the LICENSE file or at
+  https://opensource.org/licenses/MIT.
+*/
+
+
+
+
+
+
+
+/**
+ * The Router can be used to process a FetchEvent through one or more
+ * [Routes]{@link module:workbox-routing.Route} responding  with a Request if
+ * a matching route exists.
+ *
+ * If no route matches a given a request, the Router will use a "default"
+ * handler if one is defined.
+ *
+ * Should the matching Route throw an error, the Router will use a "catch"
+ * handler if one is defined to gracefully deal with issues and respond with a
+ * Request.
+ *
+ * If a request matches multiple routes, the **earliest** registered route will
+ * be used to respond to the request.
+ *
+ * @memberof module:workbox-routing
+ */
+class Router {
+    /**
+     * Initializes a new Router.
+     */
+    constructor() {
+        this._routes = new Map();
+        this._defaultHandlerMap = new Map();
+    }
+    /**
+     * @return {Map<string, Array<module:workbox-routing.Route>>} routes A `Map` of HTTP
+     * method name ('GET', etc.) to an array of all the corresponding `Route`
+     * instances that are registered.
+     */
+    get routes() {
+        return this._routes;
+    }
+    /**
+     * Adds a fetch event listener to respond to events when a route matches
+     * the event's request.
+     */
+    addFetchListener() {
+        // See https://github.com/Microsoft/TypeScript/issues/28357#issuecomment-436484705
+        self.addEventListener('fetch', ((event) => {
+            const { request } = event;
+            const responsePromise = this.handleRequest({ request, event });
+            if (responsePromise) {
+                event.respondWith(responsePromise);
+            }
+        }));
+    }
+    /**
+     * Adds a message event listener for URLs to cache from the window.
+     * This is useful to cache resources loaded on the page prior to when the
+     * service worker started controlling it.
+     *
+     * The format of the message data sent from the window should be as follows.
+     * Where the `urlsToCache` array may consist of URL strings or an array of
+     * URL string + `requestInit` object (the same as you'd pass to `fetch()`).
+     *
+     * ```
+     * {
+     *   type: 'CACHE_URLS',
+     *   payload: {
+     *     urlsToCache: [
+     *       './script1.js',
+     *       './script2.js',
+     *       ['./script3.js', {mode: 'no-cors'}],
+     *     ],
+     *   },
+     * }
+     * ```
+     */
+    addCacheListener() {
+        // See https://github.com/Microsoft/TypeScript/issues/28357#issuecomment-436484705
+        self.addEventListener('message', ((event) => {
+            // event.data is type 'any'
+            if (event.data && event.data.type === 'CACHE_URLS') { // eslint-disable-line
+                const { payload } = event.data; // eslint-disable-line
+                if (true) {
+                    workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.debug(`Caching URLs from the window`, payload.urlsToCache);
+                }
+                const requestPromises = Promise.all(payload.urlsToCache.map((entry) => {
+                    if (typeof entry === 'string') {
+                        entry = [entry];
+                    }
+                    const request = new Request(...entry);
+                    return this.handleRequest({ request, event });
+                    // TODO(philipwalton): TypeScript errors without this typecast for
+                    // some reason (probably a bug). The real type here should work but
+                    // doesn't: `Array<Promise<Response> | undefined>`.
+                })); // TypeScript
+                event.waitUntil(requestPromises);
+                // If a MessageChannel was used, reply to the message on success.
+                if (event.ports && event.ports[0]) {
+                    void requestPromises.then(() => event.ports[0].postMessage(true));
+                }
+            }
+        }));
+    }
+    /**
+     * Apply the routing rules to a FetchEvent object to get a Response from an
+     * appropriate Route's handler.
+     *
+     * @param {Object} options
+     * @param {Request} options.request The request to handle.
+     * @param {ExtendableEvent} options.event The event that triggered the
+     *     request.
+     * @return {Promise<Response>|undefined} A promise is returned if a
+     *     registered route can handle the request. If there is no matching
+     *     route and there's no `defaultHandler`, `undefined` is returned.
+     */
+    handleRequest({ request, event }) {
+        if (true) {
+            workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isInstance(request, Request, {
+                moduleName: 'workbox-routing',
+                className: 'Router',
+                funcName: 'handleRequest',
+                paramName: 'options.request',
+            });
+        }
+        const url = new URL(request.url, location.href);
+        if (!url.protocol.startsWith('http')) {
+            if (true) {
+                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.debug(`Workbox Router only supports URLs that start with 'http'.`);
+            }
+            return;
+        }
+        const sameOrigin = url.origin === location.origin;
+        const { params, route } = this.findMatchingRoute({
+            event,
+            request,
+            sameOrigin,
+            url,
+        });
+        let handler = route && route.handler;
+        const debugMessages = [];
+        if (true) {
+            if (handler) {
+                debugMessages.push([
+                    `Found a route to handle this request:`, route,
+                ]);
+                if (params) {
+                    debugMessages.push([
+                        `Passing the following params to the route's handler:`, params,
+                    ]);
+                }
+            }
+        }
+        // If we don't have a handler because there was no matching route, then
+        // fall back to defaultHandler if that's defined.
+        const method = request.method;
+        if (!handler && this._defaultHandlerMap.has(method)) {
+            if (true) {
+                debugMessages.push(`Failed to find a matching route. Falling ` +
+                    `back to the default handler for ${method}.`);
+            }
+            handler = this._defaultHandlerMap.get(method);
+        }
+        if (!handler) {
+            if (true) {
+                // No handler so Workbox will do nothing. If logs is set of debug
+                // i.e. verbose, we should print out this information.
+                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.debug(`No route found for: ${(0,workbox_core_private_getFriendlyURL_js__WEBPACK_IMPORTED_MODULE_1__.getFriendlyURL)(url)}`);
+            }
+            return;
+        }
+        if (true) {
+            // We have a handler, meaning Workbox is going to handle the route.
+            // print the routing details to the console.
+            workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.groupCollapsed(`Router is responding to: ${(0,workbox_core_private_getFriendlyURL_js__WEBPACK_IMPORTED_MODULE_1__.getFriendlyURL)(url)}`);
+            debugMessages.forEach((msg) => {
+                if (Array.isArray(msg)) {
+                    workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.log(...msg);
+                }
+                else {
+                    workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.log(msg);
+                }
+            });
+            workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.groupEnd();
+        }
+        // Wrap in try and catch in case the handle method throws a synchronous
+        // error. It should still callback to the catch handler.
+        let responsePromise;
+        try {
+            responsePromise = handler.handle({ url, request, event, params });
+        }
+        catch (err) {
+            responsePromise = Promise.reject(err);
+        }
+        // Get route's catch handler, if it exists
+        const catchHandler = route && route.catchHandler;
+        if (responsePromise instanceof Promise && (this._catchHandler || catchHandler)) {
+            responsePromise = responsePromise.catch(async (err) => {
+                // If there's a route catch handler, process that first
+                if (catchHandler) {
+                    if (true) {
+                        // Still include URL here as it will be async from the console group
+                        // and may not make sense without the URL
+                        workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.groupCollapsed(`Error thrown when responding to: ` +
+                            ` ${(0,workbox_core_private_getFriendlyURL_js__WEBPACK_IMPORTED_MODULE_1__.getFriendlyURL)(url)}. Falling back to route's Catch Handler.`);
+                        workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.error(`Error thrown by:`, route);
+                        workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.error(err);
+                        workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.groupEnd();
+                    }
+                    try {
+                        return await catchHandler.handle({ url, request, event, params });
+                    }
+                    catch (catchErr) {
+                        if (catchErr instanceof Error) {
+                            err = catchErr;
+                        }
+                    }
+                }
+                if (this._catchHandler) {
+                    if (true) {
+                        // Still include URL here as it will be async from the console group
+                        // and may not make sense without the URL
+                        workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.groupCollapsed(`Error thrown when responding to: ` +
+                            ` ${(0,workbox_core_private_getFriendlyURL_js__WEBPACK_IMPORTED_MODULE_1__.getFriendlyURL)(url)}. Falling back to global Catch Handler.`);
+                        workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.error(`Error thrown by:`, route);
+                        workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.error(err);
+                        workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.groupEnd();
+                    }
+                    return this._catchHandler.handle({ url, request, event });
+                }
+                throw err;
+            });
+        }
+        return responsePromise;
+    }
+    /**
+     * Checks a request and URL (and optionally an event) against the list of
+     * registered routes, and if there's a match, returns the corresponding
+     * route along with any params generated by the match.
+     *
+     * @param {Object} options
+     * @param {URL} options.url
+     * @param {boolean} options.sameOrigin The result of comparing `url.origin`
+     *     against the current origin.
+     * @param {Request} options.request The request to match.
+     * @param {Event} options.event The corresponding event.
+     * @return {Object} An object with `route` and `params` properties.
+     *     They are populated if a matching route was found or `undefined`
+     *     otherwise.
+     */
+    findMatchingRoute({ url, sameOrigin, request, event }) {
+        const routes = this._routes.get(request.method) || [];
+        for (const route of routes) {
+            let params;
+            // route.match returns type any, not possible to change right now.
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+            const matchResult = route.match({ url, sameOrigin, request, event });
+            if (matchResult) {
+                if (true) {
+                    // Warn developers that using an async matchCallback is almost always
+                    // not the right thing to do.
+                    if (matchResult instanceof Promise) {
+                        workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_3__.logger.warn(`While routing ${(0,workbox_core_private_getFriendlyURL_js__WEBPACK_IMPORTED_MODULE_1__.getFriendlyURL)(url)}, an async ` +
+                            `matchCallback function was used. Please convert the ` +
+                            `following route to use a synchronous matchCallback function:`, route);
+                    }
+                }
+                // See https://github.com/GoogleChrome/workbox/issues/2079
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+                params = matchResult;
+                if (Array.isArray(params) && params.length === 0) {
+                    // Instead of passing an empty array in as params, use undefined.
+                    params = undefined;
+                }
+                else if ((matchResult.constructor === Object && // eslint-disable-line
+                    Object.keys(matchResult).length === 0)) {
+                    // Instead of passing an empty object in as params, use undefined.
+                    params = undefined;
+                }
+                else if (typeof matchResult === 'boolean') {
+                    // For the boolean value true (rather than just something truth-y),
+                    // don't set params.
+                    // See https://github.com/GoogleChrome/workbox/pull/2134#issuecomment-513924353
+                    params = undefined;
+                }
+                // Return early if have a match.
+                return { route, params };
+            }
+        }
+        // If no match was found above, return and empty object.
+        return {};
+    }
+    /**
+     * Define a default `handler` that's called when no routes explicitly
+     * match the incoming request.
+     *
+     * Each HTTP method ('GET', 'POST', etc.) gets its own default handler.
+     *
+     * Without a default handler, unmatched requests will go against the
+     * network as if there were no service worker present.
+     *
+     * @param {module:workbox-routing~handlerCallback} handler A callback
+     * function that returns a Promise resulting in a Response.
+     * @param {string} [method='GET'] The HTTP method to associate with this
+     * default handler. Each method has its own default.
+     */
+    setDefaultHandler(handler, method = _utils_constants_js__WEBPACK_IMPORTED_MODULE_2__.defaultMethod) {
+        this._defaultHandlerMap.set(method, (0,_utils_normalizeHandler_js__WEBPACK_IMPORTED_MODULE_4__.normalizeHandler)(handler));
+    }
+    /**
+     * If a Route throws an error while handling a request, this `handler`
+     * will be called and given a chance to provide a response.
+     *
+     * @param {module:workbox-routing~handlerCallback} handler A callback
+     * function that returns a Promise resulting in a Response.
+     */
+    setCatchHandler(handler) {
+        this._catchHandler = (0,_utils_normalizeHandler_js__WEBPACK_IMPORTED_MODULE_4__.normalizeHandler)(handler);
+    }
+    /**
+     * Registers a route with the router.
+     *
+     * @param {module:workbox-routing.Route} route The route to register.
+     */
+    registerRoute(route) {
+        if (true) {
+            workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isType(route, 'object', {
+                moduleName: 'workbox-routing',
+                className: 'Router',
+                funcName: 'registerRoute',
+                paramName: 'route',
+            });
+            workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.hasMethod(route, 'match', {
+                moduleName: 'workbox-routing',
+                className: 'Router',
+                funcName: 'registerRoute',
+                paramName: 'route',
+            });
+            workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isType(route.handler, 'object', {
+                moduleName: 'workbox-routing',
+                className: 'Router',
+                funcName: 'registerRoute',
+                paramName: 'route',
+            });
+            workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.hasMethod(route.handler, 'handle', {
+                moduleName: 'workbox-routing',
+                className: 'Router',
+                funcName: 'registerRoute',
+                paramName: 'route.handler',
+            });
+            workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isType(route.method, 'string', {
+                moduleName: 'workbox-routing',
+                className: 'Router',
+                funcName: 'registerRoute',
+                paramName: 'route.method',
+            });
+        }
+        if (!this._routes.has(route.method)) {
+            this._routes.set(route.method, []);
+        }
+        // Give precedence to all of the earlier routes by adding this additional
+        // route to the end of the array.
+        this._routes.get(route.method).push(route);
+    }
+    /**
+     * Unregisters a route with the router.
+     *
+     * @param {module:workbox-routing.Route} route The route to unregister.
+     */
+    unregisterRoute(route) {
+        if (!this._routes.has(route.method)) {
+            throw new workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_5__.WorkboxError('unregister-route-but-not-found-with-method', {
+                method: route.method,
+            });
+        }
+        const routeIndex = this._routes.get(route.method).indexOf(route);
+        if (routeIndex > -1) {
+            this._routes.get(route.method).splice(routeIndex, 1);
+        }
+        else {
+            throw new workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_5__.WorkboxError('unregister-route-route-not-registered');
+        }
+    }
+}
+
+
 
 /***/ }),
 
@@ -316,7 +2907,13 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \**************************************************/
 /***/ (() => {
 
-eval("\n// @ts-ignore\ntry {\n    self['workbox:routing:6.2.4'] && _();\n}\ncatch (e) { }\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-routing/_version.js?");
+
+// @ts-ignore
+try {
+    self['workbox:routing:6.2.4'] && _();
+}
+catch (e) { }
+
 
 /***/ }),
 
@@ -326,7 +2923,45 @@ eval("\n// @ts-ignore\ntry {\n    self['workbox:routing:6.2.4'] && _();\n}\ncatc
   \***********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"NavigationRoute\": () => (/* reexport safe */ _NavigationRoute_js__WEBPACK_IMPORTED_MODULE_0__.NavigationRoute),\n/* harmony export */   \"RegExpRoute\": () => (/* reexport safe */ _RegExpRoute_js__WEBPACK_IMPORTED_MODULE_1__.RegExpRoute),\n/* harmony export */   \"registerRoute\": () => (/* reexport safe */ _registerRoute_js__WEBPACK_IMPORTED_MODULE_2__.registerRoute),\n/* harmony export */   \"Route\": () => (/* reexport safe */ _Route_js__WEBPACK_IMPORTED_MODULE_3__.Route),\n/* harmony export */   \"Router\": () => (/* reexport safe */ _Router_js__WEBPACK_IMPORTED_MODULE_4__.Router),\n/* harmony export */   \"setCatchHandler\": () => (/* reexport safe */ _setCatchHandler_js__WEBPACK_IMPORTED_MODULE_5__.setCatchHandler),\n/* harmony export */   \"setDefaultHandler\": () => (/* reexport safe */ _setDefaultHandler_js__WEBPACK_IMPORTED_MODULE_6__.setDefaultHandler)\n/* harmony export */ });\n/* harmony import */ var _NavigationRoute_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./NavigationRoute.js */ \"./node_modules/workbox-routing/NavigationRoute.js\");\n/* harmony import */ var _RegExpRoute_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RegExpRoute.js */ \"./node_modules/workbox-routing/RegExpRoute.js\");\n/* harmony import */ var _registerRoute_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./registerRoute.js */ \"./node_modules/workbox-routing/registerRoute.js\");\n/* harmony import */ var _Route_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Route.js */ \"./node_modules/workbox-routing/Route.js\");\n/* harmony import */ var _Router_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Router.js */ \"./node_modules/workbox-routing/Router.js\");\n/* harmony import */ var _setCatchHandler_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./setCatchHandler.js */ \"./node_modules/workbox-routing/setCatchHandler.js\");\n/* harmony import */ var _setDefaultHandler_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./setDefaultHandler.js */ \"./node_modules/workbox-routing/setDefaultHandler.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./_version.js */ \"./node_modules/workbox-routing/_version.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_7__);\n/*\n  Copyright 2018 Google LLC\n\n  Use of this source code is governed by an MIT-style\n  license that can be found in the LICENSE file or at\n  https://opensource.org/licenses/MIT.\n*/\n\n\n\n\n\n\n\n\n/**\n * @module workbox-routing\n */\n\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-routing/index.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "NavigationRoute": () => (/* reexport safe */ _NavigationRoute_js__WEBPACK_IMPORTED_MODULE_0__.NavigationRoute),
+/* harmony export */   "RegExpRoute": () => (/* reexport safe */ _RegExpRoute_js__WEBPACK_IMPORTED_MODULE_1__.RegExpRoute),
+/* harmony export */   "registerRoute": () => (/* reexport safe */ _registerRoute_js__WEBPACK_IMPORTED_MODULE_2__.registerRoute),
+/* harmony export */   "Route": () => (/* reexport safe */ _Route_js__WEBPACK_IMPORTED_MODULE_3__.Route),
+/* harmony export */   "Router": () => (/* reexport safe */ _Router_js__WEBPACK_IMPORTED_MODULE_4__.Router),
+/* harmony export */   "setCatchHandler": () => (/* reexport safe */ _setCatchHandler_js__WEBPACK_IMPORTED_MODULE_5__.setCatchHandler),
+/* harmony export */   "setDefaultHandler": () => (/* reexport safe */ _setDefaultHandler_js__WEBPACK_IMPORTED_MODULE_6__.setDefaultHandler)
+/* harmony export */ });
+/* harmony import */ var _NavigationRoute_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./NavigationRoute.js */ "./node_modules/workbox-routing/NavigationRoute.js");
+/* harmony import */ var _RegExpRoute_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RegExpRoute.js */ "./node_modules/workbox-routing/RegExpRoute.js");
+/* harmony import */ var _registerRoute_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./registerRoute.js */ "./node_modules/workbox-routing/registerRoute.js");
+/* harmony import */ var _Route_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Route.js */ "./node_modules/workbox-routing/Route.js");
+/* harmony import */ var _Router_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Router.js */ "./node_modules/workbox-routing/Router.js");
+/* harmony import */ var _setCatchHandler_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./setCatchHandler.js */ "./node_modules/workbox-routing/setCatchHandler.js");
+/* harmony import */ var _setDefaultHandler_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./setDefaultHandler.js */ "./node_modules/workbox-routing/setDefaultHandler.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./_version.js */ "./node_modules/workbox-routing/_version.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_7__);
+/*
+  Copyright 2018 Google LLC
+
+  Use of this source code is governed by an MIT-style
+  license that can be found in the LICENSE file or at
+  https://opensource.org/licenses/MIT.
+*/
+
+
+
+
+
+
+
+
+/**
+ * @module workbox-routing
+ */
+
+
 
 /***/ }),
 
@@ -336,7 +2971,111 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \*******************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"registerRoute\": () => (/* binding */ registerRoute)\n/* harmony export */ });\n/* harmony import */ var workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! workbox-core/_private/logger.js */ \"./node_modules/workbox-core/_private/logger.js\");\n/* harmony import */ var workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! workbox-core/_private/WorkboxError.js */ \"./node_modules/workbox-core/_private/WorkboxError.js\");\n/* harmony import */ var _Route_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Route.js */ \"./node_modules/workbox-routing/Route.js\");\n/* harmony import */ var _RegExpRoute_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./RegExpRoute.js */ \"./node_modules/workbox-routing/RegExpRoute.js\");\n/* harmony import */ var _utils_getOrCreateDefaultRouter_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./utils/getOrCreateDefaultRouter.js */ \"./node_modules/workbox-routing/utils/getOrCreateDefaultRouter.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./_version.js */ \"./node_modules/workbox-routing/_version.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_5__);\n/*\n  Copyright 2019 Google LLC\n\n  Use of this source code is governed by an MIT-style\n  license that can be found in the LICENSE file or at\n  https://opensource.org/licenses/MIT.\n*/\n\n\n\n\n\n\n/**\n * Easily register a RegExp, string, or function with a caching\n * strategy to a singleton Router instance.\n *\n * This method will generate a Route for you if needed and\n * call [registerRoute()]{@link module:workbox-routing.Router#registerRoute}.\n *\n * @param {RegExp|string|module:workbox-routing.Route~matchCallback|module:workbox-routing.Route} capture\n * If the capture param is a `Route`, all other arguments will be ignored.\n * @param {module:workbox-routing~handlerCallback} [handler] A callback\n * function that returns a Promise resulting in a Response. This parameter\n * is required if `capture` is not a `Route` object.\n * @param {string} [method='GET'] The HTTP method to match the Route\n * against.\n * @return {module:workbox-routing.Route} The generated `Route`(Useful for\n * unregistering).\n *\n * @memberof module:workbox-routing\n */\nfunction registerRoute(capture, handler, method) {\n    let route;\n    if (typeof capture === 'string') {\n        const captureUrl = new URL(capture, location.href);\n        if (true) {\n            if (!(capture.startsWith('/') || capture.startsWith('http'))) {\n                throw new workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_1__.WorkboxError('invalid-string', {\n                    moduleName: 'workbox-routing',\n                    funcName: 'registerRoute',\n                    paramName: 'capture',\n                });\n            }\n            // We want to check if Express-style wildcards are in the pathname only.\n            // TODO: Remove this log message in v4.\n            const valueToCheck = capture.startsWith('http') ?\n                captureUrl.pathname : capture;\n            // See https://github.com/pillarjs/path-to-regexp#parameters\n            const wildcards = '[*:?+]';\n            if ((new RegExp(`${wildcards}`)).exec(valueToCheck)) {\n                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_0__.logger.debug(`The '$capture' parameter contains an Express-style wildcard ` +\n                    `character (${wildcards}). Strings are now always interpreted as ` +\n                    `exact matches; use a RegExp for partial or wildcard matches.`);\n            }\n        }\n        const matchCallback = ({ url }) => {\n            if (true) {\n                if ((url.pathname === captureUrl.pathname) &&\n                    (url.origin !== captureUrl.origin)) {\n                    workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_0__.logger.debug(`${capture} only partially matches the cross-origin URL ` +\n                        `${url.toString()}. This route will only handle cross-origin requests ` +\n                        `if they match the entire URL.`);\n                }\n            }\n            return url.href === captureUrl.href;\n        };\n        // If `capture` is a string then `handler` and `method` must be present.\n        route = new _Route_js__WEBPACK_IMPORTED_MODULE_2__.Route(matchCallback, handler, method);\n    }\n    else if (capture instanceof RegExp) {\n        // If `capture` is a `RegExp` then `handler` and `method` must be present.\n        route = new _RegExpRoute_js__WEBPACK_IMPORTED_MODULE_3__.RegExpRoute(capture, handler, method);\n    }\n    else if (typeof capture === 'function') {\n        // If `capture` is a function then `handler` and `method` must be present.\n        route = new _Route_js__WEBPACK_IMPORTED_MODULE_2__.Route(capture, handler, method);\n    }\n    else if (capture instanceof _Route_js__WEBPACK_IMPORTED_MODULE_2__.Route) {\n        route = capture;\n    }\n    else {\n        throw new workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_1__.WorkboxError('unsupported-route-type', {\n            moduleName: 'workbox-routing',\n            funcName: 'registerRoute',\n            paramName: 'capture',\n        });\n    }\n    const defaultRouter = (0,_utils_getOrCreateDefaultRouter_js__WEBPACK_IMPORTED_MODULE_4__.getOrCreateDefaultRouter)();\n    defaultRouter.registerRoute(route);\n    return route;\n}\n\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-routing/registerRoute.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "registerRoute": () => (/* binding */ registerRoute)
+/* harmony export */ });
+/* harmony import */ var workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! workbox-core/_private/logger.js */ "./node_modules/workbox-core/_private/logger.js");
+/* harmony import */ var workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! workbox-core/_private/WorkboxError.js */ "./node_modules/workbox-core/_private/WorkboxError.js");
+/* harmony import */ var _Route_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Route.js */ "./node_modules/workbox-routing/Route.js");
+/* harmony import */ var _RegExpRoute_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./RegExpRoute.js */ "./node_modules/workbox-routing/RegExpRoute.js");
+/* harmony import */ var _utils_getOrCreateDefaultRouter_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./utils/getOrCreateDefaultRouter.js */ "./node_modules/workbox-routing/utils/getOrCreateDefaultRouter.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./_version.js */ "./node_modules/workbox-routing/_version.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_5__);
+/*
+  Copyright 2019 Google LLC
+
+  Use of this source code is governed by an MIT-style
+  license that can be found in the LICENSE file or at
+  https://opensource.org/licenses/MIT.
+*/
+
+
+
+
+
+
+/**
+ * Easily register a RegExp, string, or function with a caching
+ * strategy to a singleton Router instance.
+ *
+ * This method will generate a Route for you if needed and
+ * call [registerRoute()]{@link module:workbox-routing.Router#registerRoute}.
+ *
+ * @param {RegExp|string|module:workbox-routing.Route~matchCallback|module:workbox-routing.Route} capture
+ * If the capture param is a `Route`, all other arguments will be ignored.
+ * @param {module:workbox-routing~handlerCallback} [handler] A callback
+ * function that returns a Promise resulting in a Response. This parameter
+ * is required if `capture` is not a `Route` object.
+ * @param {string} [method='GET'] The HTTP method to match the Route
+ * against.
+ * @return {module:workbox-routing.Route} The generated `Route`(Useful for
+ * unregistering).
+ *
+ * @memberof module:workbox-routing
+ */
+function registerRoute(capture, handler, method) {
+    let route;
+    if (typeof capture === 'string') {
+        const captureUrl = new URL(capture, location.href);
+        if (true) {
+            if (!(capture.startsWith('/') || capture.startsWith('http'))) {
+                throw new workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_1__.WorkboxError('invalid-string', {
+                    moduleName: 'workbox-routing',
+                    funcName: 'registerRoute',
+                    paramName: 'capture',
+                });
+            }
+            // We want to check if Express-style wildcards are in the pathname only.
+            // TODO: Remove this log message in v4.
+            const valueToCheck = capture.startsWith('http') ?
+                captureUrl.pathname : capture;
+            // See https://github.com/pillarjs/path-to-regexp#parameters
+            const wildcards = '[*:?+]';
+            if ((new RegExp(`${wildcards}`)).exec(valueToCheck)) {
+                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_0__.logger.debug(`The '$capture' parameter contains an Express-style wildcard ` +
+                    `character (${wildcards}). Strings are now always interpreted as ` +
+                    `exact matches; use a RegExp for partial or wildcard matches.`);
+            }
+        }
+        const matchCallback = ({ url }) => {
+            if (true) {
+                if ((url.pathname === captureUrl.pathname) &&
+                    (url.origin !== captureUrl.origin)) {
+                    workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_0__.logger.debug(`${capture} only partially matches the cross-origin URL ` +
+                        `${url.toString()}. This route will only handle cross-origin requests ` +
+                        `if they match the entire URL.`);
+                }
+            }
+            return url.href === captureUrl.href;
+        };
+        // If `capture` is a string then `handler` and `method` must be present.
+        route = new _Route_js__WEBPACK_IMPORTED_MODULE_2__.Route(matchCallback, handler, method);
+    }
+    else if (capture instanceof RegExp) {
+        // If `capture` is a `RegExp` then `handler` and `method` must be present.
+        route = new _RegExpRoute_js__WEBPACK_IMPORTED_MODULE_3__.RegExpRoute(capture, handler, method);
+    }
+    else if (typeof capture === 'function') {
+        // If `capture` is a function then `handler` and `method` must be present.
+        route = new _Route_js__WEBPACK_IMPORTED_MODULE_2__.Route(capture, handler, method);
+    }
+    else if (capture instanceof _Route_js__WEBPACK_IMPORTED_MODULE_2__.Route) {
+        route = capture;
+    }
+    else {
+        throw new workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_1__.WorkboxError('unsupported-route-type', {
+            moduleName: 'workbox-routing',
+            funcName: 'registerRoute',
+            paramName: 'capture',
+        });
+    }
+    const defaultRouter = (0,_utils_getOrCreateDefaultRouter_js__WEBPACK_IMPORTED_MODULE_4__.getOrCreateDefaultRouter)();
+    defaultRouter.registerRoute(route);
+    return route;
+}
+
+
 
 /***/ }),
 
@@ -346,7 +3085,37 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \*********************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"setCatchHandler\": () => (/* binding */ setCatchHandler)\n/* harmony export */ });\n/* harmony import */ var _utils_getOrCreateDefaultRouter_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils/getOrCreateDefaultRouter.js */ \"./node_modules/workbox-routing/utils/getOrCreateDefaultRouter.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_version.js */ \"./node_modules/workbox-routing/_version.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_1__);\n/*\n  Copyright 2019 Google LLC\n\n  Use of this source code is governed by an MIT-style\n  license that can be found in the LICENSE file or at\n  https://opensource.org/licenses/MIT.\n*/\n\n\n/**\n * If a Route throws an error while handling a request, this `handler`\n * will be called and given a chance to provide a response.\n *\n * @param {module:workbox-routing~handlerCallback} handler A callback\n * function that returns a Promise resulting in a Response.\n *\n * @memberof module:workbox-routing\n */\nfunction setCatchHandler(handler) {\n    const defaultRouter = (0,_utils_getOrCreateDefaultRouter_js__WEBPACK_IMPORTED_MODULE_0__.getOrCreateDefaultRouter)();\n    defaultRouter.setCatchHandler(handler);\n}\n\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-routing/setCatchHandler.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "setCatchHandler": () => (/* binding */ setCatchHandler)
+/* harmony export */ });
+/* harmony import */ var _utils_getOrCreateDefaultRouter_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils/getOrCreateDefaultRouter.js */ "./node_modules/workbox-routing/utils/getOrCreateDefaultRouter.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_version.js */ "./node_modules/workbox-routing/_version.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_1__);
+/*
+  Copyright 2019 Google LLC
+
+  Use of this source code is governed by an MIT-style
+  license that can be found in the LICENSE file or at
+  https://opensource.org/licenses/MIT.
+*/
+
+
+/**
+ * If a Route throws an error while handling a request, this `handler`
+ * will be called and given a chance to provide a response.
+ *
+ * @param {module:workbox-routing~handlerCallback} handler A callback
+ * function that returns a Promise resulting in a Response.
+ *
+ * @memberof module:workbox-routing
+ */
+function setCatchHandler(handler) {
+    const defaultRouter = (0,_utils_getOrCreateDefaultRouter_js__WEBPACK_IMPORTED_MODULE_0__.getOrCreateDefaultRouter)();
+    defaultRouter.setCatchHandler(handler);
+}
+
+
 
 /***/ }),
 
@@ -356,7 +3125,40 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \***********************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"setDefaultHandler\": () => (/* binding */ setDefaultHandler)\n/* harmony export */ });\n/* harmony import */ var _utils_getOrCreateDefaultRouter_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils/getOrCreateDefaultRouter.js */ \"./node_modules/workbox-routing/utils/getOrCreateDefaultRouter.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_version.js */ \"./node_modules/workbox-routing/_version.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_1__);\n/*\n  Copyright 2019 Google LLC\n\n  Use of this source code is governed by an MIT-style\n  license that can be found in the LICENSE file or at\n  https://opensource.org/licenses/MIT.\n*/\n\n\n/**\n * Define a default `handler` that's called when no routes explicitly\n * match the incoming request.\n *\n * Without a default handler, unmatched requests will go against the\n * network as if there were no service worker present.\n *\n * @param {module:workbox-routing~handlerCallback} handler A callback\n * function that returns a Promise resulting in a Response.\n *\n * @memberof module:workbox-routing\n */\nfunction setDefaultHandler(handler) {\n    const defaultRouter = (0,_utils_getOrCreateDefaultRouter_js__WEBPACK_IMPORTED_MODULE_0__.getOrCreateDefaultRouter)();\n    defaultRouter.setDefaultHandler(handler);\n}\n\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-routing/setDefaultHandler.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "setDefaultHandler": () => (/* binding */ setDefaultHandler)
+/* harmony export */ });
+/* harmony import */ var _utils_getOrCreateDefaultRouter_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils/getOrCreateDefaultRouter.js */ "./node_modules/workbox-routing/utils/getOrCreateDefaultRouter.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./_version.js */ "./node_modules/workbox-routing/_version.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_1__);
+/*
+  Copyright 2019 Google LLC
+
+  Use of this source code is governed by an MIT-style
+  license that can be found in the LICENSE file or at
+  https://opensource.org/licenses/MIT.
+*/
+
+
+/**
+ * Define a default `handler` that's called when no routes explicitly
+ * match the incoming request.
+ *
+ * Without a default handler, unmatched requests will go against the
+ * network as if there were no service worker present.
+ *
+ * @param {module:workbox-routing~handlerCallback} handler A callback
+ * function that returns a Promise resulting in a Response.
+ *
+ * @memberof module:workbox-routing
+ */
+function setDefaultHandler(handler) {
+    const defaultRouter = (0,_utils_getOrCreateDefaultRouter_js__WEBPACK_IMPORTED_MODULE_0__.getOrCreateDefaultRouter)();
+    defaultRouter.setDefaultHandler(handler);
+}
+
+
 
 /***/ }),
 
@@ -366,7 +3168,46 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \*********************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"defaultMethod\": () => (/* binding */ defaultMethod),\n/* harmony export */   \"validMethods\": () => (/* binding */ validMethods)\n/* harmony export */ });\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_version.js */ \"./node_modules/workbox-routing/_version.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_0__);\n/*\n  Copyright 2018 Google LLC\n\n  Use of this source code is governed by an MIT-style\n  license that can be found in the LICENSE file or at\n  https://opensource.org/licenses/MIT.\n*/\n\n/**\n * The default HTTP method, 'GET', used when there's no specific method\n * configured for a route.\n *\n * @type {string}\n *\n * @private\n */\nconst defaultMethod = 'GET';\n/**\n * The list of valid HTTP methods associated with requests that could be routed.\n *\n * @type {Array<string>}\n *\n * @private\n */\nconst validMethods = [\n    'DELETE',\n    'GET',\n    'HEAD',\n    'PATCH',\n    'POST',\n    'PUT',\n];\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-routing/utils/constants.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "defaultMethod": () => (/* binding */ defaultMethod),
+/* harmony export */   "validMethods": () => (/* binding */ validMethods)
+/* harmony export */ });
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_version.js */ "./node_modules/workbox-routing/_version.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_0__);
+/*
+  Copyright 2018 Google LLC
+
+  Use of this source code is governed by an MIT-style
+  license that can be found in the LICENSE file or at
+  https://opensource.org/licenses/MIT.
+*/
+
+/**
+ * The default HTTP method, 'GET', used when there's no specific method
+ * configured for a route.
+ *
+ * @type {string}
+ *
+ * @private
+ */
+const defaultMethod = 'GET';
+/**
+ * The list of valid HTTP methods associated with requests that could be routed.
+ *
+ * @type {Array<string>}
+ *
+ * @private
+ */
+const validMethods = [
+    'DELETE',
+    'GET',
+    'HEAD',
+    'PATCH',
+    'POST',
+    'PUT',
+];
+
 
 /***/ }),
 
@@ -376,7 +3217,40 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"getOrCreateDefaultRouter\": () => (/* binding */ getOrCreateDefaultRouter)\n/* harmony export */ });\n/* harmony import */ var _Router_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Router.js */ \"./node_modules/workbox-routing/Router.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../_version.js */ \"./node_modules/workbox-routing/_version.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_1__);\n/*\n  Copyright 2019 Google LLC\n\n  Use of this source code is governed by an MIT-style\n  license that can be found in the LICENSE file or at\n  https://opensource.org/licenses/MIT.\n*/\n\n\nlet defaultRouter;\n/**\n * Creates a new, singleton Router instance if one does not exist. If one\n * does already exist, that instance is returned.\n *\n * @private\n * @return {Router}\n */\nconst getOrCreateDefaultRouter = () => {\n    if (!defaultRouter) {\n        defaultRouter = new _Router_js__WEBPACK_IMPORTED_MODULE_0__.Router();\n        // The helpers that use the default Router assume these listeners exist.\n        defaultRouter.addFetchListener();\n        defaultRouter.addCacheListener();\n    }\n    return defaultRouter;\n};\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-routing/utils/getOrCreateDefaultRouter.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "getOrCreateDefaultRouter": () => (/* binding */ getOrCreateDefaultRouter)
+/* harmony export */ });
+/* harmony import */ var _Router_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Router.js */ "./node_modules/workbox-routing/Router.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../_version.js */ "./node_modules/workbox-routing/_version.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_1__);
+/*
+  Copyright 2019 Google LLC
+
+  Use of this source code is governed by an MIT-style
+  license that can be found in the LICENSE file or at
+  https://opensource.org/licenses/MIT.
+*/
+
+
+let defaultRouter;
+/**
+ * Creates a new, singleton Router instance if one does not exist. If one
+ * does already exist, that instance is returned.
+ *
+ * @private
+ * @return {Router}
+ */
+const getOrCreateDefaultRouter = () => {
+    if (!defaultRouter) {
+        defaultRouter = new _Router_js__WEBPACK_IMPORTED_MODULE_0__.Router();
+        // The helpers that use the default Router assume these listeners exist.
+        defaultRouter.addFetchListener();
+        defaultRouter.addCacheListener();
+    }
+    return defaultRouter;
+};
+
 
 /***/ }),
 
@@ -386,7 +3260,54 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \****************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"normalizeHandler\": () => (/* binding */ normalizeHandler)\n/* harmony export */ });\n/* harmony import */ var workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! workbox-core/_private/assert.js */ \"./node_modules/workbox-core/_private/assert.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../_version.js */ \"./node_modules/workbox-routing/_version.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_1__);\n/*\n  Copyright 2018 Google LLC\n\n  Use of this source code is governed by an MIT-style\n  license that can be found in the LICENSE file or at\n  https://opensource.org/licenses/MIT.\n*/\n\n\n/**\n * @param {function()|Object} handler Either a function, or an object with a\n * 'handle' method.\n * @return {Object} An object with a handle method.\n *\n * @private\n */\nconst normalizeHandler = (handler) => {\n    if (handler && typeof handler === 'object') {\n        if (true) {\n            workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.hasMethod(handler, 'handle', {\n                moduleName: 'workbox-routing',\n                className: 'Route',\n                funcName: 'constructor',\n                paramName: 'handler',\n            });\n        }\n        return handler;\n    }\n    else {\n        if (true) {\n            workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isType(handler, 'function', {\n                moduleName: 'workbox-routing',\n                className: 'Route',\n                funcName: 'constructor',\n                paramName: 'handler',\n            });\n        }\n        return { handle: handler };\n    }\n};\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-routing/utils/normalizeHandler.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "normalizeHandler": () => (/* binding */ normalizeHandler)
+/* harmony export */ });
+/* harmony import */ var workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! workbox-core/_private/assert.js */ "./node_modules/workbox-core/_private/assert.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../_version.js */ "./node_modules/workbox-routing/_version.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_1__);
+/*
+  Copyright 2018 Google LLC
+
+  Use of this source code is governed by an MIT-style
+  license that can be found in the LICENSE file or at
+  https://opensource.org/licenses/MIT.
+*/
+
+
+/**
+ * @param {function()|Object} handler Either a function, or an object with a
+ * 'handle' method.
+ * @return {Object} An object with a handle method.
+ *
+ * @private
+ */
+const normalizeHandler = (handler) => {
+    if (handler && typeof handler === 'object') {
+        if (true) {
+            workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.hasMethod(handler, 'handle', {
+                moduleName: 'workbox-routing',
+                className: 'Route',
+                funcName: 'constructor',
+                paramName: 'handler',
+            });
+        }
+        return handler;
+    }
+    else {
+        if (true) {
+            workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isType(handler, 'function', {
+                moduleName: 'workbox-routing',
+                className: 'Route',
+                funcName: 'constructor',
+                paramName: 'handler',
+            });
+        }
+        return { handle: handler };
+    }
+};
+
 
 /***/ }),
 
@@ -396,7 +3317,107 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \*******************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"CacheFirst\": () => (/* binding */ CacheFirst)\n/* harmony export */ });\n/* harmony import */ var workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! workbox-core/_private/assert.js */ \"./node_modules/workbox-core/_private/assert.js\");\n/* harmony import */ var workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! workbox-core/_private/logger.js */ \"./node_modules/workbox-core/_private/logger.js\");\n/* harmony import */ var workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! workbox-core/_private/WorkboxError.js */ \"./node_modules/workbox-core/_private/WorkboxError.js\");\n/* harmony import */ var _Strategy_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Strategy.js */ \"./node_modules/workbox-strategies/Strategy.js\");\n/* harmony import */ var _utils_messages_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./utils/messages.js */ \"./node_modules/workbox-strategies/utils/messages.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./_version.js */ \"./node_modules/workbox-strategies/_version.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_5__);\n/*\n  Copyright 2018 Google LLC\n\n  Use of this source code is governed by an MIT-style\n  license that can be found in the LICENSE file or at\n  https://opensource.org/licenses/MIT.\n*/\n\n\n\n\n\n\n/**\n * An implementation of a [cache-first]{@link https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/#cache-falling-back-to-network}\n * request strategy.\n *\n * A cache first strategy is useful for assets that have been revisioned,\n * such as URLs like `/styles/example.a8f5f1.css`, since they\n * can be cached for long periods of time.\n *\n * If the network request fails, and there is no cache match, this will throw\n * a `WorkboxError` exception.\n *\n * @extends module:workbox-strategies.Strategy\n * @memberof module:workbox-strategies\n */\nclass CacheFirst extends _Strategy_js__WEBPACK_IMPORTED_MODULE_3__.Strategy {\n    /**\n     * @private\n     * @param {Request|string} request A request to run this strategy for.\n     * @param {module:workbox-strategies.StrategyHandler} handler The event that\n     *     triggered the request.\n     * @return {Promise<Response>}\n     */\n    async _handle(request, handler) {\n        const logs = [];\n        if (true) {\n            workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isInstance(request, Request, {\n                moduleName: 'workbox-strategies',\n                className: this.constructor.name,\n                funcName: 'makeRequest',\n                paramName: 'request',\n            });\n        }\n        let response = await handler.cacheMatch(request);\n        let error = undefined;\n        if (!response) {\n            if (true) {\n                logs.push(`No response found in the '${this.cacheName}' cache. ` +\n                    `Will respond with a network request.`);\n            }\n            try {\n                response = await handler.fetchAndCachePut(request);\n            }\n            catch (err) {\n                if (err instanceof Error) {\n                    error = err;\n                }\n            }\n            if (true) {\n                if (response) {\n                    logs.push(`Got response from network.`);\n                }\n                else {\n                    logs.push(`Unable to get a response from the network.`);\n                }\n            }\n        }\n        else {\n            if (true) {\n                logs.push(`Found a cached response in the '${this.cacheName}' cache.`);\n            }\n        }\n        if (true) {\n            workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__.logger.groupCollapsed(_utils_messages_js__WEBPACK_IMPORTED_MODULE_4__.messages.strategyStart(this.constructor.name, request));\n            for (const log of logs) {\n                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__.logger.log(log);\n            }\n            _utils_messages_js__WEBPACK_IMPORTED_MODULE_4__.messages.printFinalResponse(response);\n            workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__.logger.groupEnd();\n        }\n        if (!response) {\n            throw new workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_2__.WorkboxError('no-response', { url: request.url, error });\n        }\n        return response;\n    }\n}\n\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-strategies/CacheFirst.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "CacheFirst": () => (/* binding */ CacheFirst)
+/* harmony export */ });
+/* harmony import */ var workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! workbox-core/_private/assert.js */ "./node_modules/workbox-core/_private/assert.js");
+/* harmony import */ var workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! workbox-core/_private/logger.js */ "./node_modules/workbox-core/_private/logger.js");
+/* harmony import */ var workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! workbox-core/_private/WorkboxError.js */ "./node_modules/workbox-core/_private/WorkboxError.js");
+/* harmony import */ var _Strategy_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Strategy.js */ "./node_modules/workbox-strategies/Strategy.js");
+/* harmony import */ var _utils_messages_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./utils/messages.js */ "./node_modules/workbox-strategies/utils/messages.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./_version.js */ "./node_modules/workbox-strategies/_version.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_5__);
+/*
+  Copyright 2018 Google LLC
+
+  Use of this source code is governed by an MIT-style
+  license that can be found in the LICENSE file or at
+  https://opensource.org/licenses/MIT.
+*/
+
+
+
+
+
+
+/**
+ * An implementation of a [cache-first]{@link https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/#cache-falling-back-to-network}
+ * request strategy.
+ *
+ * A cache first strategy is useful for assets that have been revisioned,
+ * such as URLs like `/styles/example.a8f5f1.css`, since they
+ * can be cached for long periods of time.
+ *
+ * If the network request fails, and there is no cache match, this will throw
+ * a `WorkboxError` exception.
+ *
+ * @extends module:workbox-strategies.Strategy
+ * @memberof module:workbox-strategies
+ */
+class CacheFirst extends _Strategy_js__WEBPACK_IMPORTED_MODULE_3__.Strategy {
+    /**
+     * @private
+     * @param {Request|string} request A request to run this strategy for.
+     * @param {module:workbox-strategies.StrategyHandler} handler The event that
+     *     triggered the request.
+     * @return {Promise<Response>}
+     */
+    async _handle(request, handler) {
+        const logs = [];
+        if (true) {
+            workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isInstance(request, Request, {
+                moduleName: 'workbox-strategies',
+                className: this.constructor.name,
+                funcName: 'makeRequest',
+                paramName: 'request',
+            });
+        }
+        let response = await handler.cacheMatch(request);
+        let error = undefined;
+        if (!response) {
+            if (true) {
+                logs.push(`No response found in the '${this.cacheName}' cache. ` +
+                    `Will respond with a network request.`);
+            }
+            try {
+                response = await handler.fetchAndCachePut(request);
+            }
+            catch (err) {
+                if (err instanceof Error) {
+                    error = err;
+                }
+            }
+            if (true) {
+                if (response) {
+                    logs.push(`Got response from network.`);
+                }
+                else {
+                    logs.push(`Unable to get a response from the network.`);
+                }
+            }
+        }
+        else {
+            if (true) {
+                logs.push(`Found a cached response in the '${this.cacheName}' cache.`);
+            }
+        }
+        if (true) {
+            workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__.logger.groupCollapsed(_utils_messages_js__WEBPACK_IMPORTED_MODULE_4__.messages.strategyStart(this.constructor.name, request));
+            for (const log of logs) {
+                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__.logger.log(log);
+            }
+            _utils_messages_js__WEBPACK_IMPORTED_MODULE_4__.messages.printFinalResponse(response);
+            workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__.logger.groupEnd();
+        }
+        if (!response) {
+            throw new workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_2__.WorkboxError('no-response', { url: request.url, error });
+        }
+        return response;
+    }
+}
+
+
 
 /***/ }),
 
@@ -406,7 +3427,81 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \******************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"CacheOnly\": () => (/* binding */ CacheOnly)\n/* harmony export */ });\n/* harmony import */ var workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! workbox-core/_private/assert.js */ \"./node_modules/workbox-core/_private/assert.js\");\n/* harmony import */ var workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! workbox-core/_private/logger.js */ \"./node_modules/workbox-core/_private/logger.js\");\n/* harmony import */ var workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! workbox-core/_private/WorkboxError.js */ \"./node_modules/workbox-core/_private/WorkboxError.js\");\n/* harmony import */ var _Strategy_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Strategy.js */ \"./node_modules/workbox-strategies/Strategy.js\");\n/* harmony import */ var _utils_messages_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./utils/messages.js */ \"./node_modules/workbox-strategies/utils/messages.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./_version.js */ \"./node_modules/workbox-strategies/_version.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_5__);\n/*\n  Copyright 2018 Google LLC\n\n  Use of this source code is governed by an MIT-style\n  license that can be found in the LICENSE file or at\n  https://opensource.org/licenses/MIT.\n*/\n\n\n\n\n\n\n/**\n * An implementation of a\n * [cache-only]{@link https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/#cache-only}\n * request strategy.\n *\n * This class is useful if you want to take advantage of any\n * [Workbox plugins]{@link https://developers.google.com/web/tools/workbox/guides/using-plugins}.\n *\n * If there is no cache match, this will throw a `WorkboxError` exception.\n *\n * @extends module:workbox-strategies.Strategy\n * @memberof module:workbox-strategies\n */\nclass CacheOnly extends _Strategy_js__WEBPACK_IMPORTED_MODULE_3__.Strategy {\n    /**\n     * @private\n     * @param {Request|string} request A request to run this strategy for.\n     * @param {module:workbox-strategies.StrategyHandler} handler The event that\n     *     triggered the request.\n     * @return {Promise<Response>}\n     */\n    async _handle(request, handler) {\n        if (true) {\n            workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isInstance(request, Request, {\n                moduleName: 'workbox-strategies',\n                className: this.constructor.name,\n                funcName: 'makeRequest',\n                paramName: 'request',\n            });\n        }\n        const response = await handler.cacheMatch(request);\n        if (true) {\n            workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__.logger.groupCollapsed(_utils_messages_js__WEBPACK_IMPORTED_MODULE_4__.messages.strategyStart(this.constructor.name, request));\n            if (response) {\n                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__.logger.log(`Found a cached response in the '${this.cacheName}' ` +\n                    `cache.`);\n                _utils_messages_js__WEBPACK_IMPORTED_MODULE_4__.messages.printFinalResponse(response);\n            }\n            else {\n                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__.logger.log(`No response found in the '${this.cacheName}' cache.`);\n            }\n            workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__.logger.groupEnd();\n        }\n        if (!response) {\n            throw new workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_2__.WorkboxError('no-response', { url: request.url });\n        }\n        return response;\n    }\n}\n\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-strategies/CacheOnly.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "CacheOnly": () => (/* binding */ CacheOnly)
+/* harmony export */ });
+/* harmony import */ var workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! workbox-core/_private/assert.js */ "./node_modules/workbox-core/_private/assert.js");
+/* harmony import */ var workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! workbox-core/_private/logger.js */ "./node_modules/workbox-core/_private/logger.js");
+/* harmony import */ var workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! workbox-core/_private/WorkboxError.js */ "./node_modules/workbox-core/_private/WorkboxError.js");
+/* harmony import */ var _Strategy_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Strategy.js */ "./node_modules/workbox-strategies/Strategy.js");
+/* harmony import */ var _utils_messages_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./utils/messages.js */ "./node_modules/workbox-strategies/utils/messages.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./_version.js */ "./node_modules/workbox-strategies/_version.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_5__);
+/*
+  Copyright 2018 Google LLC
+
+  Use of this source code is governed by an MIT-style
+  license that can be found in the LICENSE file or at
+  https://opensource.org/licenses/MIT.
+*/
+
+
+
+
+
+
+/**
+ * An implementation of a
+ * [cache-only]{@link https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/#cache-only}
+ * request strategy.
+ *
+ * This class is useful if you want to take advantage of any
+ * [Workbox plugins]{@link https://developers.google.com/web/tools/workbox/guides/using-plugins}.
+ *
+ * If there is no cache match, this will throw a `WorkboxError` exception.
+ *
+ * @extends module:workbox-strategies.Strategy
+ * @memberof module:workbox-strategies
+ */
+class CacheOnly extends _Strategy_js__WEBPACK_IMPORTED_MODULE_3__.Strategy {
+    /**
+     * @private
+     * @param {Request|string} request A request to run this strategy for.
+     * @param {module:workbox-strategies.StrategyHandler} handler The event that
+     *     triggered the request.
+     * @return {Promise<Response>}
+     */
+    async _handle(request, handler) {
+        if (true) {
+            workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isInstance(request, Request, {
+                moduleName: 'workbox-strategies',
+                className: this.constructor.name,
+                funcName: 'makeRequest',
+                paramName: 'request',
+            });
+        }
+        const response = await handler.cacheMatch(request);
+        if (true) {
+            workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__.logger.groupCollapsed(_utils_messages_js__WEBPACK_IMPORTED_MODULE_4__.messages.strategyStart(this.constructor.name, request));
+            if (response) {
+                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__.logger.log(`Found a cached response in the '${this.cacheName}' ` +
+                    `cache.`);
+                _utils_messages_js__WEBPACK_IMPORTED_MODULE_4__.messages.printFinalResponse(response);
+            }
+            else {
+                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__.logger.log(`No response found in the '${this.cacheName}' cache.`);
+            }
+            workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__.logger.groupEnd();
+        }
+        if (!response) {
+            throw new workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_2__.WorkboxError('no-response', { url: request.url });
+        }
+        return response;
+    }
+}
+
+
 
 /***/ }),
 
@@ -416,7 +3511,212 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \*********************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"NetworkFirst\": () => (/* binding */ NetworkFirst)\n/* harmony export */ });\n/* harmony import */ var workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! workbox-core/_private/assert.js */ \"./node_modules/workbox-core/_private/assert.js\");\n/* harmony import */ var workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! workbox-core/_private/logger.js */ \"./node_modules/workbox-core/_private/logger.js\");\n/* harmony import */ var workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! workbox-core/_private/WorkboxError.js */ \"./node_modules/workbox-core/_private/WorkboxError.js\");\n/* harmony import */ var _plugins_cacheOkAndOpaquePlugin_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./plugins/cacheOkAndOpaquePlugin.js */ \"./node_modules/workbox-strategies/plugins/cacheOkAndOpaquePlugin.js\");\n/* harmony import */ var _Strategy_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Strategy.js */ \"./node_modules/workbox-strategies/Strategy.js\");\n/* harmony import */ var _utils_messages_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./utils/messages.js */ \"./node_modules/workbox-strategies/utils/messages.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./_version.js */ \"./node_modules/workbox-strategies/_version.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_6__);\n/*\n  Copyright 2018 Google LLC\n\n  Use of this source code is governed by an MIT-style\n  license that can be found in the LICENSE file or at\n  https://opensource.org/licenses/MIT.\n*/\n\n\n\n\n\n\n\n/**\n * An implementation of a\n * [network first]{@link https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/#network-falling-back-to-cache}\n * request strategy.\n *\n * By default, this strategy will cache responses with a 200 status code as\n * well as [opaque responses]{@link https://developers.google.com/web/tools/workbox/guides/handle-third-party-requests}.\n * Opaque responses are are cross-origin requests where the response doesn't\n * support [CORS]{@link https://enable-cors.org/}.\n *\n * If the network request fails, and there is no cache match, this will throw\n * a `WorkboxError` exception.\n *\n * @extends module:workbox-strategies.Strategy\n * @memberof module:workbox-strategies\n */\nclass NetworkFirst extends _Strategy_js__WEBPACK_IMPORTED_MODULE_4__.Strategy {\n    /**\n     * @param {Object} [options]\n     * @param {string} [options.cacheName] Cache name to store and retrieve\n     * requests. Defaults to cache names provided by\n     * [workbox-core]{@link module:workbox-core.cacheNames}.\n     * @param {Array<Object>} [options.plugins] [Plugins]{@link https://developers.google.com/web/tools/workbox/guides/using-plugins}\n     * to use in conjunction with this caching strategy.\n     * @param {Object} [options.fetchOptions] Values passed along to the\n     * [`init`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters)\n     * of [non-navigation](https://github.com/GoogleChrome/workbox/issues/1796)\n     * `fetch()` requests made by this strategy.\n     * @param {Object} [options.matchOptions] [`CacheQueryOptions`](https://w3c.github.io/ServiceWorker/#dictdef-cachequeryoptions)\n     * @param {number} [options.networkTimeoutSeconds] If set, any network requests\n     * that fail to respond within the timeout will fallback to the cache.\n     *\n     * This option can be used to combat\n     * \"[lie-fi]{@link https://developers.google.com/web/fundamentals/performance/poor-connectivity/#lie-fi}\"\n     * scenarios.\n     */\n    constructor(options = {}) {\n        super(options);\n        // If this instance contains no plugins with a 'cacheWillUpdate' callback,\n        // prepend the `cacheOkAndOpaquePlugin` plugin to the plugins list.\n        if (!this.plugins.some((p) => 'cacheWillUpdate' in p)) {\n            this.plugins.unshift(_plugins_cacheOkAndOpaquePlugin_js__WEBPACK_IMPORTED_MODULE_3__.cacheOkAndOpaquePlugin);\n        }\n        this._networkTimeoutSeconds = options.networkTimeoutSeconds || 0;\n        if (true) {\n            if (this._networkTimeoutSeconds) {\n                workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isType(this._networkTimeoutSeconds, 'number', {\n                    moduleName: 'workbox-strategies',\n                    className: this.constructor.name,\n                    funcName: 'constructor',\n                    paramName: 'networkTimeoutSeconds',\n                });\n            }\n        }\n    }\n    /**\n     * @private\n     * @param {Request|string} request A request to run this strategy for.\n     * @param {module:workbox-strategies.StrategyHandler} handler The event that\n     *     triggered the request.\n     * @return {Promise<Response>}\n     */\n    async _handle(request, handler) {\n        const logs = [];\n        if (true) {\n            workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isInstance(request, Request, {\n                moduleName: 'workbox-strategies',\n                className: this.constructor.name,\n                funcName: 'handle',\n                paramName: 'makeRequest',\n            });\n        }\n        const promises = [];\n        let timeoutId;\n        if (this._networkTimeoutSeconds) {\n            const { id, promise } = this._getTimeoutPromise({ request, logs, handler });\n            timeoutId = id;\n            promises.push(promise);\n        }\n        const networkPromise = this._getNetworkPromise({ timeoutId, request, logs, handler });\n        promises.push(networkPromise);\n        const response = await handler.waitUntil((async () => {\n            // Promise.race() will resolve as soon as the first promise resolves.\n            return await handler.waitUntil(Promise.race(promises)) ||\n                // If Promise.race() resolved with null, it might be due to a network\n                // timeout + a cache miss. If that were to happen, we'd rather wait until\n                // the networkPromise resolves instead of returning null.\n                // Note that it's fine to await an already-resolved promise, so we don't\n                // have to check to see if it's still \"in flight\".\n                await networkPromise;\n        })());\n        if (true) {\n            workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__.logger.groupCollapsed(_utils_messages_js__WEBPACK_IMPORTED_MODULE_5__.messages.strategyStart(this.constructor.name, request));\n            for (const log of logs) {\n                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__.logger.log(log);\n            }\n            _utils_messages_js__WEBPACK_IMPORTED_MODULE_5__.messages.printFinalResponse(response);\n            workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__.logger.groupEnd();\n        }\n        if (!response) {\n            throw new workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_2__.WorkboxError('no-response', { url: request.url });\n        }\n        return response;\n    }\n    /**\n     * @param {Object} options\n     * @param {Request} options.request\n     * @param {Array} options.logs A reference to the logs array\n     * @param {Event} options.event\n     * @return {Promise<Response>}\n     *\n     * @private\n     */\n    _getTimeoutPromise({ request, logs, handler }) {\n        let timeoutId;\n        const timeoutPromise = new Promise((resolve) => {\n            const onNetworkTimeout = async () => {\n                if (true) {\n                    logs.push(`Timing out the network response at ` +\n                        `${this._networkTimeoutSeconds} seconds.`);\n                }\n                resolve(await handler.cacheMatch(request));\n            };\n            timeoutId = setTimeout(onNetworkTimeout, this._networkTimeoutSeconds * 1000);\n        });\n        return {\n            promise: timeoutPromise,\n            id: timeoutId,\n        };\n    }\n    /**\n     * @param {Object} options\n     * @param {number|undefined} options.timeoutId\n     * @param {Request} options.request\n     * @param {Array} options.logs A reference to the logs Array.\n     * @param {Event} options.event\n     * @return {Promise<Response>}\n     *\n     * @private\n     */\n    async _getNetworkPromise({ timeoutId, request, logs, handler }) {\n        let error;\n        let response;\n        try {\n            response = await handler.fetchAndCachePut(request);\n        }\n        catch (fetchError) {\n            if (fetchError instanceof Error) {\n                error = fetchError;\n            }\n        }\n        if (timeoutId) {\n            clearTimeout(timeoutId);\n        }\n        if (true) {\n            if (response) {\n                logs.push(`Got response from network.`);\n            }\n            else {\n                logs.push(`Unable to get a response from the network. Will respond ` +\n                    `with a cached response.`);\n            }\n        }\n        if (error || !response) {\n            response = await handler.cacheMatch(request);\n            if (true) {\n                if (response) {\n                    logs.push(`Found a cached response in the '${this.cacheName}'` +\n                        ` cache.`);\n                }\n                else {\n                    logs.push(`No response found in the '${this.cacheName}' cache.`);\n                }\n            }\n        }\n        return response;\n    }\n}\n\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-strategies/NetworkFirst.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "NetworkFirst": () => (/* binding */ NetworkFirst)
+/* harmony export */ });
+/* harmony import */ var workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! workbox-core/_private/assert.js */ "./node_modules/workbox-core/_private/assert.js");
+/* harmony import */ var workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! workbox-core/_private/logger.js */ "./node_modules/workbox-core/_private/logger.js");
+/* harmony import */ var workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! workbox-core/_private/WorkboxError.js */ "./node_modules/workbox-core/_private/WorkboxError.js");
+/* harmony import */ var _plugins_cacheOkAndOpaquePlugin_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./plugins/cacheOkAndOpaquePlugin.js */ "./node_modules/workbox-strategies/plugins/cacheOkAndOpaquePlugin.js");
+/* harmony import */ var _Strategy_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Strategy.js */ "./node_modules/workbox-strategies/Strategy.js");
+/* harmony import */ var _utils_messages_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./utils/messages.js */ "./node_modules/workbox-strategies/utils/messages.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./_version.js */ "./node_modules/workbox-strategies/_version.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_6__);
+/*
+  Copyright 2018 Google LLC
+
+  Use of this source code is governed by an MIT-style
+  license that can be found in the LICENSE file or at
+  https://opensource.org/licenses/MIT.
+*/
+
+
+
+
+
+
+
+/**
+ * An implementation of a
+ * [network first]{@link https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/#network-falling-back-to-cache}
+ * request strategy.
+ *
+ * By default, this strategy will cache responses with a 200 status code as
+ * well as [opaque responses]{@link https://developers.google.com/web/tools/workbox/guides/handle-third-party-requests}.
+ * Opaque responses are are cross-origin requests where the response doesn't
+ * support [CORS]{@link https://enable-cors.org/}.
+ *
+ * If the network request fails, and there is no cache match, this will throw
+ * a `WorkboxError` exception.
+ *
+ * @extends module:workbox-strategies.Strategy
+ * @memberof module:workbox-strategies
+ */
+class NetworkFirst extends _Strategy_js__WEBPACK_IMPORTED_MODULE_4__.Strategy {
+    /**
+     * @param {Object} [options]
+     * @param {string} [options.cacheName] Cache name to store and retrieve
+     * requests. Defaults to cache names provided by
+     * [workbox-core]{@link module:workbox-core.cacheNames}.
+     * @param {Array<Object>} [options.plugins] [Plugins]{@link https://developers.google.com/web/tools/workbox/guides/using-plugins}
+     * to use in conjunction with this caching strategy.
+     * @param {Object} [options.fetchOptions] Values passed along to the
+     * [`init`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters)
+     * of [non-navigation](https://github.com/GoogleChrome/workbox/issues/1796)
+     * `fetch()` requests made by this strategy.
+     * @param {Object} [options.matchOptions] [`CacheQueryOptions`](https://w3c.github.io/ServiceWorker/#dictdef-cachequeryoptions)
+     * @param {number} [options.networkTimeoutSeconds] If set, any network requests
+     * that fail to respond within the timeout will fallback to the cache.
+     *
+     * This option can be used to combat
+     * "[lie-fi]{@link https://developers.google.com/web/fundamentals/performance/poor-connectivity/#lie-fi}"
+     * scenarios.
+     */
+    constructor(options = {}) {
+        super(options);
+        // If this instance contains no plugins with a 'cacheWillUpdate' callback,
+        // prepend the `cacheOkAndOpaquePlugin` plugin to the plugins list.
+        if (!this.plugins.some((p) => 'cacheWillUpdate' in p)) {
+            this.plugins.unshift(_plugins_cacheOkAndOpaquePlugin_js__WEBPACK_IMPORTED_MODULE_3__.cacheOkAndOpaquePlugin);
+        }
+        this._networkTimeoutSeconds = options.networkTimeoutSeconds || 0;
+        if (true) {
+            if (this._networkTimeoutSeconds) {
+                workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isType(this._networkTimeoutSeconds, 'number', {
+                    moduleName: 'workbox-strategies',
+                    className: this.constructor.name,
+                    funcName: 'constructor',
+                    paramName: 'networkTimeoutSeconds',
+                });
+            }
+        }
+    }
+    /**
+     * @private
+     * @param {Request|string} request A request to run this strategy for.
+     * @param {module:workbox-strategies.StrategyHandler} handler The event that
+     *     triggered the request.
+     * @return {Promise<Response>}
+     */
+    async _handle(request, handler) {
+        const logs = [];
+        if (true) {
+            workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isInstance(request, Request, {
+                moduleName: 'workbox-strategies',
+                className: this.constructor.name,
+                funcName: 'handle',
+                paramName: 'makeRequest',
+            });
+        }
+        const promises = [];
+        let timeoutId;
+        if (this._networkTimeoutSeconds) {
+            const { id, promise } = this._getTimeoutPromise({ request, logs, handler });
+            timeoutId = id;
+            promises.push(promise);
+        }
+        const networkPromise = this._getNetworkPromise({ timeoutId, request, logs, handler });
+        promises.push(networkPromise);
+        const response = await handler.waitUntil((async () => {
+            // Promise.race() will resolve as soon as the first promise resolves.
+            return await handler.waitUntil(Promise.race(promises)) ||
+                // If Promise.race() resolved with null, it might be due to a network
+                // timeout + a cache miss. If that were to happen, we'd rather wait until
+                // the networkPromise resolves instead of returning null.
+                // Note that it's fine to await an already-resolved promise, so we don't
+                // have to check to see if it's still "in flight".
+                await networkPromise;
+        })());
+        if (true) {
+            workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__.logger.groupCollapsed(_utils_messages_js__WEBPACK_IMPORTED_MODULE_5__.messages.strategyStart(this.constructor.name, request));
+            for (const log of logs) {
+                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__.logger.log(log);
+            }
+            _utils_messages_js__WEBPACK_IMPORTED_MODULE_5__.messages.printFinalResponse(response);
+            workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__.logger.groupEnd();
+        }
+        if (!response) {
+            throw new workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_2__.WorkboxError('no-response', { url: request.url });
+        }
+        return response;
+    }
+    /**
+     * @param {Object} options
+     * @param {Request} options.request
+     * @param {Array} options.logs A reference to the logs array
+     * @param {Event} options.event
+     * @return {Promise<Response>}
+     *
+     * @private
+     */
+    _getTimeoutPromise({ request, logs, handler }) {
+        let timeoutId;
+        const timeoutPromise = new Promise((resolve) => {
+            const onNetworkTimeout = async () => {
+                if (true) {
+                    logs.push(`Timing out the network response at ` +
+                        `${this._networkTimeoutSeconds} seconds.`);
+                }
+                resolve(await handler.cacheMatch(request));
+            };
+            timeoutId = setTimeout(onNetworkTimeout, this._networkTimeoutSeconds * 1000);
+        });
+        return {
+            promise: timeoutPromise,
+            id: timeoutId,
+        };
+    }
+    /**
+     * @param {Object} options
+     * @param {number|undefined} options.timeoutId
+     * @param {Request} options.request
+     * @param {Array} options.logs A reference to the logs Array.
+     * @param {Event} options.event
+     * @return {Promise<Response>}
+     *
+     * @private
+     */
+    async _getNetworkPromise({ timeoutId, request, logs, handler }) {
+        let error;
+        let response;
+        try {
+            response = await handler.fetchAndCachePut(request);
+        }
+        catch (fetchError) {
+            if (fetchError instanceof Error) {
+                error = fetchError;
+            }
+        }
+        if (timeoutId) {
+            clearTimeout(timeoutId);
+        }
+        if (true) {
+            if (response) {
+                logs.push(`Got response from network.`);
+            }
+            else {
+                logs.push(`Unable to get a response from the network. Will respond ` +
+                    `with a cached response.`);
+            }
+        }
+        if (error || !response) {
+            response = await handler.cacheMatch(request);
+            if (true) {
+                if (response) {
+                    logs.push(`Found a cached response in the '${this.cacheName}'` +
+                        ` cache.`);
+                }
+                else {
+                    logs.push(`No response found in the '${this.cacheName}' cache.`);
+                }
+            }
+        }
+        return response;
+    }
+}
+
+
 
 /***/ }),
 
@@ -426,7 +3726,115 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \********************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"NetworkOnly\": () => (/* binding */ NetworkOnly)\n/* harmony export */ });\n/* harmony import */ var workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! workbox-core/_private/assert.js */ \"./node_modules/workbox-core/_private/assert.js\");\n/* harmony import */ var workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! workbox-core/_private/logger.js */ \"./node_modules/workbox-core/_private/logger.js\");\n/* harmony import */ var workbox_core_private_timeout_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! workbox-core/_private/timeout.js */ \"./node_modules/workbox-core/_private/timeout.js\");\n/* harmony import */ var workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! workbox-core/_private/WorkboxError.js */ \"./node_modules/workbox-core/_private/WorkboxError.js\");\n/* harmony import */ var _Strategy_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Strategy.js */ \"./node_modules/workbox-strategies/Strategy.js\");\n/* harmony import */ var _utils_messages_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./utils/messages.js */ \"./node_modules/workbox-strategies/utils/messages.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./_version.js */ \"./node_modules/workbox-strategies/_version.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_6__);\n/*\n  Copyright 2018 Google LLC\n\n  Use of this source code is governed by an MIT-style\n  license that can be found in the LICENSE file or at\n  https://opensource.org/licenses/MIT.\n*/\n\n\n\n\n\n\n\n/**\n * An implementation of a\n * [network-only]{@link https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/#network-only}\n * request strategy.\n *\n * This class is useful if you want to take advantage of any\n * [Workbox plugins]{@link https://developers.google.com/web/tools/workbox/guides/using-plugins}.\n *\n * If the network request fails, this will throw a `WorkboxError` exception.\n *\n * @extends module:workbox-strategies.Strategy\n * @memberof module:workbox-strategies\n */\nclass NetworkOnly extends _Strategy_js__WEBPACK_IMPORTED_MODULE_4__.Strategy {\n    /**\n     * @param {Object} [options]\n     * @param {Array<Object>} [options.plugins] [Plugins]{@link https://developers.google.com/web/tools/workbox/guides/using-plugins}\n     * to use in conjunction with this caching strategy.\n     * @param {Object} [options.fetchOptions] Values passed along to the\n     * [`init`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters)\n     * of [non-navigation](https://github.com/GoogleChrome/workbox/issues/1796)\n     * `fetch()` requests made by this strategy.\n     * @param {number} [options.networkTimeoutSeconds] If set, any network requests\n     * that fail to respond within the timeout will result in a network error.\n     */\n    constructor(options = {}) {\n        super(options);\n        this._networkTimeoutSeconds = options.networkTimeoutSeconds || 0;\n    }\n    /**\n     * @private\n     * @param {Request|string} request A request to run this strategy for.\n     * @param {module:workbox-strategies.StrategyHandler} handler The event that\n     *     triggered the request.\n     * @return {Promise<Response>}\n     */\n    async _handle(request, handler) {\n        if (true) {\n            workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isInstance(request, Request, {\n                moduleName: 'workbox-strategies',\n                className: this.constructor.name,\n                funcName: '_handle',\n                paramName: 'request',\n            });\n        }\n        let error = undefined;\n        let response;\n        try {\n            const promises = [handler.fetch(request)];\n            if (this._networkTimeoutSeconds) {\n                const timeoutPromise = (0,workbox_core_private_timeout_js__WEBPACK_IMPORTED_MODULE_2__.timeout)(this._networkTimeoutSeconds * 1000);\n                promises.push(timeoutPromise);\n            }\n            response = await Promise.race(promises);\n            if (!response) {\n                throw new Error(`Timed out the network response after ` +\n                    `${this._networkTimeoutSeconds} seconds.`);\n            }\n        }\n        catch (err) {\n            if (err instanceof Error) {\n                error = err;\n            }\n        }\n        if (true) {\n            workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__.logger.groupCollapsed(_utils_messages_js__WEBPACK_IMPORTED_MODULE_5__.messages.strategyStart(this.constructor.name, request));\n            if (response) {\n                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__.logger.log(`Got response from network.`);\n            }\n            else {\n                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__.logger.log(`Unable to get a response from the network.`);\n            }\n            _utils_messages_js__WEBPACK_IMPORTED_MODULE_5__.messages.printFinalResponse(response);\n            workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__.logger.groupEnd();\n        }\n        if (!response) {\n            throw new workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_3__.WorkboxError('no-response', { url: request.url, error });\n        }\n        return response;\n    }\n}\n\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-strategies/NetworkOnly.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "NetworkOnly": () => (/* binding */ NetworkOnly)
+/* harmony export */ });
+/* harmony import */ var workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! workbox-core/_private/assert.js */ "./node_modules/workbox-core/_private/assert.js");
+/* harmony import */ var workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! workbox-core/_private/logger.js */ "./node_modules/workbox-core/_private/logger.js");
+/* harmony import */ var workbox_core_private_timeout_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! workbox-core/_private/timeout.js */ "./node_modules/workbox-core/_private/timeout.js");
+/* harmony import */ var workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! workbox-core/_private/WorkboxError.js */ "./node_modules/workbox-core/_private/WorkboxError.js");
+/* harmony import */ var _Strategy_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Strategy.js */ "./node_modules/workbox-strategies/Strategy.js");
+/* harmony import */ var _utils_messages_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./utils/messages.js */ "./node_modules/workbox-strategies/utils/messages.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./_version.js */ "./node_modules/workbox-strategies/_version.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_6__);
+/*
+  Copyright 2018 Google LLC
+
+  Use of this source code is governed by an MIT-style
+  license that can be found in the LICENSE file or at
+  https://opensource.org/licenses/MIT.
+*/
+
+
+
+
+
+
+
+/**
+ * An implementation of a
+ * [network-only]{@link https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/#network-only}
+ * request strategy.
+ *
+ * This class is useful if you want to take advantage of any
+ * [Workbox plugins]{@link https://developers.google.com/web/tools/workbox/guides/using-plugins}.
+ *
+ * If the network request fails, this will throw a `WorkboxError` exception.
+ *
+ * @extends module:workbox-strategies.Strategy
+ * @memberof module:workbox-strategies
+ */
+class NetworkOnly extends _Strategy_js__WEBPACK_IMPORTED_MODULE_4__.Strategy {
+    /**
+     * @param {Object} [options]
+     * @param {Array<Object>} [options.plugins] [Plugins]{@link https://developers.google.com/web/tools/workbox/guides/using-plugins}
+     * to use in conjunction with this caching strategy.
+     * @param {Object} [options.fetchOptions] Values passed along to the
+     * [`init`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters)
+     * of [non-navigation](https://github.com/GoogleChrome/workbox/issues/1796)
+     * `fetch()` requests made by this strategy.
+     * @param {number} [options.networkTimeoutSeconds] If set, any network requests
+     * that fail to respond within the timeout will result in a network error.
+     */
+    constructor(options = {}) {
+        super(options);
+        this._networkTimeoutSeconds = options.networkTimeoutSeconds || 0;
+    }
+    /**
+     * @private
+     * @param {Request|string} request A request to run this strategy for.
+     * @param {module:workbox-strategies.StrategyHandler} handler The event that
+     *     triggered the request.
+     * @return {Promise<Response>}
+     */
+    async _handle(request, handler) {
+        if (true) {
+            workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isInstance(request, Request, {
+                moduleName: 'workbox-strategies',
+                className: this.constructor.name,
+                funcName: '_handle',
+                paramName: 'request',
+            });
+        }
+        let error = undefined;
+        let response;
+        try {
+            const promises = [handler.fetch(request)];
+            if (this._networkTimeoutSeconds) {
+                const timeoutPromise = (0,workbox_core_private_timeout_js__WEBPACK_IMPORTED_MODULE_2__.timeout)(this._networkTimeoutSeconds * 1000);
+                promises.push(timeoutPromise);
+            }
+            response = await Promise.race(promises);
+            if (!response) {
+                throw new Error(`Timed out the network response after ` +
+                    `${this._networkTimeoutSeconds} seconds.`);
+            }
+        }
+        catch (err) {
+            if (err instanceof Error) {
+                error = err;
+            }
+        }
+        if (true) {
+            workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__.logger.groupCollapsed(_utils_messages_js__WEBPACK_IMPORTED_MODULE_5__.messages.strategyStart(this.constructor.name, request));
+            if (response) {
+                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__.logger.log(`Got response from network.`);
+            }
+            else {
+                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__.logger.log(`Unable to get a response from the network.`);
+            }
+            _utils_messages_js__WEBPACK_IMPORTED_MODULE_5__.messages.printFinalResponse(response);
+            workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__.logger.groupEnd();
+        }
+        if (!response) {
+            throw new workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_3__.WorkboxError('no-response', { url: request.url, error });
+        }
+        return response;
+    }
+}
+
+
 
 /***/ }),
 
@@ -436,7 +3844,138 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \*****************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"StaleWhileRevalidate\": () => (/* binding */ StaleWhileRevalidate)\n/* harmony export */ });\n/* harmony import */ var workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! workbox-core/_private/assert.js */ \"./node_modules/workbox-core/_private/assert.js\");\n/* harmony import */ var workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! workbox-core/_private/logger.js */ \"./node_modules/workbox-core/_private/logger.js\");\n/* harmony import */ var workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! workbox-core/_private/WorkboxError.js */ \"./node_modules/workbox-core/_private/WorkboxError.js\");\n/* harmony import */ var _plugins_cacheOkAndOpaquePlugin_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./plugins/cacheOkAndOpaquePlugin.js */ \"./node_modules/workbox-strategies/plugins/cacheOkAndOpaquePlugin.js\");\n/* harmony import */ var _Strategy_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Strategy.js */ \"./node_modules/workbox-strategies/Strategy.js\");\n/* harmony import */ var _utils_messages_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./utils/messages.js */ \"./node_modules/workbox-strategies/utils/messages.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./_version.js */ \"./node_modules/workbox-strategies/_version.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_6__);\n/*\n  Copyright 2018 Google LLC\n\n  Use of this source code is governed by an MIT-style\n  license that can be found in the LICENSE file or at\n  https://opensource.org/licenses/MIT.\n*/\n\n\n\n\n\n\n\n/**\n * An implementation of a\n * [stale-while-revalidate]{@link https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/#stale-while-revalidate}\n * request strategy.\n *\n * Resources are requested from both the cache and the network in parallel.\n * The strategy will respond with the cached version if available, otherwise\n * wait for the network response. The cache is updated with the network response\n * with each successful request.\n *\n * By default, this strategy will cache responses with a 200 status code as\n * well as [opaque responses]{@link https://developers.google.com/web/tools/workbox/guides/handle-third-party-requests}.\n * Opaque responses are cross-origin requests where the response doesn't\n * support [CORS]{@link https://enable-cors.org/}.\n *\n * If the network request fails, and there is no cache match, this will throw\n * a `WorkboxError` exception.\n *\n * @extends module:workbox-strategies.Strategy\n * @memberof module:workbox-strategies\n */\nclass StaleWhileRevalidate extends _Strategy_js__WEBPACK_IMPORTED_MODULE_4__.Strategy {\n    /**\n     * @param {Object} [options]\n     * @param {string} [options.cacheName] Cache name to store and retrieve\n     * requests. Defaults to cache names provided by\n     * [workbox-core]{@link module:workbox-core.cacheNames}.\n     * @param {Array<Object>} [options.plugins] [Plugins]{@link https://developers.google.com/web/tools/workbox/guides/using-plugins}\n     * to use in conjunction with this caching strategy.\n     * @param {Object} [options.fetchOptions] Values passed along to the\n     * [`init`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters)\n     * of [non-navigation](https://github.com/GoogleChrome/workbox/issues/1796)\n     * `fetch()` requests made by this strategy.\n     * @param {Object} [options.matchOptions] [`CacheQueryOptions`](https://w3c.github.io/ServiceWorker/#dictdef-cachequeryoptions)\n     */\n    constructor(options = {}) {\n        super(options);\n        // If this instance contains no plugins with a 'cacheWillUpdate' callback,\n        // prepend the `cacheOkAndOpaquePlugin` plugin to the plugins list.\n        if (!this.plugins.some((p) => 'cacheWillUpdate' in p)) {\n            this.plugins.unshift(_plugins_cacheOkAndOpaquePlugin_js__WEBPACK_IMPORTED_MODULE_3__.cacheOkAndOpaquePlugin);\n        }\n    }\n    /**\n     * @private\n     * @param {Request|string} request A request to run this strategy for.\n     * @param {module:workbox-strategies.StrategyHandler} handler The event that\n     *     triggered the request.\n     * @return {Promise<Response>}\n     */\n    async _handle(request, handler) {\n        const logs = [];\n        if (true) {\n            workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isInstance(request, Request, {\n                moduleName: 'workbox-strategies',\n                className: this.constructor.name,\n                funcName: 'handle',\n                paramName: 'request',\n            });\n        }\n        const fetchAndCachePromise = handler\n            .fetchAndCachePut(request)\n            .catch(() => {\n            // Swallow this error because a 'no-response' error will be thrown in\n            // main handler return flow. This will be in the `waitUntil()` flow.\n        });\n        let response = await handler.cacheMatch(request);\n        let error;\n        if (response) {\n            if (true) {\n                logs.push(`Found a cached response in the '${this.cacheName}'` +\n                    ` cache. Will update with the network response in the background.`);\n            }\n        }\n        else {\n            if (true) {\n                logs.push(`No response found in the '${this.cacheName}' cache. ` +\n                    `Will wait for the network response.`);\n            }\n            try {\n                // NOTE(philipwalton): Really annoying that we have to type cast here.\n                // https://github.com/microsoft/TypeScript/issues/20006\n                response = await fetchAndCachePromise;\n            }\n            catch (err) {\n                if (err instanceof Error) {\n                    error = err;\n                }\n            }\n        }\n        if (true) {\n            workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__.logger.groupCollapsed(_utils_messages_js__WEBPACK_IMPORTED_MODULE_5__.messages.strategyStart(this.constructor.name, request));\n            for (const log of logs) {\n                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__.logger.log(log);\n            }\n            _utils_messages_js__WEBPACK_IMPORTED_MODULE_5__.messages.printFinalResponse(response);\n            workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__.logger.groupEnd();\n        }\n        if (!response) {\n            throw new workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_2__.WorkboxError('no-response', { url: request.url, error });\n        }\n        return response;\n    }\n}\n\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-strategies/StaleWhileRevalidate.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "StaleWhileRevalidate": () => (/* binding */ StaleWhileRevalidate)
+/* harmony export */ });
+/* harmony import */ var workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! workbox-core/_private/assert.js */ "./node_modules/workbox-core/_private/assert.js");
+/* harmony import */ var workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! workbox-core/_private/logger.js */ "./node_modules/workbox-core/_private/logger.js");
+/* harmony import */ var workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! workbox-core/_private/WorkboxError.js */ "./node_modules/workbox-core/_private/WorkboxError.js");
+/* harmony import */ var _plugins_cacheOkAndOpaquePlugin_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./plugins/cacheOkAndOpaquePlugin.js */ "./node_modules/workbox-strategies/plugins/cacheOkAndOpaquePlugin.js");
+/* harmony import */ var _Strategy_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Strategy.js */ "./node_modules/workbox-strategies/Strategy.js");
+/* harmony import */ var _utils_messages_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./utils/messages.js */ "./node_modules/workbox-strategies/utils/messages.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./_version.js */ "./node_modules/workbox-strategies/_version.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_6__);
+/*
+  Copyright 2018 Google LLC
+
+  Use of this source code is governed by an MIT-style
+  license that can be found in the LICENSE file or at
+  https://opensource.org/licenses/MIT.
+*/
+
+
+
+
+
+
+
+/**
+ * An implementation of a
+ * [stale-while-revalidate]{@link https://developers.google.com/web/fundamentals/instant-and-offline/offline-cookbook/#stale-while-revalidate}
+ * request strategy.
+ *
+ * Resources are requested from both the cache and the network in parallel.
+ * The strategy will respond with the cached version if available, otherwise
+ * wait for the network response. The cache is updated with the network response
+ * with each successful request.
+ *
+ * By default, this strategy will cache responses with a 200 status code as
+ * well as [opaque responses]{@link https://developers.google.com/web/tools/workbox/guides/handle-third-party-requests}.
+ * Opaque responses are cross-origin requests where the response doesn't
+ * support [CORS]{@link https://enable-cors.org/}.
+ *
+ * If the network request fails, and there is no cache match, this will throw
+ * a `WorkboxError` exception.
+ *
+ * @extends module:workbox-strategies.Strategy
+ * @memberof module:workbox-strategies
+ */
+class StaleWhileRevalidate extends _Strategy_js__WEBPACK_IMPORTED_MODULE_4__.Strategy {
+    /**
+     * @param {Object} [options]
+     * @param {string} [options.cacheName] Cache name to store and retrieve
+     * requests. Defaults to cache names provided by
+     * [workbox-core]{@link module:workbox-core.cacheNames}.
+     * @param {Array<Object>} [options.plugins] [Plugins]{@link https://developers.google.com/web/tools/workbox/guides/using-plugins}
+     * to use in conjunction with this caching strategy.
+     * @param {Object} [options.fetchOptions] Values passed along to the
+     * [`init`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters)
+     * of [non-navigation](https://github.com/GoogleChrome/workbox/issues/1796)
+     * `fetch()` requests made by this strategy.
+     * @param {Object} [options.matchOptions] [`CacheQueryOptions`](https://w3c.github.io/ServiceWorker/#dictdef-cachequeryoptions)
+     */
+    constructor(options = {}) {
+        super(options);
+        // If this instance contains no plugins with a 'cacheWillUpdate' callback,
+        // prepend the `cacheOkAndOpaquePlugin` plugin to the plugins list.
+        if (!this.plugins.some((p) => 'cacheWillUpdate' in p)) {
+            this.plugins.unshift(_plugins_cacheOkAndOpaquePlugin_js__WEBPACK_IMPORTED_MODULE_3__.cacheOkAndOpaquePlugin);
+        }
+    }
+    /**
+     * @private
+     * @param {Request|string} request A request to run this strategy for.
+     * @param {module:workbox-strategies.StrategyHandler} handler The event that
+     *     triggered the request.
+     * @return {Promise<Response>}
+     */
+    async _handle(request, handler) {
+        const logs = [];
+        if (true) {
+            workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isInstance(request, Request, {
+                moduleName: 'workbox-strategies',
+                className: this.constructor.name,
+                funcName: 'handle',
+                paramName: 'request',
+            });
+        }
+        const fetchAndCachePromise = handler
+            .fetchAndCachePut(request)
+            .catch(() => {
+            // Swallow this error because a 'no-response' error will be thrown in
+            // main handler return flow. This will be in the `waitUntil()` flow.
+        });
+        let response = await handler.cacheMatch(request);
+        let error;
+        if (response) {
+            if (true) {
+                logs.push(`Found a cached response in the '${this.cacheName}'` +
+                    ` cache. Will update with the network response in the background.`);
+            }
+        }
+        else {
+            if (true) {
+                logs.push(`No response found in the '${this.cacheName}' cache. ` +
+                    `Will wait for the network response.`);
+            }
+            try {
+                // NOTE(philipwalton): Really annoying that we have to type cast here.
+                // https://github.com/microsoft/TypeScript/issues/20006
+                response = await fetchAndCachePromise;
+            }
+            catch (err) {
+                if (err instanceof Error) {
+                    error = err;
+                }
+            }
+        }
+        if (true) {
+            workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__.logger.groupCollapsed(_utils_messages_js__WEBPACK_IMPORTED_MODULE_5__.messages.strategyStart(this.constructor.name, request));
+            for (const log of logs) {
+                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__.logger.log(log);
+            }
+            _utils_messages_js__WEBPACK_IMPORTED_MODULE_5__.messages.printFinalResponse(response);
+            workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_1__.logger.groupEnd();
+        }
+        if (!response) {
+            throw new workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_2__.WorkboxError('no-response', { url: request.url, error });
+        }
+        return response;
+    }
+}
+
+
 
 /***/ }),
 
@@ -446,7 +3985,246 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \*****************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"Strategy\": () => (/* binding */ Strategy)\n/* harmony export */ });\n/* harmony import */ var workbox_core_private_cacheNames_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! workbox-core/_private/cacheNames.js */ \"./node_modules/workbox-core/_private/cacheNames.js\");\n/* harmony import */ var workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! workbox-core/_private/WorkboxError.js */ \"./node_modules/workbox-core/_private/WorkboxError.js\");\n/* harmony import */ var workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! workbox-core/_private/logger.js */ \"./node_modules/workbox-core/_private/logger.js\");\n/* harmony import */ var workbox_core_private_getFriendlyURL_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! workbox-core/_private/getFriendlyURL.js */ \"./node_modules/workbox-core/_private/getFriendlyURL.js\");\n/* harmony import */ var _StrategyHandler_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./StrategyHandler.js */ \"./node_modules/workbox-strategies/StrategyHandler.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./_version.js */ \"./node_modules/workbox-strategies/_version.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_5__);\n/*\n  Copyright 2020 Google LLC\n\n  Use of this source code is governed by an MIT-style\n  license that can be found in the LICENSE file or at\n  https://opensource.org/licenses/MIT.\n*/\n\n\n\n\n\n\n/**\n * An abstract base class that all other strategy classes must extend from:\n *\n * @memberof module:workbox-strategies\n */\nclass Strategy {\n    /**\n     * Creates a new instance of the strategy and sets all documented option\n     * properties as public instance properties.\n     *\n     * Note: if a custom strategy class extends the base Strategy class and does\n     * not need more than these properties, it does not need to define its own\n     * constructor.\n     *\n     * @param {Object} [options]\n     * @param {string} [options.cacheName] Cache name to store and retrieve\n     * requests. Defaults to the cache names provided by\n     * [workbox-core]{@link module:workbox-core.cacheNames}.\n     * @param {Array<Object>} [options.plugins] [Plugins]{@link https://developers.google.com/web/tools/workbox/guides/using-plugins}\n     * to use in conjunction with this caching strategy.\n     * @param {Object} [options.fetchOptions] Values passed along to the\n     * [`init`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters)\n     * of [non-navigation](https://github.com/GoogleChrome/workbox/issues/1796)\n     * `fetch()` requests made by this strategy.\n     * @param {Object} [options.matchOptions] The\n     * [`CacheQueryOptions`]{@link https://w3c.github.io/ServiceWorker/#dictdef-cachequeryoptions}\n     * for any `cache.match()` or `cache.put()` calls made by this strategy.\n     */\n    constructor(options = {}) {\n        /**\n         * Cache name to store and retrieve\n         * requests. Defaults to the cache names provided by\n         * [workbox-core]{@link module:workbox-core.cacheNames}.\n         *\n         * @type {string}\n         */\n        this.cacheName = workbox_core_private_cacheNames_js__WEBPACK_IMPORTED_MODULE_0__.cacheNames.getRuntimeName(options.cacheName);\n        /**\n         * The list\n         * [Plugins]{@link https://developers.google.com/web/tools/workbox/guides/using-plugins}\n         * used by this strategy.\n         *\n         * @type {Array<Object>}\n         */\n        this.plugins = options.plugins || [];\n        /**\n         * Values passed along to the\n         * [`init`]{@link https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters}\n         * of all fetch() requests made by this strategy.\n         *\n         * @type {Object}\n         */\n        this.fetchOptions = options.fetchOptions;\n        /**\n         * The\n         * [`CacheQueryOptions`]{@link https://w3c.github.io/ServiceWorker/#dictdef-cachequeryoptions}\n         * for any `cache.match()` or `cache.put()` calls made by this strategy.\n         *\n         * @type {Object}\n         */\n        this.matchOptions = options.matchOptions;\n    }\n    /**\n     * Perform a request strategy and returns a `Promise` that will resolve with\n     * a `Response`, invoking all relevant plugin callbacks.\n     *\n     * When a strategy instance is registered with a Workbox\n     * [route]{@link module:workbox-routing.Route}, this method is automatically\n     * called when the route matches.\n     *\n     * Alternatively, this method can be used in a standalone `FetchEvent`\n     * listener by passing it to `event.respondWith()`.\n     *\n     * @param {FetchEvent|Object} options A `FetchEvent` or an object with the\n     *     properties listed below.\n     * @param {Request|string} options.request A request to run this strategy for.\n     * @param {ExtendableEvent} options.event The event associated with the\n     *     request.\n     * @param {URL} [options.url]\n     * @param {*} [options.params]\n     */\n    handle(options) {\n        const [responseDone] = this.handleAll(options);\n        return responseDone;\n    }\n    /**\n     * Similar to [`handle()`]{@link module:workbox-strategies.Strategy~handle}, but\n     * instead of just returning a `Promise` that resolves to a `Response` it\n     * it will return an tuple of [response, done] promises, where the former\n     * (`response`) is equivalent to what `handle()` returns, and the latter is a\n     * Promise that will resolve once any promises that were added to\n     * `event.waitUntil()` as part of performing the strategy have completed.\n     *\n     * You can await the `done` promise to ensure any extra work performed by\n     * the strategy (usually caching responses) completes successfully.\n     *\n     * @param {FetchEvent|Object} options A `FetchEvent` or an object with the\n     *     properties listed below.\n     * @param {Request|string} options.request A request to run this strategy for.\n     * @param {ExtendableEvent} options.event The event associated with the\n     *     request.\n     * @param {URL} [options.url]\n     * @param {*} [options.params]\n     * @return {Array<Promise>} A tuple of [response, done]\n     *     promises that can be used to determine when the response resolves as\n     *     well as when the handler has completed all its work.\n     */\n    handleAll(options) {\n        // Allow for flexible options to be passed.\n        if (options instanceof FetchEvent) {\n            options = {\n                event: options,\n                request: options.request,\n            };\n        }\n        const event = options.event;\n        const request = typeof options.request === 'string' ?\n            new Request(options.request) :\n            options.request;\n        const params = 'params' in options ? options.params : undefined;\n        const handler = new _StrategyHandler_js__WEBPACK_IMPORTED_MODULE_4__.StrategyHandler(this, { event, request, params });\n        const responseDone = this._getResponse(handler, request, event);\n        const handlerDone = this._awaitComplete(responseDone, handler, request, event);\n        // Return an array of promises, suitable for use with Promise.all().\n        return [responseDone, handlerDone];\n    }\n    async _getResponse(handler, request, event) {\n        await handler.runCallbacks('handlerWillStart', { event, request });\n        let response = undefined;\n        try {\n            response = await this._handle(request, handler);\n            // The \"official\" Strategy subclasses all throw this error automatically,\n            // but in case a third-party Strategy doesn't, ensure that we have a\n            // consistent failure when there's no response or an error response.\n            if (!response || response.type === 'error') {\n                throw new workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_1__.WorkboxError('no-response', { url: request.url });\n            }\n        }\n        catch (error) {\n            if (error instanceof Error) {\n                for (const callback of handler.iterateCallbacks('handlerDidError')) {\n                    response = await callback({ error, event, request });\n                    if (response) {\n                        break;\n                    }\n                }\n            }\n            if (!response) {\n                throw error;\n            }\n            else if (true) {\n                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_2__.logger.log(`While responding to '${(0,workbox_core_private_getFriendlyURL_js__WEBPACK_IMPORTED_MODULE_3__.getFriendlyURL)(request.url)}', ` +\n                    `an ${error instanceof Error ? error.toString() : ''} error occurred. Using a fallback response provided by ` +\n                    `a handlerDidError plugin.`);\n            }\n        }\n        for (const callback of handler.iterateCallbacks('handlerWillRespond')) {\n            response = await callback({ event, request, response });\n        }\n        return response;\n    }\n    async _awaitComplete(responseDone, handler, request, event) {\n        let response;\n        let error;\n        try {\n            response = await responseDone;\n        }\n        catch (error) {\n            // Ignore errors, as response errors should be caught via the `response`\n            // promise above. The `done` promise will only throw for errors in\n            // promises passed to `handler.waitUntil()`.\n        }\n        try {\n            await handler.runCallbacks('handlerDidRespond', {\n                event,\n                request,\n                response,\n            });\n            await handler.doneWaiting();\n        }\n        catch (waitUntilError) {\n            if (waitUntilError instanceof Error) {\n                error = waitUntilError;\n            }\n        }\n        await handler.runCallbacks('handlerDidComplete', {\n            event,\n            request,\n            response,\n            error: error,\n        });\n        handler.destroy();\n        if (error) {\n            throw error;\n        }\n    }\n}\n\n/**\n * Classes extending the `Strategy` based class should implement this method,\n * and leverage the [`handler`]{@link module:workbox-strategies.StrategyHandler}\n * arg to perform all fetching and cache logic, which will ensure all relevant\n * cache, cache options, fetch options and plugins are used (per the current\n * strategy instance).\n *\n * @name _handle\n * @instance\n * @abstract\n * @function\n * @param {Request} request\n * @param {module:workbox-strategies.StrategyHandler} handler\n * @return {Promise<Response>}\n *\n * @memberof module:workbox-strategies.Strategy\n */\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-strategies/Strategy.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Strategy": () => (/* binding */ Strategy)
+/* harmony export */ });
+/* harmony import */ var workbox_core_private_cacheNames_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! workbox-core/_private/cacheNames.js */ "./node_modules/workbox-core/_private/cacheNames.js");
+/* harmony import */ var workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! workbox-core/_private/WorkboxError.js */ "./node_modules/workbox-core/_private/WorkboxError.js");
+/* harmony import */ var workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! workbox-core/_private/logger.js */ "./node_modules/workbox-core/_private/logger.js");
+/* harmony import */ var workbox_core_private_getFriendlyURL_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! workbox-core/_private/getFriendlyURL.js */ "./node_modules/workbox-core/_private/getFriendlyURL.js");
+/* harmony import */ var _StrategyHandler_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./StrategyHandler.js */ "./node_modules/workbox-strategies/StrategyHandler.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./_version.js */ "./node_modules/workbox-strategies/_version.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_5__);
+/*
+  Copyright 2020 Google LLC
+
+  Use of this source code is governed by an MIT-style
+  license that can be found in the LICENSE file or at
+  https://opensource.org/licenses/MIT.
+*/
+
+
+
+
+
+
+/**
+ * An abstract base class that all other strategy classes must extend from:
+ *
+ * @memberof module:workbox-strategies
+ */
+class Strategy {
+    /**
+     * Creates a new instance of the strategy and sets all documented option
+     * properties as public instance properties.
+     *
+     * Note: if a custom strategy class extends the base Strategy class and does
+     * not need more than these properties, it does not need to define its own
+     * constructor.
+     *
+     * @param {Object} [options]
+     * @param {string} [options.cacheName] Cache name to store and retrieve
+     * requests. Defaults to the cache names provided by
+     * [workbox-core]{@link module:workbox-core.cacheNames}.
+     * @param {Array<Object>} [options.plugins] [Plugins]{@link https://developers.google.com/web/tools/workbox/guides/using-plugins}
+     * to use in conjunction with this caching strategy.
+     * @param {Object} [options.fetchOptions] Values passed along to the
+     * [`init`](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters)
+     * of [non-navigation](https://github.com/GoogleChrome/workbox/issues/1796)
+     * `fetch()` requests made by this strategy.
+     * @param {Object} [options.matchOptions] The
+     * [`CacheQueryOptions`]{@link https://w3c.github.io/ServiceWorker/#dictdef-cachequeryoptions}
+     * for any `cache.match()` or `cache.put()` calls made by this strategy.
+     */
+    constructor(options = {}) {
+        /**
+         * Cache name to store and retrieve
+         * requests. Defaults to the cache names provided by
+         * [workbox-core]{@link module:workbox-core.cacheNames}.
+         *
+         * @type {string}
+         */
+        this.cacheName = workbox_core_private_cacheNames_js__WEBPACK_IMPORTED_MODULE_0__.cacheNames.getRuntimeName(options.cacheName);
+        /**
+         * The list
+         * [Plugins]{@link https://developers.google.com/web/tools/workbox/guides/using-plugins}
+         * used by this strategy.
+         *
+         * @type {Array<Object>}
+         */
+        this.plugins = options.plugins || [];
+        /**
+         * Values passed along to the
+         * [`init`]{@link https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters}
+         * of all fetch() requests made by this strategy.
+         *
+         * @type {Object}
+         */
+        this.fetchOptions = options.fetchOptions;
+        /**
+         * The
+         * [`CacheQueryOptions`]{@link https://w3c.github.io/ServiceWorker/#dictdef-cachequeryoptions}
+         * for any `cache.match()` or `cache.put()` calls made by this strategy.
+         *
+         * @type {Object}
+         */
+        this.matchOptions = options.matchOptions;
+    }
+    /**
+     * Perform a request strategy and returns a `Promise` that will resolve with
+     * a `Response`, invoking all relevant plugin callbacks.
+     *
+     * When a strategy instance is registered with a Workbox
+     * [route]{@link module:workbox-routing.Route}, this method is automatically
+     * called when the route matches.
+     *
+     * Alternatively, this method can be used in a standalone `FetchEvent`
+     * listener by passing it to `event.respondWith()`.
+     *
+     * @param {FetchEvent|Object} options A `FetchEvent` or an object with the
+     *     properties listed below.
+     * @param {Request|string} options.request A request to run this strategy for.
+     * @param {ExtendableEvent} options.event The event associated with the
+     *     request.
+     * @param {URL} [options.url]
+     * @param {*} [options.params]
+     */
+    handle(options) {
+        const [responseDone] = this.handleAll(options);
+        return responseDone;
+    }
+    /**
+     * Similar to [`handle()`]{@link module:workbox-strategies.Strategy~handle}, but
+     * instead of just returning a `Promise` that resolves to a `Response` it
+     * it will return an tuple of [response, done] promises, where the former
+     * (`response`) is equivalent to what `handle()` returns, and the latter is a
+     * Promise that will resolve once any promises that were added to
+     * `event.waitUntil()` as part of performing the strategy have completed.
+     *
+     * You can await the `done` promise to ensure any extra work performed by
+     * the strategy (usually caching responses) completes successfully.
+     *
+     * @param {FetchEvent|Object} options A `FetchEvent` or an object with the
+     *     properties listed below.
+     * @param {Request|string} options.request A request to run this strategy for.
+     * @param {ExtendableEvent} options.event The event associated with the
+     *     request.
+     * @param {URL} [options.url]
+     * @param {*} [options.params]
+     * @return {Array<Promise>} A tuple of [response, done]
+     *     promises that can be used to determine when the response resolves as
+     *     well as when the handler has completed all its work.
+     */
+    handleAll(options) {
+        // Allow for flexible options to be passed.
+        if (options instanceof FetchEvent) {
+            options = {
+                event: options,
+                request: options.request,
+            };
+        }
+        const event = options.event;
+        const request = typeof options.request === 'string' ?
+            new Request(options.request) :
+            options.request;
+        const params = 'params' in options ? options.params : undefined;
+        const handler = new _StrategyHandler_js__WEBPACK_IMPORTED_MODULE_4__.StrategyHandler(this, { event, request, params });
+        const responseDone = this._getResponse(handler, request, event);
+        const handlerDone = this._awaitComplete(responseDone, handler, request, event);
+        // Return an array of promises, suitable for use with Promise.all().
+        return [responseDone, handlerDone];
+    }
+    async _getResponse(handler, request, event) {
+        await handler.runCallbacks('handlerWillStart', { event, request });
+        let response = undefined;
+        try {
+            response = await this._handle(request, handler);
+            // The "official" Strategy subclasses all throw this error automatically,
+            // but in case a third-party Strategy doesn't, ensure that we have a
+            // consistent failure when there's no response or an error response.
+            if (!response || response.type === 'error') {
+                throw new workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_1__.WorkboxError('no-response', { url: request.url });
+            }
+        }
+        catch (error) {
+            if (error instanceof Error) {
+                for (const callback of handler.iterateCallbacks('handlerDidError')) {
+                    response = await callback({ error, event, request });
+                    if (response) {
+                        break;
+                    }
+                }
+            }
+            if (!response) {
+                throw error;
+            }
+            else if (true) {
+                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_2__.logger.log(`While responding to '${(0,workbox_core_private_getFriendlyURL_js__WEBPACK_IMPORTED_MODULE_3__.getFriendlyURL)(request.url)}', ` +
+                    `an ${error instanceof Error ? error.toString() : ''} error occurred. Using a fallback response provided by ` +
+                    `a handlerDidError plugin.`);
+            }
+        }
+        for (const callback of handler.iterateCallbacks('handlerWillRespond')) {
+            response = await callback({ event, request, response });
+        }
+        return response;
+    }
+    async _awaitComplete(responseDone, handler, request, event) {
+        let response;
+        let error;
+        try {
+            response = await responseDone;
+        }
+        catch (error) {
+            // Ignore errors, as response errors should be caught via the `response`
+            // promise above. The `done` promise will only throw for errors in
+            // promises passed to `handler.waitUntil()`.
+        }
+        try {
+            await handler.runCallbacks('handlerDidRespond', {
+                event,
+                request,
+                response,
+            });
+            await handler.doneWaiting();
+        }
+        catch (waitUntilError) {
+            if (waitUntilError instanceof Error) {
+                error = waitUntilError;
+            }
+        }
+        await handler.runCallbacks('handlerDidComplete', {
+            event,
+            request,
+            response,
+            error: error,
+        });
+        handler.destroy();
+        if (error) {
+            throw error;
+        }
+    }
+}
+
+/**
+ * Classes extending the `Strategy` based class should implement this method,
+ * and leverage the [`handler`]{@link module:workbox-strategies.StrategyHandler}
+ * arg to perform all fetching and cache logic, which will ensure all relevant
+ * cache, cache options, fetch options and plugins are used (per the current
+ * strategy instance).
+ *
+ * @name _handle
+ * @instance
+ * @abstract
+ * @function
+ * @param {Request} request
+ * @param {module:workbox-strategies.StrategyHandler} handler
+ * @return {Promise<Response>}
+ *
+ * @memberof module:workbox-strategies.Strategy
+ */
+
 
 /***/ }),
 
@@ -456,7 +4234,526 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"StrategyHandler\": () => (/* binding */ StrategyHandler)\n/* harmony export */ });\n/* harmony import */ var workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! workbox-core/_private/assert.js */ \"./node_modules/workbox-core/_private/assert.js\");\n/* harmony import */ var workbox_core_private_cacheMatchIgnoreParams_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! workbox-core/_private/cacheMatchIgnoreParams.js */ \"./node_modules/workbox-core/_private/cacheMatchIgnoreParams.js\");\n/* harmony import */ var workbox_core_private_Deferred_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! workbox-core/_private/Deferred.js */ \"./node_modules/workbox-core/_private/Deferred.js\");\n/* harmony import */ var workbox_core_private_executeQuotaErrorCallbacks_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! workbox-core/_private/executeQuotaErrorCallbacks.js */ \"./node_modules/workbox-core/_private/executeQuotaErrorCallbacks.js\");\n/* harmony import */ var workbox_core_private_getFriendlyURL_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! workbox-core/_private/getFriendlyURL.js */ \"./node_modules/workbox-core/_private/getFriendlyURL.js\");\n/* harmony import */ var workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! workbox-core/_private/logger.js */ \"./node_modules/workbox-core/_private/logger.js\");\n/* harmony import */ var workbox_core_private_timeout_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! workbox-core/_private/timeout.js */ \"./node_modules/workbox-core/_private/timeout.js\");\n/* harmony import */ var workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! workbox-core/_private/WorkboxError.js */ \"./node_modules/workbox-core/_private/WorkboxError.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./_version.js */ \"./node_modules/workbox-strategies/_version.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_8__);\n/*\n  Copyright 2020 Google LLC\n\n  Use of this source code is governed by an MIT-style\n  license that can be found in the LICENSE file or at\n  https://opensource.org/licenses/MIT.\n*/\n\n\n\n\n\n\n\n\n\nfunction toRequest(input) {\n    return (typeof input === 'string') ? new Request(input) : input;\n}\n/**\n * A class created every time a Strategy instance instance calls\n * [handle()]{@link module:workbox-strategies.Strategy~handle} or\n * [handleAll()]{@link module:workbox-strategies.Strategy~handleAll} that wraps all fetch and\n * cache actions around plugin callbacks and keeps track of when the strategy\n * is \"done\" (i.e. all added `event.waitUntil()` promises have resolved).\n *\n * @memberof module:workbox-strategies\n */\nclass StrategyHandler {\n    /**\n     * Creates a new instance associated with the passed strategy and event\n     * that's handling the request.\n     *\n     * The constructor also initializes the state that will be passed to each of\n     * the plugins handling this request.\n     *\n     * @param {module:workbox-strategies.Strategy} strategy\n     * @param {Object} options\n     * @param {Request|string} options.request A request to run this strategy for.\n     * @param {ExtendableEvent} options.event The event associated with the\n     *     request.\n     * @param {URL} [options.url]\n     * @param {*} [options.params]\n     *     [match callback]{@link module:workbox-routing~matchCallback},\n     *     (if applicable).\n     */\n    constructor(strategy, options) {\n        this._cacheKeys = {};\n        /**\n         * The request the strategy is performing (passed to the strategy's\n         * `handle()` or `handleAll()` method).\n         * @name request\n         * @instance\n         * @type {Request}\n         * @memberof module:workbox-strategies.StrategyHandler\n         */\n        /**\n         * The event associated with this request.\n         * @name event\n         * @instance\n         * @type {ExtendableEvent}\n         * @memberof module:workbox-strategies.StrategyHandler\n         */\n        /**\n         * A `URL` instance of `request.url` (if passed to the strategy's\n         * `handle()` or `handleAll()` method).\n         * Note: the `url` param will be present if the strategy was invoked\n         * from a workbox `Route` object.\n         * @name url\n         * @instance\n         * @type {URL|undefined}\n         * @memberof module:workbox-strategies.StrategyHandler\n         */\n        /**\n         * A `param` value (if passed to the strategy's\n         * `handle()` or `handleAll()` method).\n         * Note: the `param` param will be present if the strategy was invoked\n         * from a workbox `Route` object and the\n         * [match callback]{@link module:workbox-routing~matchCallback} returned\n         * a truthy value (it will be that value).\n         * @name params\n         * @instance\n         * @type {*|undefined}\n         * @memberof module:workbox-strategies.StrategyHandler\n         */\n        if (true) {\n            workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isInstance(options.event, ExtendableEvent, {\n                moduleName: 'workbox-strategies',\n                className: 'StrategyHandler',\n                funcName: 'constructor',\n                paramName: 'options.event',\n            });\n        }\n        Object.assign(this, options);\n        this.event = options.event;\n        this._strategy = strategy;\n        this._handlerDeferred = new workbox_core_private_Deferred_js__WEBPACK_IMPORTED_MODULE_2__.Deferred();\n        this._extendLifetimePromises = [];\n        // Copy the plugins list (since it's mutable on the strategy),\n        // so any mutations don't affect this handler instance.\n        this._plugins = [...strategy.plugins];\n        this._pluginStateMap = new Map();\n        for (const plugin of this._plugins) {\n            this._pluginStateMap.set(plugin, {});\n        }\n        this.event.waitUntil(this._handlerDeferred.promise);\n    }\n    /**\n     * Fetches a given request (and invokes any applicable plugin callback\n     * methods) using the `fetchOptions` (for non-navigation requests) and\n     * `plugins` defined on the `Strategy` object.\n     *\n     * The following plugin lifecycle methods are invoked when using this method:\n     * - `requestWillFetch()`\n     * - `fetchDidSucceed()`\n     * - `fetchDidFail()`\n     *\n     * @param {Request|string} input The URL or request to fetch.\n     * @return {Promise<Response>}\n     */\n    async fetch(input) {\n        const { event } = this;\n        let request = toRequest(input);\n        if (request.mode === 'navigate' &&\n            event instanceof FetchEvent &&\n            event.preloadResponse) {\n            const possiblePreloadResponse = await event.preloadResponse;\n            if (possiblePreloadResponse) {\n                if (true) {\n                    workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_5__.logger.log(`Using a preloaded navigation response for ` +\n                        `'${(0,workbox_core_private_getFriendlyURL_js__WEBPACK_IMPORTED_MODULE_4__.getFriendlyURL)(request.url)}'`);\n                }\n                return possiblePreloadResponse;\n            }\n        }\n        // If there is a fetchDidFail plugin, we need to save a clone of the\n        // original request before it's either modified by a requestWillFetch\n        // plugin or before the original request's body is consumed via fetch().\n        const originalRequest = this.hasCallback('fetchDidFail') ?\n            request.clone() : null;\n        try {\n            for (const cb of this.iterateCallbacks('requestWillFetch')) {\n                request = await cb({ request: request.clone(), event });\n            }\n        }\n        catch (err) {\n            if (err instanceof Error) {\n                throw new workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_7__.WorkboxError('plugin-error-request-will-fetch', { thrownErrorMessage: err.message });\n            }\n        }\n        // The request can be altered by plugins with `requestWillFetch` making\n        // the original request (most likely from a `fetch` event) different\n        // from the Request we make. Pass both to `fetchDidFail` to aid debugging.\n        const pluginFilteredRequest = request.clone();\n        try {\n            let fetchResponse;\n            // See https://github.com/GoogleChrome/workbox/issues/1796\n            fetchResponse = await fetch(request, request.mode === 'navigate' ?\n                undefined : this._strategy.fetchOptions);\n            if (true) {\n                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_5__.logger.debug(`Network request for ` +\n                    `'${(0,workbox_core_private_getFriendlyURL_js__WEBPACK_IMPORTED_MODULE_4__.getFriendlyURL)(request.url)}' returned a response with ` +\n                    `status '${fetchResponse.status}'.`);\n            }\n            for (const callback of this.iterateCallbacks('fetchDidSucceed')) {\n                fetchResponse = await callback({\n                    event,\n                    request: pluginFilteredRequest,\n                    response: fetchResponse,\n                });\n            }\n            return fetchResponse;\n        }\n        catch (error) {\n            if (true) {\n                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_5__.logger.log(`Network request for ` +\n                    `'${(0,workbox_core_private_getFriendlyURL_js__WEBPACK_IMPORTED_MODULE_4__.getFriendlyURL)(request.url)}' threw an error.`, error);\n            }\n            // `originalRequest` will only exist if a `fetchDidFail` callback\n            // is being used (see above).\n            if (originalRequest) {\n                await this.runCallbacks('fetchDidFail', {\n                    error: error,\n                    event,\n                    originalRequest: originalRequest.clone(),\n                    request: pluginFilteredRequest.clone(),\n                });\n            }\n            throw error;\n        }\n    }\n    /**\n     * Calls `this.fetch()` and (in the background) runs `this.cachePut()` on\n     * the response generated by `this.fetch()`.\n     *\n     * The call to `this.cachePut()` automatically invokes `this.waitUntil()`,\n     * so you do not have to manually call `waitUntil()` on the event.\n     *\n     * @param {Request|string} input The request or URL to fetch and cache.\n     * @return {Promise<Response>}\n     */\n    async fetchAndCachePut(input) {\n        const response = await this.fetch(input);\n        const responseClone = response.clone();\n        void this.waitUntil(this.cachePut(input, responseClone));\n        return response;\n    }\n    /**\n     * Matches a request from the cache (and invokes any applicable plugin\n     * callback methods) using the `cacheName`, `matchOptions`, and `plugins`\n     * defined on the strategy object.\n     *\n     * The following plugin lifecycle methods are invoked when using this method:\n     * - cacheKeyWillByUsed()\n     * - cachedResponseWillByUsed()\n     *\n     * @param {Request|string} key The Request or URL to use as the cache key.\n     * @return {Promise<Response|undefined>} A matching response, if found.\n     */\n    async cacheMatch(key) {\n        const request = toRequest(key);\n        let cachedResponse;\n        const { cacheName, matchOptions } = this._strategy;\n        const effectiveRequest = await this.getCacheKey(request, 'read');\n        const multiMatchOptions = Object.assign(Object.assign({}, matchOptions), { cacheName });\n        cachedResponse = await caches.match(effectiveRequest, multiMatchOptions);\n        if (true) {\n            if (cachedResponse) {\n                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_5__.logger.debug(`Found a cached response in '${cacheName}'.`);\n            }\n            else {\n                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_5__.logger.debug(`No cached response found in '${cacheName}'.`);\n            }\n        }\n        for (const callback of this.iterateCallbacks('cachedResponseWillBeUsed')) {\n            cachedResponse = (await callback({\n                cacheName,\n                matchOptions,\n                cachedResponse,\n                request: effectiveRequest,\n                event: this.event,\n            })) || undefined;\n        }\n        return cachedResponse;\n    }\n    /**\n     * Puts a request/response pair in the cache (and invokes any applicable\n     * plugin callback methods) using the `cacheName` and `plugins` defined on\n     * the strategy object.\n     *\n     * The following plugin lifecycle methods are invoked when using this method:\n     * - cacheKeyWillByUsed()\n     * - cacheWillUpdate()\n     * - cacheDidUpdate()\n     *\n     * @param {Request|string} key The request or URL to use as the cache key.\n     * @param {Response} response The response to cache.\n     * @return {Promise<boolean>} `false` if a cacheWillUpdate caused the response\n     * not be cached, and `true` otherwise.\n     */\n    async cachePut(key, response) {\n        const request = toRequest(key);\n        // Run in the next task to avoid blocking other cache reads.\n        // https://github.com/w3c/ServiceWorker/issues/1397\n        await (0,workbox_core_private_timeout_js__WEBPACK_IMPORTED_MODULE_6__.timeout)(0);\n        const effectiveRequest = await this.getCacheKey(request, 'write');\n        if (true) {\n            if (effectiveRequest.method && effectiveRequest.method !== 'GET') {\n                throw new workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_7__.WorkboxError('attempt-to-cache-non-get-request', {\n                    url: (0,workbox_core_private_getFriendlyURL_js__WEBPACK_IMPORTED_MODULE_4__.getFriendlyURL)(effectiveRequest.url),\n                    method: effectiveRequest.method,\n                });\n            }\n        }\n        if (!response) {\n            if (true) {\n                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_5__.logger.error(`Cannot cache non-existent response for ` +\n                    `'${(0,workbox_core_private_getFriendlyURL_js__WEBPACK_IMPORTED_MODULE_4__.getFriendlyURL)(effectiveRequest.url)}'.`);\n            }\n            throw new workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_7__.WorkboxError('cache-put-with-no-response', {\n                url: (0,workbox_core_private_getFriendlyURL_js__WEBPACK_IMPORTED_MODULE_4__.getFriendlyURL)(effectiveRequest.url),\n            });\n        }\n        const responseToCache = await this._ensureResponseSafeToCache(response);\n        if (!responseToCache) {\n            if (true) {\n                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_5__.logger.debug(`Response '${(0,workbox_core_private_getFriendlyURL_js__WEBPACK_IMPORTED_MODULE_4__.getFriendlyURL)(effectiveRequest.url)}' ` +\n                    `will not be cached.`, responseToCache);\n            }\n            return false;\n        }\n        const { cacheName, matchOptions } = this._strategy;\n        const cache = await self.caches.open(cacheName);\n        const hasCacheUpdateCallback = this.hasCallback('cacheDidUpdate');\n        const oldResponse = hasCacheUpdateCallback ? await (0,workbox_core_private_cacheMatchIgnoreParams_js__WEBPACK_IMPORTED_MODULE_1__.cacheMatchIgnoreParams)(\n        // TODO(philipwalton): the `__WB_REVISION__` param is a precaching\n        // feature. Consider into ways to only add this behavior if using\n        // precaching.\n        cache, effectiveRequest.clone(), ['__WB_REVISION__'], matchOptions) :\n            null;\n        if (true) {\n            workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_5__.logger.debug(`Updating the '${cacheName}' cache with a new Response ` +\n                `for ${(0,workbox_core_private_getFriendlyURL_js__WEBPACK_IMPORTED_MODULE_4__.getFriendlyURL)(effectiveRequest.url)}.`);\n        }\n        try {\n            await cache.put(effectiveRequest, hasCacheUpdateCallback ?\n                responseToCache.clone() : responseToCache);\n        }\n        catch (error) {\n            if (error instanceof Error) {\n                // See https://developer.mozilla.org/en-US/docs/Web/API/DOMException#exception-QuotaExceededError\n                if (error.name === 'QuotaExceededError') {\n                    await (0,workbox_core_private_executeQuotaErrorCallbacks_js__WEBPACK_IMPORTED_MODULE_3__.executeQuotaErrorCallbacks)();\n                }\n                throw error;\n            }\n        }\n        for (const callback of this.iterateCallbacks('cacheDidUpdate')) {\n            await callback({\n                cacheName,\n                oldResponse,\n                newResponse: responseToCache.clone(),\n                request: effectiveRequest,\n                event: this.event,\n            });\n        }\n        return true;\n    }\n    /**\n     * Checks the list of plugins for the `cacheKeyWillBeUsed` callback, and\n     * executes any of those callbacks found in sequence. The final `Request`\n     * object returned by the last plugin is treated as the cache key for cache\n     * reads and/or writes. If no `cacheKeyWillBeUsed` plugin callbacks have\n     * been registered, the passed request is returned unmodified\n     *\n     * @param {Request} request\n     * @param {string} mode\n     * @return {Promise<Request>}\n     */\n    async getCacheKey(request, mode) {\n        if (!this._cacheKeys[mode]) {\n            let effectiveRequest = request;\n            for (const callback of this.iterateCallbacks('cacheKeyWillBeUsed')) {\n                effectiveRequest = toRequest(await callback({\n                    mode,\n                    request: effectiveRequest,\n                    event: this.event,\n                    // params has a type any can't change right now.\n                    params: this.params,\n                }));\n            }\n            this._cacheKeys[mode] = effectiveRequest;\n        }\n        return this._cacheKeys[mode];\n    }\n    /**\n     * Returns true if the strategy has at least one plugin with the given\n     * callback.\n     *\n     * @param {string} name The name of the callback to check for.\n     * @return {boolean}\n     */\n    hasCallback(name) {\n        for (const plugin of this._strategy.plugins) {\n            if (name in plugin) {\n                return true;\n            }\n        }\n        return false;\n    }\n    /**\n     * Runs all plugin callbacks matching the given name, in order, passing the\n     * given param object (merged ith the current plugin state) as the only\n     * argument.\n     *\n     * Note: since this method runs all plugins, it's not suitable for cases\n     * where the return value of a callback needs to be applied prior to calling\n     * the next callback. See\n     * [`iterateCallbacks()`]{@link module:workbox-strategies.StrategyHandler#iterateCallbacks}\n     * below for how to handle that case.\n     *\n     * @param {string} name The name of the callback to run within each plugin.\n     * @param {Object} param The object to pass as the first (and only) param\n     *     when executing each callback. This object will be merged with the\n     *     current plugin state prior to callback execution.\n     */\n    async runCallbacks(name, param) {\n        for (const callback of this.iterateCallbacks(name)) {\n            // TODO(philipwalton): not sure why `any` is needed. It seems like\n            // this should work with `as WorkboxPluginCallbackParam[C]`.\n            await callback(param);\n        }\n    }\n    /**\n     * Accepts a callback and returns an iterable of matching plugin callbacks,\n     * where each callback is wrapped with the current handler state (i.e. when\n     * you call each callback, whatever object parameter you pass it will\n     * be merged with the plugin's current state).\n     *\n     * @param {string} name The name fo the callback to run\n     * @return {Array<Function>}\n     */\n    *iterateCallbacks(name) {\n        for (const plugin of this._strategy.plugins) {\n            if (typeof plugin[name] === 'function') {\n                const state = this._pluginStateMap.get(plugin);\n                const statefulCallback = (param) => {\n                    const statefulParam = Object.assign(Object.assign({}, param), { state });\n                    // TODO(philipwalton): not sure why `any` is needed. It seems like\n                    // this should work with `as WorkboxPluginCallbackParam[C]`.\n                    return plugin[name](statefulParam);\n                };\n                yield statefulCallback;\n            }\n        }\n    }\n    /**\n     * Adds a promise to the\n     * [extend lifetime promises]{@link https://w3c.github.io/ServiceWorker/#extendableevent-extend-lifetime-promises}\n     * of the event event associated with the request being handled (usually a\n     * `FetchEvent`).\n     *\n     * Note: you can await\n     * [`doneWaiting()`]{@link module:workbox-strategies.StrategyHandler~doneWaiting}\n     * to know when all added promises have settled.\n     *\n     * @param {Promise} promise A promise to add to the extend lifetime promises\n     *     of the event that triggered the request.\n     */\n    waitUntil(promise) {\n        this._extendLifetimePromises.push(promise);\n        return promise;\n    }\n    /**\n     * Returns a promise that resolves once all promises passed to\n     * [`waitUntil()`]{@link module:workbox-strategies.StrategyHandler~waitUntil}\n     * have settled.\n     *\n     * Note: any work done after `doneWaiting()` settles should be manually\n     * passed to an event's `waitUntil()` method (not this handler's\n     * `waitUntil()` method), otherwise the service worker thread my be killed\n     * prior to your work completing.\n     */\n    async doneWaiting() {\n        let promise;\n        while (promise = this._extendLifetimePromises.shift()) {\n            await promise;\n        }\n    }\n    /**\n     * Stops running the strategy and immediately resolves any pending\n     * `waitUntil()` promises.\n     */\n    destroy() {\n        this._handlerDeferred.resolve(null);\n    }\n    /**\n     * This method will call cacheWillUpdate on the available plugins (or use\n     * status === 200) to determine if the Response is safe and valid to cache.\n     *\n     * @param {Request} options.request\n     * @param {Response} options.response\n     * @return {Promise<Response|undefined>}\n     *\n     * @private\n     */\n    async _ensureResponseSafeToCache(response) {\n        let responseToCache = response;\n        let pluginsUsed = false;\n        for (const callback of this.iterateCallbacks('cacheWillUpdate')) {\n            responseToCache = (await callback({\n                request: this.request,\n                response: responseToCache,\n                event: this.event,\n            })) || undefined;\n            pluginsUsed = true;\n            if (!responseToCache) {\n                break;\n            }\n        }\n        if (!pluginsUsed) {\n            if (responseToCache && responseToCache.status !== 200) {\n                responseToCache = undefined;\n            }\n            if (true) {\n                if (responseToCache) {\n                    if (responseToCache.status !== 200) {\n                        if (responseToCache.status === 0) {\n                            workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_5__.logger.warn(`The response for '${this.request.url}' ` +\n                                `is an opaque response. The caching strategy that you're ` +\n                                `using will not cache opaque responses by default.`);\n                        }\n                        else {\n                            workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_5__.logger.debug(`The response for '${this.request.url}' ` +\n                                `returned a status code of '${response.status}' and won't ` +\n                                `be cached as a result.`);\n                        }\n                    }\n                }\n            }\n        }\n        return responseToCache;\n    }\n}\n\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-strategies/StrategyHandler.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "StrategyHandler": () => (/* binding */ StrategyHandler)
+/* harmony export */ });
+/* harmony import */ var workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! workbox-core/_private/assert.js */ "./node_modules/workbox-core/_private/assert.js");
+/* harmony import */ var workbox_core_private_cacheMatchIgnoreParams_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! workbox-core/_private/cacheMatchIgnoreParams.js */ "./node_modules/workbox-core/_private/cacheMatchIgnoreParams.js");
+/* harmony import */ var workbox_core_private_Deferred_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! workbox-core/_private/Deferred.js */ "./node_modules/workbox-core/_private/Deferred.js");
+/* harmony import */ var workbox_core_private_executeQuotaErrorCallbacks_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! workbox-core/_private/executeQuotaErrorCallbacks.js */ "./node_modules/workbox-core/_private/executeQuotaErrorCallbacks.js");
+/* harmony import */ var workbox_core_private_getFriendlyURL_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! workbox-core/_private/getFriendlyURL.js */ "./node_modules/workbox-core/_private/getFriendlyURL.js");
+/* harmony import */ var workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! workbox-core/_private/logger.js */ "./node_modules/workbox-core/_private/logger.js");
+/* harmony import */ var workbox_core_private_timeout_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! workbox-core/_private/timeout.js */ "./node_modules/workbox-core/_private/timeout.js");
+/* harmony import */ var workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! workbox-core/_private/WorkboxError.js */ "./node_modules/workbox-core/_private/WorkboxError.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./_version.js */ "./node_modules/workbox-strategies/_version.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_8__);
+/*
+  Copyright 2020 Google LLC
+
+  Use of this source code is governed by an MIT-style
+  license that can be found in the LICENSE file or at
+  https://opensource.org/licenses/MIT.
+*/
+
+
+
+
+
+
+
+
+
+function toRequest(input) {
+    return (typeof input === 'string') ? new Request(input) : input;
+}
+/**
+ * A class created every time a Strategy instance instance calls
+ * [handle()]{@link module:workbox-strategies.Strategy~handle} or
+ * [handleAll()]{@link module:workbox-strategies.Strategy~handleAll} that wraps all fetch and
+ * cache actions around plugin callbacks and keeps track of when the strategy
+ * is "done" (i.e. all added `event.waitUntil()` promises have resolved).
+ *
+ * @memberof module:workbox-strategies
+ */
+class StrategyHandler {
+    /**
+     * Creates a new instance associated with the passed strategy and event
+     * that's handling the request.
+     *
+     * The constructor also initializes the state that will be passed to each of
+     * the plugins handling this request.
+     *
+     * @param {module:workbox-strategies.Strategy} strategy
+     * @param {Object} options
+     * @param {Request|string} options.request A request to run this strategy for.
+     * @param {ExtendableEvent} options.event The event associated with the
+     *     request.
+     * @param {URL} [options.url]
+     * @param {*} [options.params]
+     *     [match callback]{@link module:workbox-routing~matchCallback},
+     *     (if applicable).
+     */
+    constructor(strategy, options) {
+        this._cacheKeys = {};
+        /**
+         * The request the strategy is performing (passed to the strategy's
+         * `handle()` or `handleAll()` method).
+         * @name request
+         * @instance
+         * @type {Request}
+         * @memberof module:workbox-strategies.StrategyHandler
+         */
+        /**
+         * The event associated with this request.
+         * @name event
+         * @instance
+         * @type {ExtendableEvent}
+         * @memberof module:workbox-strategies.StrategyHandler
+         */
+        /**
+         * A `URL` instance of `request.url` (if passed to the strategy's
+         * `handle()` or `handleAll()` method).
+         * Note: the `url` param will be present if the strategy was invoked
+         * from a workbox `Route` object.
+         * @name url
+         * @instance
+         * @type {URL|undefined}
+         * @memberof module:workbox-strategies.StrategyHandler
+         */
+        /**
+         * A `param` value (if passed to the strategy's
+         * `handle()` or `handleAll()` method).
+         * Note: the `param` param will be present if the strategy was invoked
+         * from a workbox `Route` object and the
+         * [match callback]{@link module:workbox-routing~matchCallback} returned
+         * a truthy value (it will be that value).
+         * @name params
+         * @instance
+         * @type {*|undefined}
+         * @memberof module:workbox-strategies.StrategyHandler
+         */
+        if (true) {
+            workbox_core_private_assert_js__WEBPACK_IMPORTED_MODULE_0__.assert.isInstance(options.event, ExtendableEvent, {
+                moduleName: 'workbox-strategies',
+                className: 'StrategyHandler',
+                funcName: 'constructor',
+                paramName: 'options.event',
+            });
+        }
+        Object.assign(this, options);
+        this.event = options.event;
+        this._strategy = strategy;
+        this._handlerDeferred = new workbox_core_private_Deferred_js__WEBPACK_IMPORTED_MODULE_2__.Deferred();
+        this._extendLifetimePromises = [];
+        // Copy the plugins list (since it's mutable on the strategy),
+        // so any mutations don't affect this handler instance.
+        this._plugins = [...strategy.plugins];
+        this._pluginStateMap = new Map();
+        for (const plugin of this._plugins) {
+            this._pluginStateMap.set(plugin, {});
+        }
+        this.event.waitUntil(this._handlerDeferred.promise);
+    }
+    /**
+     * Fetches a given request (and invokes any applicable plugin callback
+     * methods) using the `fetchOptions` (for non-navigation requests) and
+     * `plugins` defined on the `Strategy` object.
+     *
+     * The following plugin lifecycle methods are invoked when using this method:
+     * - `requestWillFetch()`
+     * - `fetchDidSucceed()`
+     * - `fetchDidFail()`
+     *
+     * @param {Request|string} input The URL or request to fetch.
+     * @return {Promise<Response>}
+     */
+    async fetch(input) {
+        const { event } = this;
+        let request = toRequest(input);
+        if (request.mode === 'navigate' &&
+            event instanceof FetchEvent &&
+            event.preloadResponse) {
+            const possiblePreloadResponse = await event.preloadResponse;
+            if (possiblePreloadResponse) {
+                if (true) {
+                    workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_5__.logger.log(`Using a preloaded navigation response for ` +
+                        `'${(0,workbox_core_private_getFriendlyURL_js__WEBPACK_IMPORTED_MODULE_4__.getFriendlyURL)(request.url)}'`);
+                }
+                return possiblePreloadResponse;
+            }
+        }
+        // If there is a fetchDidFail plugin, we need to save a clone of the
+        // original request before it's either modified by a requestWillFetch
+        // plugin or before the original request's body is consumed via fetch().
+        const originalRequest = this.hasCallback('fetchDidFail') ?
+            request.clone() : null;
+        try {
+            for (const cb of this.iterateCallbacks('requestWillFetch')) {
+                request = await cb({ request: request.clone(), event });
+            }
+        }
+        catch (err) {
+            if (err instanceof Error) {
+                throw new workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_7__.WorkboxError('plugin-error-request-will-fetch', { thrownErrorMessage: err.message });
+            }
+        }
+        // The request can be altered by plugins with `requestWillFetch` making
+        // the original request (most likely from a `fetch` event) different
+        // from the Request we make. Pass both to `fetchDidFail` to aid debugging.
+        const pluginFilteredRequest = request.clone();
+        try {
+            let fetchResponse;
+            // See https://github.com/GoogleChrome/workbox/issues/1796
+            fetchResponse = await fetch(request, request.mode === 'navigate' ?
+                undefined : this._strategy.fetchOptions);
+            if (true) {
+                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_5__.logger.debug(`Network request for ` +
+                    `'${(0,workbox_core_private_getFriendlyURL_js__WEBPACK_IMPORTED_MODULE_4__.getFriendlyURL)(request.url)}' returned a response with ` +
+                    `status '${fetchResponse.status}'.`);
+            }
+            for (const callback of this.iterateCallbacks('fetchDidSucceed')) {
+                fetchResponse = await callback({
+                    event,
+                    request: pluginFilteredRequest,
+                    response: fetchResponse,
+                });
+            }
+            return fetchResponse;
+        }
+        catch (error) {
+            if (true) {
+                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_5__.logger.log(`Network request for ` +
+                    `'${(0,workbox_core_private_getFriendlyURL_js__WEBPACK_IMPORTED_MODULE_4__.getFriendlyURL)(request.url)}' threw an error.`, error);
+            }
+            // `originalRequest` will only exist if a `fetchDidFail` callback
+            // is being used (see above).
+            if (originalRequest) {
+                await this.runCallbacks('fetchDidFail', {
+                    error: error,
+                    event,
+                    originalRequest: originalRequest.clone(),
+                    request: pluginFilteredRequest.clone(),
+                });
+            }
+            throw error;
+        }
+    }
+    /**
+     * Calls `this.fetch()` and (in the background) runs `this.cachePut()` on
+     * the response generated by `this.fetch()`.
+     *
+     * The call to `this.cachePut()` automatically invokes `this.waitUntil()`,
+     * so you do not have to manually call `waitUntil()` on the event.
+     *
+     * @param {Request|string} input The request or URL to fetch and cache.
+     * @return {Promise<Response>}
+     */
+    async fetchAndCachePut(input) {
+        const response = await this.fetch(input);
+        const responseClone = response.clone();
+        void this.waitUntil(this.cachePut(input, responseClone));
+        return response;
+    }
+    /**
+     * Matches a request from the cache (and invokes any applicable plugin
+     * callback methods) using the `cacheName`, `matchOptions`, and `plugins`
+     * defined on the strategy object.
+     *
+     * The following plugin lifecycle methods are invoked when using this method:
+     * - cacheKeyWillByUsed()
+     * - cachedResponseWillByUsed()
+     *
+     * @param {Request|string} key The Request or URL to use as the cache key.
+     * @return {Promise<Response|undefined>} A matching response, if found.
+     */
+    async cacheMatch(key) {
+        const request = toRequest(key);
+        let cachedResponse;
+        const { cacheName, matchOptions } = this._strategy;
+        const effectiveRequest = await this.getCacheKey(request, 'read');
+        const multiMatchOptions = Object.assign(Object.assign({}, matchOptions), { cacheName });
+        cachedResponse = await caches.match(effectiveRequest, multiMatchOptions);
+        if (true) {
+            if (cachedResponse) {
+                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_5__.logger.debug(`Found a cached response in '${cacheName}'.`);
+            }
+            else {
+                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_5__.logger.debug(`No cached response found in '${cacheName}'.`);
+            }
+        }
+        for (const callback of this.iterateCallbacks('cachedResponseWillBeUsed')) {
+            cachedResponse = (await callback({
+                cacheName,
+                matchOptions,
+                cachedResponse,
+                request: effectiveRequest,
+                event: this.event,
+            })) || undefined;
+        }
+        return cachedResponse;
+    }
+    /**
+     * Puts a request/response pair in the cache (and invokes any applicable
+     * plugin callback methods) using the `cacheName` and `plugins` defined on
+     * the strategy object.
+     *
+     * The following plugin lifecycle methods are invoked when using this method:
+     * - cacheKeyWillByUsed()
+     * - cacheWillUpdate()
+     * - cacheDidUpdate()
+     *
+     * @param {Request|string} key The request or URL to use as the cache key.
+     * @param {Response} response The response to cache.
+     * @return {Promise<boolean>} `false` if a cacheWillUpdate caused the response
+     * not be cached, and `true` otherwise.
+     */
+    async cachePut(key, response) {
+        const request = toRequest(key);
+        // Run in the next task to avoid blocking other cache reads.
+        // https://github.com/w3c/ServiceWorker/issues/1397
+        await (0,workbox_core_private_timeout_js__WEBPACK_IMPORTED_MODULE_6__.timeout)(0);
+        const effectiveRequest = await this.getCacheKey(request, 'write');
+        if (true) {
+            if (effectiveRequest.method && effectiveRequest.method !== 'GET') {
+                throw new workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_7__.WorkboxError('attempt-to-cache-non-get-request', {
+                    url: (0,workbox_core_private_getFriendlyURL_js__WEBPACK_IMPORTED_MODULE_4__.getFriendlyURL)(effectiveRequest.url),
+                    method: effectiveRequest.method,
+                });
+            }
+        }
+        if (!response) {
+            if (true) {
+                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_5__.logger.error(`Cannot cache non-existent response for ` +
+                    `'${(0,workbox_core_private_getFriendlyURL_js__WEBPACK_IMPORTED_MODULE_4__.getFriendlyURL)(effectiveRequest.url)}'.`);
+            }
+            throw new workbox_core_private_WorkboxError_js__WEBPACK_IMPORTED_MODULE_7__.WorkboxError('cache-put-with-no-response', {
+                url: (0,workbox_core_private_getFriendlyURL_js__WEBPACK_IMPORTED_MODULE_4__.getFriendlyURL)(effectiveRequest.url),
+            });
+        }
+        const responseToCache = await this._ensureResponseSafeToCache(response);
+        if (!responseToCache) {
+            if (true) {
+                workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_5__.logger.debug(`Response '${(0,workbox_core_private_getFriendlyURL_js__WEBPACK_IMPORTED_MODULE_4__.getFriendlyURL)(effectiveRequest.url)}' ` +
+                    `will not be cached.`, responseToCache);
+            }
+            return false;
+        }
+        const { cacheName, matchOptions } = this._strategy;
+        const cache = await self.caches.open(cacheName);
+        const hasCacheUpdateCallback = this.hasCallback('cacheDidUpdate');
+        const oldResponse = hasCacheUpdateCallback ? await (0,workbox_core_private_cacheMatchIgnoreParams_js__WEBPACK_IMPORTED_MODULE_1__.cacheMatchIgnoreParams)(
+        // TODO(philipwalton): the `__WB_REVISION__` param is a precaching
+        // feature. Consider into ways to only add this behavior if using
+        // precaching.
+        cache, effectiveRequest.clone(), ['__WB_REVISION__'], matchOptions) :
+            null;
+        if (true) {
+            workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_5__.logger.debug(`Updating the '${cacheName}' cache with a new Response ` +
+                `for ${(0,workbox_core_private_getFriendlyURL_js__WEBPACK_IMPORTED_MODULE_4__.getFriendlyURL)(effectiveRequest.url)}.`);
+        }
+        try {
+            await cache.put(effectiveRequest, hasCacheUpdateCallback ?
+                responseToCache.clone() : responseToCache);
+        }
+        catch (error) {
+            if (error instanceof Error) {
+                // See https://developer.mozilla.org/en-US/docs/Web/API/DOMException#exception-QuotaExceededError
+                if (error.name === 'QuotaExceededError') {
+                    await (0,workbox_core_private_executeQuotaErrorCallbacks_js__WEBPACK_IMPORTED_MODULE_3__.executeQuotaErrorCallbacks)();
+                }
+                throw error;
+            }
+        }
+        for (const callback of this.iterateCallbacks('cacheDidUpdate')) {
+            await callback({
+                cacheName,
+                oldResponse,
+                newResponse: responseToCache.clone(),
+                request: effectiveRequest,
+                event: this.event,
+            });
+        }
+        return true;
+    }
+    /**
+     * Checks the list of plugins for the `cacheKeyWillBeUsed` callback, and
+     * executes any of those callbacks found in sequence. The final `Request`
+     * object returned by the last plugin is treated as the cache key for cache
+     * reads and/or writes. If no `cacheKeyWillBeUsed` plugin callbacks have
+     * been registered, the passed request is returned unmodified
+     *
+     * @param {Request} request
+     * @param {string} mode
+     * @return {Promise<Request>}
+     */
+    async getCacheKey(request, mode) {
+        if (!this._cacheKeys[mode]) {
+            let effectiveRequest = request;
+            for (const callback of this.iterateCallbacks('cacheKeyWillBeUsed')) {
+                effectiveRequest = toRequest(await callback({
+                    mode,
+                    request: effectiveRequest,
+                    event: this.event,
+                    // params has a type any can't change right now.
+                    params: this.params,
+                }));
+            }
+            this._cacheKeys[mode] = effectiveRequest;
+        }
+        return this._cacheKeys[mode];
+    }
+    /**
+     * Returns true if the strategy has at least one plugin with the given
+     * callback.
+     *
+     * @param {string} name The name of the callback to check for.
+     * @return {boolean}
+     */
+    hasCallback(name) {
+        for (const plugin of this._strategy.plugins) {
+            if (name in plugin) {
+                return true;
+            }
+        }
+        return false;
+    }
+    /**
+     * Runs all plugin callbacks matching the given name, in order, passing the
+     * given param object (merged ith the current plugin state) as the only
+     * argument.
+     *
+     * Note: since this method runs all plugins, it's not suitable for cases
+     * where the return value of a callback needs to be applied prior to calling
+     * the next callback. See
+     * [`iterateCallbacks()`]{@link module:workbox-strategies.StrategyHandler#iterateCallbacks}
+     * below for how to handle that case.
+     *
+     * @param {string} name The name of the callback to run within each plugin.
+     * @param {Object} param The object to pass as the first (and only) param
+     *     when executing each callback. This object will be merged with the
+     *     current plugin state prior to callback execution.
+     */
+    async runCallbacks(name, param) {
+        for (const callback of this.iterateCallbacks(name)) {
+            // TODO(philipwalton): not sure why `any` is needed. It seems like
+            // this should work with `as WorkboxPluginCallbackParam[C]`.
+            await callback(param);
+        }
+    }
+    /**
+     * Accepts a callback and returns an iterable of matching plugin callbacks,
+     * where each callback is wrapped with the current handler state (i.e. when
+     * you call each callback, whatever object parameter you pass it will
+     * be merged with the plugin's current state).
+     *
+     * @param {string} name The name fo the callback to run
+     * @return {Array<Function>}
+     */
+    *iterateCallbacks(name) {
+        for (const plugin of this._strategy.plugins) {
+            if (typeof plugin[name] === 'function') {
+                const state = this._pluginStateMap.get(plugin);
+                const statefulCallback = (param) => {
+                    const statefulParam = Object.assign(Object.assign({}, param), { state });
+                    // TODO(philipwalton): not sure why `any` is needed. It seems like
+                    // this should work with `as WorkboxPluginCallbackParam[C]`.
+                    return plugin[name](statefulParam);
+                };
+                yield statefulCallback;
+            }
+        }
+    }
+    /**
+     * Adds a promise to the
+     * [extend lifetime promises]{@link https://w3c.github.io/ServiceWorker/#extendableevent-extend-lifetime-promises}
+     * of the event event associated with the request being handled (usually a
+     * `FetchEvent`).
+     *
+     * Note: you can await
+     * [`doneWaiting()`]{@link module:workbox-strategies.StrategyHandler~doneWaiting}
+     * to know when all added promises have settled.
+     *
+     * @param {Promise} promise A promise to add to the extend lifetime promises
+     *     of the event that triggered the request.
+     */
+    waitUntil(promise) {
+        this._extendLifetimePromises.push(promise);
+        return promise;
+    }
+    /**
+     * Returns a promise that resolves once all promises passed to
+     * [`waitUntil()`]{@link module:workbox-strategies.StrategyHandler~waitUntil}
+     * have settled.
+     *
+     * Note: any work done after `doneWaiting()` settles should be manually
+     * passed to an event's `waitUntil()` method (not this handler's
+     * `waitUntil()` method), otherwise the service worker thread my be killed
+     * prior to your work completing.
+     */
+    async doneWaiting() {
+        let promise;
+        while (promise = this._extendLifetimePromises.shift()) {
+            await promise;
+        }
+    }
+    /**
+     * Stops running the strategy and immediately resolves any pending
+     * `waitUntil()` promises.
+     */
+    destroy() {
+        this._handlerDeferred.resolve(null);
+    }
+    /**
+     * This method will call cacheWillUpdate on the available plugins (or use
+     * status === 200) to determine if the Response is safe and valid to cache.
+     *
+     * @param {Request} options.request
+     * @param {Response} options.response
+     * @return {Promise<Response|undefined>}
+     *
+     * @private
+     */
+    async _ensureResponseSafeToCache(response) {
+        let responseToCache = response;
+        let pluginsUsed = false;
+        for (const callback of this.iterateCallbacks('cacheWillUpdate')) {
+            responseToCache = (await callback({
+                request: this.request,
+                response: responseToCache,
+                event: this.event,
+            })) || undefined;
+            pluginsUsed = true;
+            if (!responseToCache) {
+                break;
+            }
+        }
+        if (!pluginsUsed) {
+            if (responseToCache && responseToCache.status !== 200) {
+                responseToCache = undefined;
+            }
+            if (true) {
+                if (responseToCache) {
+                    if (responseToCache.status !== 200) {
+                        if (responseToCache.status === 0) {
+                            workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_5__.logger.warn(`The response for '${this.request.url}' ` +
+                                `is an opaque response. The caching strategy that you're ` +
+                                `using will not cache opaque responses by default.`);
+                        }
+                        else {
+                            workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_5__.logger.debug(`The response for '${this.request.url}' ` +
+                                `returned a status code of '${response.status}' and won't ` +
+                                `be cached as a result.`);
+                        }
+                    }
+                }
+            }
+        }
+        return responseToCache;
+    }
+}
+
+
 
 /***/ }),
 
@@ -466,7 +4763,13 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \*****************************************************/
 /***/ (() => {
 
-eval("\n// @ts-ignore\ntry {\n    self['workbox:strategies:6.2.4'] && _();\n}\ncatch (e) { }\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-strategies/_version.js?");
+
+// @ts-ignore
+try {
+    self['workbox:strategies:6.2.4'] && _();
+}
+catch (e) { }
+
 
 /***/ }),
 
@@ -476,7 +4779,48 @@ eval("\n// @ts-ignore\ntry {\n    self['workbox:strategies:6.2.4'] && _();\n}\nc
   \**************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"CacheFirst\": () => (/* reexport safe */ _CacheFirst_js__WEBPACK_IMPORTED_MODULE_0__.CacheFirst),\n/* harmony export */   \"CacheOnly\": () => (/* reexport safe */ _CacheOnly_js__WEBPACK_IMPORTED_MODULE_1__.CacheOnly),\n/* harmony export */   \"NetworkFirst\": () => (/* reexport safe */ _NetworkFirst_js__WEBPACK_IMPORTED_MODULE_2__.NetworkFirst),\n/* harmony export */   \"NetworkOnly\": () => (/* reexport safe */ _NetworkOnly_js__WEBPACK_IMPORTED_MODULE_3__.NetworkOnly),\n/* harmony export */   \"StaleWhileRevalidate\": () => (/* reexport safe */ _StaleWhileRevalidate_js__WEBPACK_IMPORTED_MODULE_4__.StaleWhileRevalidate),\n/* harmony export */   \"Strategy\": () => (/* reexport safe */ _Strategy_js__WEBPACK_IMPORTED_MODULE_5__.Strategy),\n/* harmony export */   \"StrategyHandler\": () => (/* reexport safe */ _StrategyHandler_js__WEBPACK_IMPORTED_MODULE_6__.StrategyHandler)\n/* harmony export */ });\n/* harmony import */ var _CacheFirst_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CacheFirst.js */ \"./node_modules/workbox-strategies/CacheFirst.js\");\n/* harmony import */ var _CacheOnly_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CacheOnly.js */ \"./node_modules/workbox-strategies/CacheOnly.js\");\n/* harmony import */ var _NetworkFirst_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./NetworkFirst.js */ \"./node_modules/workbox-strategies/NetworkFirst.js\");\n/* harmony import */ var _NetworkOnly_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./NetworkOnly.js */ \"./node_modules/workbox-strategies/NetworkOnly.js\");\n/* harmony import */ var _StaleWhileRevalidate_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./StaleWhileRevalidate.js */ \"./node_modules/workbox-strategies/StaleWhileRevalidate.js\");\n/* harmony import */ var _Strategy_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Strategy.js */ \"./node_modules/workbox-strategies/Strategy.js\");\n/* harmony import */ var _StrategyHandler_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./StrategyHandler.js */ \"./node_modules/workbox-strategies/StrategyHandler.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./_version.js */ \"./node_modules/workbox-strategies/_version.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_7__);\n/*\n  Copyright 2018 Google LLC\n\n  Use of this source code is governed by an MIT-style\n  license that can be found in the LICENSE file or at\n  https://opensource.org/licenses/MIT.\n*/\n\n\n\n\n\n\n\n\n/**\n * There are common caching strategies that most service workers will need\n * and use. This module provides simple implementations of these strategies.\n *\n * @module workbox-strategies\n */\n\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-strategies/index.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "CacheFirst": () => (/* reexport safe */ _CacheFirst_js__WEBPACK_IMPORTED_MODULE_0__.CacheFirst),
+/* harmony export */   "CacheOnly": () => (/* reexport safe */ _CacheOnly_js__WEBPACK_IMPORTED_MODULE_1__.CacheOnly),
+/* harmony export */   "NetworkFirst": () => (/* reexport safe */ _NetworkFirst_js__WEBPACK_IMPORTED_MODULE_2__.NetworkFirst),
+/* harmony export */   "NetworkOnly": () => (/* reexport safe */ _NetworkOnly_js__WEBPACK_IMPORTED_MODULE_3__.NetworkOnly),
+/* harmony export */   "StaleWhileRevalidate": () => (/* reexport safe */ _StaleWhileRevalidate_js__WEBPACK_IMPORTED_MODULE_4__.StaleWhileRevalidate),
+/* harmony export */   "Strategy": () => (/* reexport safe */ _Strategy_js__WEBPACK_IMPORTED_MODULE_5__.Strategy),
+/* harmony export */   "StrategyHandler": () => (/* reexport safe */ _StrategyHandler_js__WEBPACK_IMPORTED_MODULE_6__.StrategyHandler)
+/* harmony export */ });
+/* harmony import */ var _CacheFirst_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CacheFirst.js */ "./node_modules/workbox-strategies/CacheFirst.js");
+/* harmony import */ var _CacheOnly_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CacheOnly.js */ "./node_modules/workbox-strategies/CacheOnly.js");
+/* harmony import */ var _NetworkFirst_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./NetworkFirst.js */ "./node_modules/workbox-strategies/NetworkFirst.js");
+/* harmony import */ var _NetworkOnly_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./NetworkOnly.js */ "./node_modules/workbox-strategies/NetworkOnly.js");
+/* harmony import */ var _StaleWhileRevalidate_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./StaleWhileRevalidate.js */ "./node_modules/workbox-strategies/StaleWhileRevalidate.js");
+/* harmony import */ var _Strategy_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Strategy.js */ "./node_modules/workbox-strategies/Strategy.js");
+/* harmony import */ var _StrategyHandler_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./StrategyHandler.js */ "./node_modules/workbox-strategies/StrategyHandler.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./_version.js */ "./node_modules/workbox-strategies/_version.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_7__);
+/*
+  Copyright 2018 Google LLC
+
+  Use of this source code is governed by an MIT-style
+  license that can be found in the LICENSE file or at
+  https://opensource.org/licenses/MIT.
+*/
+
+
+
+
+
+
+
+
+/**
+ * There are common caching strategies that most service workers will need
+ * and use. This module provides simple implementations of these strategies.
+ *
+ * @module workbox-strategies
+ */
+
+
 
 /***/ }),
 
@@ -486,7 +4830,39 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \***************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"cacheOkAndOpaquePlugin\": () => (/* binding */ cacheOkAndOpaquePlugin)\n/* harmony export */ });\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_version.js */ \"./node_modules/workbox-strategies/_version.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_0__);\n/*\n  Copyright 2018 Google LLC\n\n  Use of this source code is governed by an MIT-style\n  license that can be found in the LICENSE file or at\n  https://opensource.org/licenses/MIT.\n*/\n\nconst cacheOkAndOpaquePlugin = {\n    /**\n     * Returns a valid response (to allow caching) if the status is 200 (OK) or\n     * 0 (opaque).\n     *\n     * @param {Object} options\n     * @param {Response} options.response\n     * @return {Response|null}\n     *\n     * @private\n     */\n    cacheWillUpdate: async ({ response }) => {\n        if (response.status === 200 || response.status === 0) {\n            return response;\n        }\n        return null;\n    },\n};\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-strategies/plugins/cacheOkAndOpaquePlugin.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "cacheOkAndOpaquePlugin": () => (/* binding */ cacheOkAndOpaquePlugin)
+/* harmony export */ });
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../_version.js */ "./node_modules/workbox-strategies/_version.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_0__);
+/*
+  Copyright 2018 Google LLC
+
+  Use of this source code is governed by an MIT-style
+  license that can be found in the LICENSE file or at
+  https://opensource.org/licenses/MIT.
+*/
+
+const cacheOkAndOpaquePlugin = {
+    /**
+     * Returns a valid response (to allow caching) if the status is 200 (OK) or
+     * 0 (opaque).
+     *
+     * @param {Object} options
+     * @param {Response} options.response
+     * @return {Response|null}
+     *
+     * @private
+     */
+    cacheWillUpdate: async ({ response }) => {
+        if (response.status === 200 || response.status === 0) {
+            return response;
+        }
+        return null;
+    },
+};
+
 
 /***/ }),
 
@@ -496,17 +4872,35 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \***********************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"messages\": () => (/* binding */ messages)\n/* harmony export */ });\n/* harmony import */ var workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! workbox-core/_private/logger.js */ \"./node_modules/workbox-core/_private/logger.js\");\n/* harmony import */ var workbox_core_private_getFriendlyURL_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! workbox-core/_private/getFriendlyURL.js */ \"./node_modules/workbox-core/_private/getFriendlyURL.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../_version.js */ \"./node_modules/workbox-strategies/_version.js\");\n/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_2__);\n/*\n  Copyright 2018 Google LLC\n\n  Use of this source code is governed by an MIT-style\n  license that can be found in the LICENSE file or at\n  https://opensource.org/licenses/MIT.\n*/\n\n\n\nconst messages = {\n    strategyStart: (strategyName, request) => `Using ${strategyName} to respond to '${(0,workbox_core_private_getFriendlyURL_js__WEBPACK_IMPORTED_MODULE_1__.getFriendlyURL)(request.url)}'`,\n    printFinalResponse: (response) => {\n        if (response) {\n            workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_0__.logger.groupCollapsed(`View the final response here.`);\n            workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_0__.logger.log(response || '[No response returned]');\n            workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_0__.logger.groupEnd();\n        }\n    },\n};\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-strategies/utils/messages.js?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "messages": () => (/* binding */ messages)
+/* harmony export */ });
+/* harmony import */ var workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! workbox-core/_private/logger.js */ "./node_modules/workbox-core/_private/logger.js");
+/* harmony import */ var workbox_core_private_getFriendlyURL_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! workbox-core/_private/getFriendlyURL.js */ "./node_modules/workbox-core/_private/getFriendlyURL.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../_version.js */ "./node_modules/workbox-strategies/_version.js");
+/* harmony import */ var _version_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_version_js__WEBPACK_IMPORTED_MODULE_2__);
+/*
+  Copyright 2018 Google LLC
 
-/***/ }),
+  Use of this source code is governed by an MIT-style
+  license that can be found in the LICENSE file or at
+  https://opensource.org/licenses/MIT.
+*/
 
-/***/ "./src/sw.js":
-/*!*******************!*\
-  !*** ./src/sw.js ***!
-  \*******************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var workbox_routing__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! workbox-routing */ \"./node_modules/workbox-routing/index.mjs\");\n/* harmony import */ var workbox_strategies__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! workbox-strategies */ \"./node_modules/workbox-strategies/index.mjs\");\n/* harmony import */ var workbox_cacheable_response__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! workbox-cacheable-response */ \"./node_modules/workbox-cacheable-response/index.mjs\");\n/* harmony import */ var workbox_expiration__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! workbox-expiration */ \"./node_modules/workbox-expiration/index.mjs\");\n\r\n\r\n\r\n// Used for filtering matches based on status code, header, or both\r\n\r\n// Used to limit entries in cache, remove entries after a certain period of time\r\n\r\n\r\n// Cache page navigations (html) with a Network First strategy\r\n(0,workbox_routing__WEBPACK_IMPORTED_MODULE_0__.registerRoute)(\r\n  // Check to see if the request is a navigation to a new page\r\n  ({ request }) => request.mode === 'navigate',\r\n  // Use a Network First caching strategy\r\n  new workbox_strategies__WEBPACK_IMPORTED_MODULE_1__.NetworkFirst({\r\n    // Put all cached files in a cache named 'pages'\r\n    cacheName: 'pages',\r\n    plugins: [\r\n      // Ensure that only requests that result in a 200 status are cached\r\n      new workbox_cacheable_response__WEBPACK_IMPORTED_MODULE_2__.CacheableResponsePlugin({\r\n        statuses: [200],\r\n      }),\r\n    ],\r\n  })\r\n);\r\n\r\n// Cache CSS, JS, and Web Worker requests with a Stale While Revalidate strategy\r\n(0,workbox_routing__WEBPACK_IMPORTED_MODULE_0__.registerRoute)(\r\n  // Check to see if the request's destination is style for stylesheets, script for JavaScript, or worker for web worker\r\n  ({ request }) =>\r\n    request.destination === 'style' ||\r\n    request.destination === 'script' ||\r\n    request.destination === 'worker',\r\n  // Use a Stale While Revalidate caching strategy\r\n  new workbox_strategies__WEBPACK_IMPORTED_MODULE_1__.StaleWhileRevalidate({\r\n    // Put all cached files in a cache named 'assets'\r\n    cacheName: 'assets',\r\n    plugins: [\r\n      // Ensure that only requests that result in a 200 status are cached\r\n      new workbox_cacheable_response__WEBPACK_IMPORTED_MODULE_2__.CacheableResponsePlugin({\r\n        statuses: [200],\r\n      }),\r\n    ],\r\n  })\r\n);\r\n\r\n// Cache images with a Cache First strategy\r\n(0,workbox_routing__WEBPACK_IMPORTED_MODULE_0__.registerRoute)(\r\n  // Check to see if the request's destination is style for an image\r\n  ({ request }) => request.destination === 'image',\r\n  // Use a Cache First caching strategy\r\n  new workbox_strategies__WEBPACK_IMPORTED_MODULE_1__.CacheFirst({\r\n    // Put all cached files in a cache named 'images'\r\n    cacheName: 'images',\r\n    plugins: [\r\n      // Ensure that only requests that result in a 200 status are cached\r\n      new workbox_cacheable_response__WEBPACK_IMPORTED_MODULE_2__.CacheableResponsePlugin({\r\n        statuses: [200],\r\n      }),\r\n      // Don't cache more than 50 items, and expire them after 30 days\r\n      new workbox_expiration__WEBPACK_IMPORTED_MODULE_3__.ExpirationPlugin({\r\n        maxEntries: 50,\r\n        maxAgeSeconds: 60 * 60 * 24 * 30, // 30 Days\r\n      }),\r\n    ],\r\n  })\r\n);\r\n\n\n//# sourceURL=webpack://mod-to-do-list/./src/sw.js?");
+
+const messages = {
+    strategyStart: (strategyName, request) => `Using ${strategyName} to respond to '${(0,workbox_core_private_getFriendlyURL_js__WEBPACK_IMPORTED_MODULE_1__.getFriendlyURL)(request.url)}'`,
+    printFinalResponse: (response) => {
+        if (response) {
+            workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_0__.logger.groupCollapsed(`View the final response here.`);
+            workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_0__.logger.log(response || '[No response returned]');
+            workbox_core_private_logger_js__WEBPACK_IMPORTED_MODULE_0__.logger.groupEnd();
+        }
+    },
+};
+
 
 /***/ }),
 
@@ -516,7 +4910,13 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var work
   \***********************************************************/
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"CacheableResponse\": () => (/* reexport safe */ _index_js__WEBPACK_IMPORTED_MODULE_0__.CacheableResponse),\n/* harmony export */   \"CacheableResponsePlugin\": () => (/* reexport safe */ _index_js__WEBPACK_IMPORTED_MODULE_0__.CacheableResponsePlugin)\n/* harmony export */ });\n/* harmony import */ var _index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index.js */ \"./node_modules/workbox-cacheable-response/index.js\");\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-cacheable-response/index.mjs?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "CacheableResponse": () => (/* reexport safe */ _index_js__WEBPACK_IMPORTED_MODULE_0__.CacheableResponse),
+/* harmony export */   "CacheableResponsePlugin": () => (/* reexport safe */ _index_js__WEBPACK_IMPORTED_MODULE_0__.CacheableResponsePlugin)
+/* harmony export */ });
+/* harmony import */ var _index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index.js */ "./node_modules/workbox-cacheable-response/index.js");
+
 
 /***/ }),
 
@@ -526,7 +4926,13 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \***************************************************/
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"CacheExpiration\": () => (/* reexport safe */ _index_js__WEBPACK_IMPORTED_MODULE_0__.CacheExpiration),\n/* harmony export */   \"ExpirationPlugin\": () => (/* reexport safe */ _index_js__WEBPACK_IMPORTED_MODULE_0__.ExpirationPlugin)\n/* harmony export */ });\n/* harmony import */ var _index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index.js */ \"./node_modules/workbox-expiration/index.js\");\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-expiration/index.mjs?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "CacheExpiration": () => (/* reexport safe */ _index_js__WEBPACK_IMPORTED_MODULE_0__.CacheExpiration),
+/* harmony export */   "ExpirationPlugin": () => (/* reexport safe */ _index_js__WEBPACK_IMPORTED_MODULE_0__.ExpirationPlugin)
+/* harmony export */ });
+/* harmony import */ var _index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index.js */ "./node_modules/workbox-expiration/index.js");
+
 
 /***/ }),
 
@@ -536,7 +4942,18 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \************************************************/
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"NavigationRoute\": () => (/* reexport safe */ _index_js__WEBPACK_IMPORTED_MODULE_0__.NavigationRoute),\n/* harmony export */   \"RegExpRoute\": () => (/* reexport safe */ _index_js__WEBPACK_IMPORTED_MODULE_0__.RegExpRoute),\n/* harmony export */   \"Route\": () => (/* reexport safe */ _index_js__WEBPACK_IMPORTED_MODULE_0__.Route),\n/* harmony export */   \"Router\": () => (/* reexport safe */ _index_js__WEBPACK_IMPORTED_MODULE_0__.Router),\n/* harmony export */   \"registerRoute\": () => (/* reexport safe */ _index_js__WEBPACK_IMPORTED_MODULE_0__.registerRoute),\n/* harmony export */   \"setCatchHandler\": () => (/* reexport safe */ _index_js__WEBPACK_IMPORTED_MODULE_0__.setCatchHandler),\n/* harmony export */   \"setDefaultHandler\": () => (/* reexport safe */ _index_js__WEBPACK_IMPORTED_MODULE_0__.setDefaultHandler)\n/* harmony export */ });\n/* harmony import */ var _index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index.js */ \"./node_modules/workbox-routing/index.js\");\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-routing/index.mjs?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "NavigationRoute": () => (/* reexport safe */ _index_js__WEBPACK_IMPORTED_MODULE_0__.NavigationRoute),
+/* harmony export */   "RegExpRoute": () => (/* reexport safe */ _index_js__WEBPACK_IMPORTED_MODULE_0__.RegExpRoute),
+/* harmony export */   "Route": () => (/* reexport safe */ _index_js__WEBPACK_IMPORTED_MODULE_0__.Route),
+/* harmony export */   "Router": () => (/* reexport safe */ _index_js__WEBPACK_IMPORTED_MODULE_0__.Router),
+/* harmony export */   "registerRoute": () => (/* reexport safe */ _index_js__WEBPACK_IMPORTED_MODULE_0__.registerRoute),
+/* harmony export */   "setCatchHandler": () => (/* reexport safe */ _index_js__WEBPACK_IMPORTED_MODULE_0__.setCatchHandler),
+/* harmony export */   "setDefaultHandler": () => (/* reexport safe */ _index_js__WEBPACK_IMPORTED_MODULE_0__.setDefaultHandler)
+/* harmony export */ });
+/* harmony import */ var _index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index.js */ "./node_modules/workbox-routing/index.js");
+
 
 /***/ }),
 
@@ -546,7 +4963,18 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \***************************************************/
 /***/ ((__unused_webpack___webpack_module__, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"CacheFirst\": () => (/* reexport safe */ _index_js__WEBPACK_IMPORTED_MODULE_0__.CacheFirst),\n/* harmony export */   \"CacheOnly\": () => (/* reexport safe */ _index_js__WEBPACK_IMPORTED_MODULE_0__.CacheOnly),\n/* harmony export */   \"NetworkFirst\": () => (/* reexport safe */ _index_js__WEBPACK_IMPORTED_MODULE_0__.NetworkFirst),\n/* harmony export */   \"NetworkOnly\": () => (/* reexport safe */ _index_js__WEBPACK_IMPORTED_MODULE_0__.NetworkOnly),\n/* harmony export */   \"StaleWhileRevalidate\": () => (/* reexport safe */ _index_js__WEBPACK_IMPORTED_MODULE_0__.StaleWhileRevalidate),\n/* harmony export */   \"Strategy\": () => (/* reexport safe */ _index_js__WEBPACK_IMPORTED_MODULE_0__.Strategy),\n/* harmony export */   \"StrategyHandler\": () => (/* reexport safe */ _index_js__WEBPACK_IMPORTED_MODULE_0__.StrategyHandler)\n/* harmony export */ });\n/* harmony import */ var _index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index.js */ \"./node_modules/workbox-strategies/index.js\");\n\n\n//# sourceURL=webpack://mod-to-do-list/./node_modules/workbox-strategies/index.mjs?");
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "CacheFirst": () => (/* reexport safe */ _index_js__WEBPACK_IMPORTED_MODULE_0__.CacheFirst),
+/* harmony export */   "CacheOnly": () => (/* reexport safe */ _index_js__WEBPACK_IMPORTED_MODULE_0__.CacheOnly),
+/* harmony export */   "NetworkFirst": () => (/* reexport safe */ _index_js__WEBPACK_IMPORTED_MODULE_0__.NetworkFirst),
+/* harmony export */   "NetworkOnly": () => (/* reexport safe */ _index_js__WEBPACK_IMPORTED_MODULE_0__.NetworkOnly),
+/* harmony export */   "StaleWhileRevalidate": () => (/* reexport safe */ _index_js__WEBPACK_IMPORTED_MODULE_0__.StaleWhileRevalidate),
+/* harmony export */   "Strategy": () => (/* reexport safe */ _index_js__WEBPACK_IMPORTED_MODULE_0__.Strategy),
+/* harmony export */   "StrategyHandler": () => (/* reexport safe */ _index_js__WEBPACK_IMPORTED_MODULE_0__.StrategyHandler)
+/* harmony export */ });
+/* harmony import */ var _index_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index.js */ "./node_modules/workbox-strategies/index.js");
+
 
 /***/ })
 
@@ -618,11 +5046,86 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /******/ 	})();
 /******/ 	
 /************************************************************************/
-/******/ 	
-/******/ 	// startup
-/******/ 	// Load entry module and return exports
-/******/ 	// This entry module can't be inlined because the eval devtool is used.
-/******/ 	var __webpack_exports__ = __webpack_require__("./src/sw.js");
-/******/ 	
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+(() => {
+/*!*******************!*\
+  !*** ./src/sw.ts ***!
+  \*******************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var workbox_routing__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! workbox-routing */ "./node_modules/workbox-routing/index.mjs");
+/* harmony import */ var workbox_strategies__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! workbox-strategies */ "./node_modules/workbox-strategies/index.mjs");
+/* harmony import */ var workbox_cacheable_response__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! workbox-cacheable-response */ "./node_modules/workbox-cacheable-response/index.mjs");
+/* harmony import */ var workbox_expiration__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! workbox-expiration */ "./node_modules/workbox-expiration/index.mjs");
+
+
+// Used for filtering matches based on status code, header, or both
+
+// Used to limit entries in cache, remove entries after a certain period of time
+
+// Cache page navigations (html) with a Network First strategy
+(0,workbox_routing__WEBPACK_IMPORTED_MODULE_0__.registerRoute)(
+// Check to see if the request is a navigation to a new page
+function (_a) {
+    var request = _a.request;
+    return request.mode === 'navigate';
+}, 
+// Use a Network First caching strategy
+new workbox_strategies__WEBPACK_IMPORTED_MODULE_1__.NetworkFirst({
+    // Put all cached files in a cache named 'pages'
+    cacheName: 'pages',
+    plugins: [
+        // Ensure that only requests that result in a 200 status are cached
+        new workbox_cacheable_response__WEBPACK_IMPORTED_MODULE_2__.CacheableResponsePlugin({
+            statuses: [200],
+        }),
+    ],
+}));
+// Cache CSS, JS, and Web Worker requests with a Stale While Revalidate strategy
+(0,workbox_routing__WEBPACK_IMPORTED_MODULE_0__.registerRoute)(
+// Check to see if the request's destination is style for stylesheets, script for JavaScript, or worker for web worker
+function (_a) {
+    var request = _a.request;
+    return request.destination === 'style' ||
+        request.destination === 'script' ||
+        request.destination === 'worker';
+}, 
+// Use a Stale While Revalidate caching strategy
+new workbox_strategies__WEBPACK_IMPORTED_MODULE_1__.StaleWhileRevalidate({
+    // Put all cached files in a cache named 'assets'
+    cacheName: 'assets',
+    plugins: [
+        // Ensure that only requests that result in a 200 status are cached
+        new workbox_cacheable_response__WEBPACK_IMPORTED_MODULE_2__.CacheableResponsePlugin({
+            statuses: [200],
+        }),
+    ],
+}));
+// Cache images with a Cache First strategy
+(0,workbox_routing__WEBPACK_IMPORTED_MODULE_0__.registerRoute)(
+// Check to see if the request's destination is style for an image
+function (_a) {
+    var request = _a.request;
+    return request.destination === 'image';
+}, 
+// Use a Cache First caching strategy
+new workbox_strategies__WEBPACK_IMPORTED_MODULE_1__.CacheFirst({
+    // Put all cached files in a cache named 'images'
+    cacheName: 'images',
+    plugins: [
+        // Ensure that only requests that result in a 200 status are cached
+        new workbox_cacheable_response__WEBPACK_IMPORTED_MODULE_2__.CacheableResponsePlugin({
+            statuses: [200],
+        }),
+        // Don't cache more than 50 items, and expire them after 30 days
+        new workbox_expiration__WEBPACK_IMPORTED_MODULE_3__.ExpirationPlugin({
+            maxEntries: 50,
+            maxAgeSeconds: 60 * 60 * 24 * 30, // 30 Days
+        }),
+    ],
+}));
+
+})();
+
 /******/ })()
 ;

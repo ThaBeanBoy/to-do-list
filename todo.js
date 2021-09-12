@@ -3087,7 +3087,7 @@ var ___CSS_LOADER_URL_IMPORT_0___ = new URL(/* asset import */ __webpack_require
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 var ___CSS_LOADER_URL_REPLACEMENT_0___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(___CSS_LOADER_URL_IMPORT_0___);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "@font-face {\n  font-family: MontAlt;\n  src: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\n}\n* {\n  margin: 0;\n  padding: 0;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n}\n\nbody {\n  width: 100vw;\n  height: 100vh;\n  background-color: #ffefd3;\n  font-family: MontAlt, sans-serif;\n  font-size: 1em;\n}\nbody .top {\n  overflow-y: scroll;\n  position: relative;\n  width: 100%;\n  margin-bottom: 1rem;\n  background-color: #001b2e;\n  color: #ffefd3;\n  border-radius: 0 0 1em 1em;\n  padding: 0.75em 1.3rem;\n}\nbody .top .time {\n  font-size: 2.5em;\n  font-weight: 700;\n}\nbody .top .today {\n  font-size: 1.5em;\n  /* margin-bottom: 0.5em; */\n}\nbody .allFather * {\n  user-select: none;\n  position: relative;\n}\nbody .allFather {\n  position: fixed;\n  bottom: 0;\n  height: 85%;\n  width: 100%;\n  padding: 1rem 0 6vh 0rem;\n  overflow: scroll;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  list-style-type: none;\n  font-size: 1rem;\n}\nbody .allFather .optBtns {\n  float: right;\n  border: 0.1rem solid #001b2e;\n  border-radius: 50%;\n  color: #001b2e;\n  font-size: 1.25rem;\n}\nbody .allFather ul {\n  padding: 0.5em 0 0 1em;\n  list-style-type: none;\n}\nbody .allFather > li {\n  width: 95%;\n  background-color: #adb6c4;\n  margin-bottom: 0.75em;\n  border: 0.2rem black solid;\n  border-radius: 0.75em;\n  padding: 0.25rem 0 0.25rem 0em;\n  word-wrap: break-word;\n}\nbody .allFather > li .caret {\n  cursor: pointer;\n  position: relative;\n  width: 99.5%;\n  padding: 0.4rem;\n  display: flex;\n  flex-direction: row;\n  align-items: center;\n  justify-content: flex-start;\n  font-size: 1.25em;\n  font-weight: bolder;\n}\nbody .allFather > li .caret .optBtns {\n  margin-left: auto;\n}\nbody .allFather > li .caret::before {\n  margin-right: 0.1rem;\n  display: inline-block;\n  transform: rotate(0deg);\n  font-family: \"fontello\";\n  font-style: normal;\n  font-weight: normal;\n  content: \"\\e801\";\n}\nbody .allFather > li .nested {\n  width: 99.5%;\n  margin-bottom: 0.5rem;\n  padding: 0rem 0 0.5rem 0.5rem;\n  overflow: hidden;\n}\nbody .allFather > li .nested li:not(.caret):not(.li-caret) {\n  background-color: #adb6c4;\n  position: relative;\n  width: 99%;\n  margin: 0.5rem 0;\n  border: solid 0.1rem;\n  border-radius: 0.5rem;\n  padding: 0.4em;\n  word-wrap: break-word;\n  font-size: 1em;\n}\nbody .allFather > li .nested li:not(.caret):not(.li-caret) div {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  align-items: center;\n}\nbody .allFather > li .nested li:not(.caret):not(.li-caret) .nested {\n  display: none;\n  border: none;\n}\nbody .allFather > li .nested li:not(.caret):not(.li-caret) .task-txt {\n  max-width: 90%;\n}\nbody .allFather > li .nested li.done:not(.caret):not(.li-caret) {\n  background-color: #09263c;\n}\nbody .allFather > li .nested .li-caret {\n  background-color: #adb6c4;\n  margin-top: 0.5rem;\n  border-width: 0 0 0 0.188rem;\n  border: solid black;\n  border-radius: 0.5rem;\n}\nbody .allFather > li [data-state=not-showing]:not(.show-off-task > div) {\n  border-radius: 0.5rem 0.5rem 0.5rem 0.5rem;\n}\nbody .allFather > li [data-state=not-showing]:not(.show-off-task > div) + .nested {\n  display: none;\n}\nbody .allFather > li [data-state=showing] {\n  border-width: 0.1rem 0.1rem 0 0.188rem;\n  border-radius: 0.5rem 0.5rem 0 0;\n}\nbody .allFather > li [data-state=showing]::before {\n  transform: rotate(90deg);\n}\nbody .allFather > li [data-state=showing] + .nested {\n  display: block;\n  border-right-width: 0.1rem;\n}\nbody .allFather > li > [data-state=showing] + .nested {\n  border-width: 0;\n}\nbody .allFather > li > .caret {\n  margin: 0;\n}\nbody .allFather > li > .nested, body .allFather > li > .caret {\n  border-width: 0;\n}\nbody .allFather > li:not(.caret-show-off) {\n  padding: 0.4rem;\n  font-size: 1.25em;\n  font-weight: bolder;\n}\nbody .allFather > li:not(.caret-show-off) div {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  align-items: center;\n}\nbody .allFather > li:not(.caret-show-off) .nested {\n  display: none;\n}\nbody .allFather .done {\n  background-color: #09263c;\n  color: #d9d9d9;\n}\nbody .allFather .done .task-txt {\n  text-decoration: line-through;\n}\nbody .allFather .done .optBtns {\n  background-color: orange;\n  color: #09263c;\n}\nbody .allFather .done + .nested {\n  background-color: #09263c;\n}\nbody .allFather .done + .nested li {\n  border-color: #d9d9d9;\n}\nbody .allFather .not-done + .nested li {\n  border-color: black;\n}\nbody .allFather .optBtns {\n  float: right;\n  border: 0.1rem solid #001b2e;\n  border-radius: 50%;\n  color: #001b2e;\n}\nbody .allFather > li.done > .nested, body .allFather > li.done > .caret {\n  border-width: 0;\n}\nbody .allFather > li > .nested {\n  border-width: 0;\n}\nbody .allFather .options {\n  z-index: 2;\n  position: absolute;\n  right: 15px;\n  top: -20px;\n  width: 100%;\n  height: 0;\n  border-radius: 0.4rem 0.4rem 0 0.4rem;\n  background-color: grey;\n  overflow: hidden;\n  display: flex;\n  flex-direction: row;\n  justify-content: space-around;\n  align-items: center;\n  color: orange;\n  font-size: 1.75rem;\n  background-color: #001b2e;\n}\nbody .allFather .options .icon-cancel {\n  color: red;\n}\nbody .editor {\n  z-index: 3;\n  position: fixed;\n  left: 0;\n  top: 0;\n  width: 0;\n  height: 100%;\n  background-color: #000000ee;\n  overflow-y: hidden;\n}\nbody .editor .editor-head {\n  position: absolute;\n  left: 50%;\n  top: 3%;\n  transform: translateX(-50%);\n  width: 90%;\n  padding: 0.25rem;\n  border-radius: 1rem;\n  background-color: #ffefd3;\n  overflow: hidden;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  text-align: center;\n  color: #001b2e;\n  font-weight: bold;\n  font-size: 1.5rem;\n}\nbody .editor i {\n  overflow: hidden;\n}\nbody .editor .side-bar {\n  position: absolute;\n  right: 4%;\n  top: 50%;\n  transform: translateY(-50%);\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: space-between;\n  width: 18vw;\n  border-radius: 1rem;\n  padding: 0.25rem;\n  font-weight: bolder;\n}\nbody .editor .side-bar i {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  width: 18vw;\n  height: 18vw;\n  background-color: #ffefd3;\n  overflow: hidden;\n  color: #001b2e;\n  font-size: 2rem;\n}\nbody .editor .side-bar .options {\n  height: 111vw;\n  display: flex;\n  flex-direction: column;\n}\nbody .editor .side-bar .options i {\n  border: #001b2e solid;\n  border-width: 0.1rem 0;\n}\nbody .editor .side-bar .options .icon-plus {\n  border-radius: 50% 50% 0 0;\n  border-bottom: #001b2e 0.1rem solid;\n}\nbody .editor .side-bar .options .icon-cancel {\n  border-radius: 0 0 50% 50%;\n  color: red;\n  border-top: #001b2e 0.1rem solid;\n}\nbody .editor .side-bar .taskBar {\n  height: 57.5vw;\n}\nbody .editor .side-bar .taskBar .icon-minus-squared,\nbody .editor .side-bar .taskBar .icon-minus-squared-alt {\n  height: 0;\n  border-width: 0;\n}\nbody .editor .side-bar .go-back {\n  margin-top: 0rem;\n  bottom: 0;\n  border-radius: 50%;\n}\nbody .mainBtns {\n  z-index: 5;\n  position: absolute;\n  left: 50%;\n  bottom: 6%;\n  transform: translateX(-50%);\n  width: 30%;\n  height: 0;\n  border-radius: 1rem;\n  background-color: #001b2e;\n  box-shadow: grey 0.2rem 0.2rem;\n  overflow: hidden;\n  display: flex;\n  flex-direction: row;\n  justify-content: space-around;\n  align-items: center;\n}\nbody .mainBtns i {\n  font-size: 2.5em;\n  color: orange;\n}\nbody #bottomPiece {\n  position: fixed;\n  bottom: 6%;\n  left: 50%;\n  transform: translate(-50%, 0);\n  width: 30%;\n  height: 3.5vh;\n  border: solid orange 0.25rem;\n  border-radius: 1rem;\n  background-color: #001b2e;\n  box-shadow: grey 0.2rem 0.2rem;\n}\nbody .tippy-box[data-theme~=todTheme] {\n  border: black solid;\n  border-width: 0.2rem 0.2rem 0 0.2rem;\n  border-radius: 0.75rem 0.75rem 0 0;\n  background-color: #adb6c4;\n}\nbody .tippy-box[data-theme~=todTheme] .icon-trash-empty {\n  color: #f57a62;\n}\nbody .tippy-box[data-theme~=todTheme] i {\n  color: black;\n}\n\n.SwalContainer .taskStack {\n  width: 100%;\n  max-height: 30vh;\n  padding: 0.25rem;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  list-style: none;\n}\n.SwalContainer .taskStack li {\n  width: 100%;\n  border: #595959 solid 0.1rem;\n  border-radius: 0.5rem;\n  background-color: #adb6c4;\n  margin: 0.25rem 0;\n  padding: 0.4rem;\n  font-size: 1.3rem;\n  word-wrap: break-word;\n  display: flex;\n  flex-direction: row;\n  align-items: center;\n}\n.SwalContainer .taskStack li i {\n  margin-left: auto;\n  color: #f57a7a;\n}\n\n.SwalInput {\n  font-family: MontAlt;\n  border-radius: 0.5rem;\n  border-width: 0.1rem;\n  margin-top: 0.25rem;\n}\n\n.Dim {\n  filter: opacity(50%);\n}\n\n.ghostClass {\n  border: 0.15em red solid;\n  background-color: orange;\n}\n\n.draggedClass {\n  visibility: hidden;\n}\n\n.allFather > li > .nested {\n  border-width: 0;\n}", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "@font-face {\n  font-family: MontAlt;\n  src: url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ");\n}\n* {\n  margin: 0;\n  padding: 0;\n  -webkit-box-sizing: border-box;\n  box-sizing: border-box;\n}\n\nbody {\n  width: 100vw;\n  height: 100vh;\n  background-color: #ffefd3;\n  font-family: MontAlt, sans-serif;\n  font-size: 1em;\n}\nbody .top {\n  overflow-y: scroll;\n  position: relative;\n  width: 100%;\n  margin-bottom: 1rem;\n  background-color: #001b2e;\n  color: #ffefd3;\n  border-radius: 0 0 1em 1em;\n  padding: 0.75em 1.3rem;\n}\nbody .top .time {\n  font-size: 2.5em;\n  font-weight: 700;\n}\nbody .top .today {\n  font-size: 1.5em;\n  /* margin-bottom: 0.5em; */\n}\nbody .allFather * {\n  user-select: none;\n  position: relative;\n}\nbody .allFather {\n  position: fixed;\n  bottom: 0;\n  height: 85%;\n  width: 100%;\n  padding: 1rem 0 6vh 0rem;\n  overflow: scroll;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  list-style-type: none;\n  font-size: 1rem;\n}\nbody .allFather .optBtns {\n  float: right;\n  border: 0.1rem solid #001b2e;\n  border-radius: 50%;\n  color: #001b2e;\n  font-size: 1.25rem;\n}\nbody .allFather ul {\n  padding: 0.5em 0 0 1em;\n  list-style-type: none;\n}\nbody .allFather > li {\n  width: 95%;\n  background-color: #adb6c4;\n  margin-bottom: 0.75em;\n  border: 0.2rem black solid;\n  border-radius: 0.75em;\n  padding: 0.25rem 0 0.25rem 0em;\n  word-wrap: break-word;\n}\nbody .allFather > li .caret {\n  cursor: pointer;\n  position: relative;\n  width: 99.5%;\n  padding: 0.4rem;\n  display: flex;\n  flex-direction: row;\n  align-items: center;\n  justify-content: flex-start;\n  font-size: 1.25em;\n  font-weight: bolder;\n}\nbody .allFather > li .caret .optBtns {\n  margin-left: auto;\n}\nbody .allFather > li .caret::before {\n  margin-right: 0.1rem;\n  display: inline-block;\n  transform: rotate(0deg);\n  font-family: \"fontello\";\n  font-style: normal;\n  font-weight: normal;\n  content: \"\\e801\";\n}\nbody .allFather > li .nested {\n  width: 99.5%;\n  margin-bottom: 0.5rem;\n  padding: 0rem 0 0.5rem 0.5rem;\n  overflow: hidden;\n}\nbody .allFather > li .nested li:not(.caret):not(.li-caret) {\n  background-color: #adb6c4;\n  position: relative;\n  width: 99%;\n  margin: 0.5rem 0;\n  border: solid 0.1rem;\n  border-radius: 0.5rem;\n  padding: 0.4em;\n  word-wrap: break-word;\n  font-size: 1em;\n}\nbody .allFather > li .nested li:not(.caret):not(.li-caret) div {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  align-items: center;\n}\nbody .allFather > li .nested li:not(.caret):not(.li-caret) .nested {\n  display: none;\n  border: none;\n}\nbody .allFather > li .nested li:not(.caret):not(.li-caret) .task-txt {\n  max-width: 90%;\n}\nbody .allFather > li .nested li.done:not(.caret):not(.li-caret) {\n  background-color: #09263c;\n}\nbody .allFather > li .nested .li-caret {\n  background-color: #adb6c4;\n  margin-top: 0.5rem;\n  border-width: 0 0 0 0.188rem;\n  border: solid black;\n  border-radius: 0.5rem;\n}\nbody .allFather > li [data-state=not-showing]:not(.show-off-task > div) {\n  border-radius: 0.5rem 0.5rem 0.5rem 0.5rem;\n}\nbody .allFather > li [data-state=not-showing]:not(.show-off-task > div) + .nested {\n  display: none;\n}\nbody .allFather > li [data-state=showing] {\n  border-width: 0.1rem 0.1rem 0 0.188rem;\n  border-radius: 0.5rem 0.5rem 0 0;\n}\nbody .allFather > li [data-state=showing]::before {\n  transform: rotate(90deg);\n}\nbody .allFather > li [data-state=showing] + .nested {\n  display: block;\n  border-right-width: 0.1rem;\n}\nbody .allFather > li > [data-state=showing] + .nested {\n  border-width: 0;\n}\nbody .allFather > li > .caret {\n  margin: 0;\n}\nbody .allFather > li > .nested, body .allFather > li > .caret {\n  border-width: 0;\n}\nbody .allFather > li:not(.caret-show-off) {\n  padding: 0.4rem;\n  font-size: 1.25em;\n  font-weight: bolder;\n}\nbody .allFather > li:not(.caret-show-off) div {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  align-items: center;\n}\nbody .allFather > li:not(.caret-show-off) .nested {\n  display: none;\n}\nbody .allFather .done {\n  background-color: #09263c;\n  color: #d9d9d9;\n}\nbody .allFather .done .task-txt {\n  text-decoration: line-through;\n}\nbody .allFather .done .optBtns {\n  background-color: orange;\n  color: #09263c;\n}\nbody .allFather .done + .nested {\n  background-color: #09263c;\n}\nbody .allFather .done + .nested li {\n  border-color: #d9d9d9;\n}\nbody .allFather .not-done + .nested li {\n  border-color: black;\n}\nbody .allFather .optBtns {\n  float: right;\n  border: 0.1rem solid #001b2e;\n  border-radius: 50%;\n  color: #001b2e;\n}\nbody .allFather > li.done > .nested, body .allFather > li.done > .caret {\n  border-width: 0;\n}\nbody .allFather > li > .nested {\n  border-width: 0;\n}\nbody .allFather .options {\n  z-index: 2;\n  position: absolute;\n  right: 15px;\n  top: -20px;\n  width: 100%;\n  height: 0;\n  border-radius: 0.4rem 0.4rem 0 0.4rem;\n  background-color: grey;\n  overflow: hidden;\n  display: flex;\n  flex-direction: row;\n  justify-content: space-around;\n  align-items: center;\n  color: orange;\n  font-size: 1.75rem;\n  background-color: #001b2e;\n}\nbody .allFather .options .icon-cancel {\n  color: red;\n}\nbody .editor {\n  z-index: 3;\n  position: fixed;\n  left: 0;\n  top: 0;\n  width: 0;\n  height: 100%;\n  background-color: #000000ee;\n  overflow-y: hidden;\n}\nbody .editor .editor-head {\n  position: absolute;\n  left: 50%;\n  top: 3%;\n  transform: translateX(-50%);\n  width: 90%;\n  padding: 0.25rem;\n  border-radius: 1rem;\n  background-color: #ffefd3;\n  overflow: hidden;\n  white-space: nowrap;\n  text-overflow: ellipsis;\n  text-align: center;\n  color: #001b2e;\n  font-weight: bold;\n  font-size: 1.5rem;\n}\nbody .editor i {\n  overflow: hidden;\n}\nbody .editor .side-bar {\n  position: absolute;\n  right: 4%;\n  top: 50%;\n  transform: translateY(-50%);\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  justify-content: space-between;\n  width: 18vw;\n  border-radius: 1rem;\n  padding: 0.25rem;\n  font-weight: bolder;\n}\nbody .editor .side-bar i {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  width: 18vw;\n  height: 18vw;\n  background-color: #ffefd3;\n  overflow: hidden;\n  color: #001b2e;\n  font-size: 2rem;\n}\nbody .editor .side-bar .options {\n  height: 111vw;\n  display: flex;\n  flex-direction: column;\n}\nbody .editor .side-bar .options i {\n  border: #001b2e solid;\n  border-width: 0.1rem 0;\n}\nbody .editor .side-bar .options .icon-plus {\n  border-radius: 50% 50% 0 0;\n  border-bottom: #001b2e 0.1rem solid;\n}\nbody .editor .side-bar .options .icon-cancel {\n  border-radius: 0 0 50% 50%;\n  color: red;\n  border-top: #001b2e 0.1rem solid;\n}\nbody .editor .side-bar .taskBar {\n  height: 57.5vw;\n}\nbody .editor .side-bar .taskBar .icon-minus-squared,\nbody .editor .side-bar .taskBar .icon-minus-squared-alt {\n  height: 0;\n  border-width: 0;\n}\nbody .editor .side-bar .go-back {\n  margin-top: 0rem;\n  bottom: 0;\n  border-radius: 50%;\n}\nbody .mainBtns {\n  z-index: 5;\n  position: absolute;\n  left: 50%;\n  bottom: 6%;\n  transform: translateX(-50%);\n  width: 30%;\n  height: 0;\n  border-radius: 1rem;\n  background-color: #001b2e;\n  box-shadow: grey 0.2rem 0.2rem;\n  overflow: hidden;\n  display: flex;\n  flex-direction: row;\n  justify-content: space-around;\n  align-items: center;\n}\nbody .mainBtns i {\n  font-size: 2.5em;\n  color: orange;\n}\nbody #bottomPiece {\n  position: fixed;\n  bottom: 6%;\n  left: 50%;\n  transform: translate(-50%, 0);\n  width: 30%;\n  height: 3.5vh;\n  border: solid orange 0.25rem;\n  border-radius: 1rem;\n  background-color: #001b2e;\n  box-shadow: grey 0.2rem 0.2rem;\n}\nbody .tippy-box[data-theme~=todTheme] {\n  border: black solid;\n  border-width: 0.2rem 0.2rem 0 0.2rem;\n  border-radius: 0.75rem 0.75rem 0 0;\n  background-color: #adb6c4;\n}\nbody .tippy-box[data-theme~=todTheme] .icon-trash-empty {\n  color: #f57a62;\n}\nbody .tippy-box[data-theme~=todTheme] i {\n  color: black;\n}\n\n.SwalContainer .taskStack {\n  width: 100%;\n  max-height: 30vh;\n  padding: 0.25rem;\n  display: flex;\n  flex-direction: column;\n  align-items: center;\n  list-style: none;\n}\n.SwalContainer .taskStack li {\n  width: 100%;\n  border: #595959 solid 0.1rem;\n  border-radius: 0.5rem;\n  background-color: #adb6c4;\n  margin: 0.25rem 0;\n  padding: 0.4rem;\n  font-size: 1.3rem;\n  word-wrap: break-word;\n  display: flex;\n  flex-direction: row;\n  align-items: center;\n}\n.SwalContainer .taskStack li i {\n  margin-left: auto;\n  color: #f57a7a;\n}\n\n.SwalInput {\n  font-family: MontAlt;\n  border-radius: 0.5rem;\n  border-width: 0.1rem;\n  margin-top: 0.25rem;\n  width: 95%;\n  border: #f57a7a solid 0.15rem;\n}\n\n.Dim {\n  filter: opacity(50%);\n}\n\n.ghostClass {\n  border: 0.15em red solid;\n  background-color: orange;\n}\n\n.draggedClass {\n  visibility: hidden;\n}\n\n.allFather > li > .nested {\n  border-width: 0;\n}", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -18508,7 +18508,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_0__);
 
 var swalPromptNewTask = function (props) {
-    var title = props.title, siblings = props.siblings, success = props.success, canceled = props.canceled, placeholder = props.placeholder;
+    var stackable = props.stackable, title = props.title, siblings = props.siblings, success = props.success, canceled = props.canceled, placeholder = props.placeholder;
     //Setting default values
     var _title = title === undefined ? 'Default title' : title;
     var _placeholder = placeholder === undefined ? 'Task title' : placeholder;
@@ -18531,10 +18531,6 @@ var swalPromptNewTask = function (props) {
             allTasksInTaskStack.append(taskLiGenerator(n));
         });
         $('.task-stack-del').css('width', parseFloat($(input).css('width')) + "px");
-        //delete from the task stack
-        var delMeFromStack = function (title) {
-            NewTaskStack = NewTaskStack.filter(function (n) { return n !== title; });
-        };
         return allTasksInTaskStack;
     };
     sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
@@ -18545,6 +18541,7 @@ var swalPromptNewTask = function (props) {
         backdrop: '#001b2ef0',
         background: '#ffefd3',
         allowOutsideClick: false,
+        position: 'top',
         title: _title,
         html: '<b>No tasks in stack</b>',
         input: 'text',
@@ -18557,7 +18554,7 @@ var swalPromptNewTask = function (props) {
         showCancelButton: true,
         cancelButtonText: 'Cancel',
         cancelButtonColor: '#f57a7a',
-        showDenyButton: true,
+        showDenyButton: stackable,
         denyButtonText: 'Add to the stack',
         denyButtonColor: '#8a8a8a',
         showCloseButton: true,
@@ -18708,14 +18705,20 @@ var swalPromptNewTask = function (props) {
         else if (result.isDismissed) {
             //If user want's to save the stuff in the stack, they can, if they don't, well :/
             if (NewTaskStack.length >= 1) {
-                swalConfirm('Tasks in stack', 'none', 'Do you want to save the tasks in the stack?', function () {
-                    _success(NewTaskStack);
-                }, function () {
-                    _canceled(NewTaskStack);
+                swalConfirm({
+                    title: 'Tasks in stack',
+                    focus: 'none',
+                    message: 'Do you want to save the tasks in the stack?',
+                    success: function () {
+                        _success(NewTaskStack);
+                    },
+                    failed: function () {
+                        _canceled(NewTaskStack);
+                    },
                 });
             }
             else {
-                _canceled();
+                _canceled(NewTaskStack);
             }
         }
     });
@@ -18733,6 +18736,7 @@ var swalEditTitle = function (props) {
         backdrop: '#001b2ef0',
         background: '#ffefd3',
         allowOutsideClick: false,
+        position: 'top',
         title: _title,
         input: 'text',
         inputPlaceholder: _placeholder,
@@ -18808,36 +18812,43 @@ var swalEditTitle = function (props) {
         }
     });
 };
-var swalConfirm = function (title, focus, message, success, failed) {
-    if (title === void 0) { title = 'Are you sure?'; }
-    if (message === void 0) { message = ''; }
-    return sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
+var swalConfirm = function (props) {
+    var title = props.title, focus = props.focus, message = props.message, success = props.success, failed = props.failed;
+    //Setting default values
+    var _title = title === undefined ? 'Are you sure' : title;
+    var _focus = focus === undefined ? 'none' : focus;
+    var _message = message === undefined ? '' : message;
+    var _success = success === undefined ? function () { } : success;
+    var _failed = failed === undefined ? function () { } : failed;
+    sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
         backdrop: '#001b2ef0',
         background: '#ffefd3',
         icon: 'question',
-        title: title,
-        html: message,
+        title: _title,
+        html: _message,
         reverseButtons: true,
         showConfirmButton: true,
         confirmButtonText: 'Ok',
         confirmButtonColor: '#9bd989',
-        focusConfirm: focus === 'confirm' ? true : false,
+        focusConfirm: _focus === 'confirm' ? true : false,
         showCancelButton: true,
         cancelButtonText: 'Cancel',
         cancelButtonColor: '#f57a7a',
-        focusCancel: focus === 'cancel' ? true : false,
+        focusCancel: _focus === 'cancel' ? true : false,
     }).then(function (result) {
-        if (result.isConfirmed && success !== undefined) {
-            success();
+        if (result.isConfirmed) {
+            _success();
         }
-        else if (failed !== undefined) {
-            failed();
+        else {
+            _failed();
         }
     });
 };
-var swalNotification = function (message, text, icon) {
-    if (text === void 0) { text = ''; }
-    if (icon === void 0) { icon = 'success'; }
+var swalNotification = function (props) {
+    var title = props.title, message = props.message, icon = props.icon;
+    var _title = title;
+    var _messagae = message === undefined ? '' : message;
+    var _icon = icon === undefined ? 'info' : icon;
     sweetalert2__WEBPACK_IMPORTED_MODULE_0___default().fire({
         toast: true,
         position: 'top-end',
@@ -18845,9 +18856,9 @@ var swalNotification = function (message, text, icon) {
         timer: 3000,
         timerProgressBar: true,
         background: '#ffefd3',
-        icon: icon,
-        title: "<b>" + message + "</b>",
-        text: text,
+        icon: _icon,
+        title: "<b>" + _title + "</b>",
+        text: _messagae,
         showConfirmButton: false,
         didOpen: function () {
             var popUp = document.querySelector('.swal2-popup');
@@ -18877,6 +18888,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "todS": () => (/* binding */ todS)
 /* harmony export */ });
 /* harmony import */ var _alerts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./alerts */ "./src/Ts/alerts.ts");
+/* harmony import */ var _refresh__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./refresh */ "./src/Ts/refresh.ts");
+
 
 // Random Code generator
 function generateId(length) {
@@ -18952,15 +18965,18 @@ var todS = /** @class */ (function () {
             });
         };
         (0,_alerts__WEBPACK_IMPORTED_MODULE_0__.swalPromptNewTask)({
+            stackable: true,
             siblings: this.Children,
             title: this.Title + "'s new Children",
             success: function (newTasks) {
                 newTasks = newTasks.reverse();
                 addNewChildren(newTasks);
                 success === undefined ? function () { } : success();
+                (0,_refresh__WEBPACK_IMPORTED_MODULE_1__.default)();
             },
             canceled: function () {
                 failed === undefined ? function () { } : failed();
+                (0,_refresh__WEBPACK_IMPORTED_MODULE_1__.default)();
             },
         });
         return this;
@@ -18984,11 +19000,33 @@ var todS = /** @class */ (function () {
                 return true;
             }
             else {
-                (0,_alerts__WEBPACK_IMPORTED_MODULE_0__.swalConfirm)('Title already taken', 'cancel', 'There is a task with the same name, are you sure you want to add the task?', function () {
+                // swalConfirm(
+                //   'Title already taken',
+                //   'cancel',
+                //   'There is a task with the same name, are you sure you want to add the task?',
+                //   () => {
+                //     this.Children.splice(index, 0, taskObj);
+                //     success !== undefined ? success(true) : {};
+                //   },
+                //   () => {
+                //     failed !== undefined ? failed() : {};
+                //   }
+                // );
+                var add_1 = function () {
                     _this.Children.splice(index, 0, taskObj);
-                    success !== undefined ? success(true) : {};
-                }, function () {
-                    failed !== undefined ? failed() : {};
+                };
+                (0,_alerts__WEBPACK_IMPORTED_MODULE_0__.swalConfirm)({
+                    title: 'Title already taken',
+                    focus: 'cancel',
+                    message: 'There is a task with the same name, are you sure you want to add the task?',
+                    success: function () {
+                        // this.Children.splice(index, 0, taskObj);
+                        add_1();
+                        success !== undefined ? success(true) : {};
+                    },
+                    failed: function () {
+                        failed !== undefined ? failed() : {};
+                    },
                 });
             }
         }
@@ -19509,19 +19547,21 @@ var mem = memConversions.internal_to_useable_memory(internalMem);
 var rootEdits = {
     addChild: function (success, failed) {
         (0,_alerts__WEBPACK_IMPORTED_MODULE_0__.swalPromptNewTask)({
+            stackable: true,
             siblings: mem,
             title: 'Add children to root',
             success: function (newTasks) {
-                // console.log(newTasks);
+                console.log(newTasks);
                 newTasks = newTasks.reverse();
                 newTasks.forEach(function (n) { return mem.unshift(new _class__WEBPACK_IMPORTED_MODULE_1__.todS(n)); });
                 success === undefined ? function () { } : success();
+                (0,_refresh__WEBPACK_IMPORTED_MODULE_2__.default)();
             },
             canceled: function () {
                 failed === undefined ? function () { } : failed();
+                (0,_refresh__WEBPACK_IMPORTED_MODULE_2__.default)();
             },
         });
-        (0,_refresh__WEBPACK_IMPORTED_MODULE_2__.default)();
     },
     //Made specifically for the sortable tings
     //The returned boolean in the response to confirm to sortable that it should delete
@@ -19547,21 +19587,19 @@ var rootEdits = {
                 return true;
             }
             else {
-                // const justAdd: boolean = confirm(
-                //   'There is a task with the same name, are you sure you want to add the task?'
-                // );
-                // if (justAdd) {
-                //   mem.splice(indx, 0, taskObj);
-                //   success !== undefined ? success(true) : {};
-                //   return true;
-                // }
-                (0,_alerts__WEBPACK_IMPORTED_MODULE_0__.swalConfirm)('Rearrangement', 'cancel', 'There is a task with the same name, are you sure you want to add the task?', function () {
-                    mem.splice(indx, 0, taskObj);
-                    success !== undefined ? success(true) : {};
-                    return true;
-                }, function () {
-                    failed !== undefined ? failed() : {};
-                    return false;
+                (0,_alerts__WEBPACK_IMPORTED_MODULE_0__.swalConfirm)({
+                    title: 'Rearrangement',
+                    focus: 'cancel',
+                    message: 'There is a task with the same name, are you sure you want to add the task?',
+                    success: function () {
+                        mem.splice(indx, 0, taskObj);
+                        success !== undefined ? success(true) : {};
+                        return true;
+                    },
+                    failed: function () {
+                        failed !== undefined ? failed() : {};
+                        return false;
+                    },
                 });
             }
         }
@@ -19579,24 +19617,47 @@ var rootEdits = {
         //Getting all the done tasks
         var allDone = mem.filter(function (n) { return n.state(); });
         if (allDone.length >= 1) {
-            (0,_alerts__WEBPACK_IMPORTED_MODULE_0__.swalConfirm)('Clearing tasks', 'cancel', 'Are you sure you want to delete all done tasks?', function () {
-                mem = mem.filter(function (n) { return n.state() == false; });
-                (0,_refresh__WEBPACK_IMPORTED_MODULE_2__.default)();
-            }, function () {
-                (0,_alerts__WEBPACK_IMPORTED_MODULE_0__.swalNotification)('Action Cancelled', 'There were no changes', 'info');
+            (0,_alerts__WEBPACK_IMPORTED_MODULE_0__.swalConfirm)({
+                title: 'Clearing tasks',
+                focus: 'cancel',
+                message: 'Are you sure you want to delete all done tasks?',
+                success: function () {
+                    mem = mem.filter(function (n) { return n.state() == false; });
+                    (0,_refresh__WEBPACK_IMPORTED_MODULE_2__.default)();
+                },
+                failed: function () {
+                    (0,_alerts__WEBPACK_IMPORTED_MODULE_0__.swalNotification)({
+                        title: 'Action Cancelled',
+                        message: 'There were no changes',
+                        icon: 'info',
+                    });
+                },
             });
         }
         //If there are no done tasks
         else {
-            (0,_alerts__WEBPACK_IMPORTED_MODULE_0__.swalNotification)('There are no done tasks to delete', '', 'info');
+            (0,_alerts__WEBPACK_IMPORTED_MODULE_0__.swalNotification)({
+                title: 'There are no done tasks to delete',
+                icon: 'info',
+            });
         }
     },
     delAll: function () {
-        (0,_alerts__WEBPACK_IMPORTED_MODULE_0__.swalConfirm)('Clearing tasks', 'cancel', 'Are you sure you want to delete all tasks?', function () {
-            mem = [];
-            (0,_refresh__WEBPACK_IMPORTED_MODULE_2__.default)();
-        }, function () {
-            (0,_alerts__WEBPACK_IMPORTED_MODULE_0__.swalNotification)('Action Cancelled', 'There were no changes', 'info');
+        (0,_alerts__WEBPACK_IMPORTED_MODULE_0__.swalConfirm)({
+            title: 'Clearing tasks',
+            focus: 'cancel',
+            message: 'Are you sure you want to delete all tasks?',
+            success: function () {
+                mem = [];
+                (0,_refresh__WEBPACK_IMPORTED_MODULE_2__.default)();
+            },
+            failed: function () {
+                (0,_alerts__WEBPACK_IMPORTED_MODULE_0__.swalNotification)({
+                    title: 'Action Cancelled',
+                    message: 'There were no changes',
+                    icon: 'info',
+                });
+            },
         });
     },
 };
@@ -20085,30 +20146,34 @@ var openTippy = function () {
                         n.flip();
                     });
                     editOPts_1.destroy();
-                    (0,_refresh__WEBPACK_IMPORTED_MODULE_1__.default)();
                 });
             },
             delete: function () {
-                (0,_alerts__WEBPACK_IMPORTED_MODULE_4__.swalConfirm)('Task deletion', 'cancel', "Are you sure you wan't to delete this task", function () {
-                    // Deleting from the root array
-                    if (accessedTod_1.checkout.length == 1) {
-                        _memoryConversions__WEBPACK_IMPORTED_MODULE_3__.rootEdits.delChild(accessedTod_1.path.taskID());
-                    }
-                    // Deleting a sub child
-                    else {
-                        //Getting the parent
-                        var parent_1 = accessedTod_1.checkout[1];
-                        //Deleting selected task/caret from it's parent
-                        parent_1.deleteChild(accessedTod_1.path.taskID());
-                        //Flipping all parents state's
-                        accessedTod_1.checkout.forEach(function (n) {
-                            if (n.children().length != 0) {
-                                n.flip();
-                            }
-                        });
-                    }
-                    editOPts_1.destroy();
-                    (0,_refresh__WEBPACK_IMPORTED_MODULE_1__.default)();
+                (0,_alerts__WEBPACK_IMPORTED_MODULE_4__.swalConfirm)({
+                    title: 'Task deletion',
+                    focus: 'cancel',
+                    message: "Are you sure you wan't to delete this task",
+                    success: function () {
+                        // Deleting from the root array
+                        if (accessedTod_1.checkout.length == 1) {
+                            _memoryConversions__WEBPACK_IMPORTED_MODULE_3__.rootEdits.delChild(accessedTod_1.path.taskID());
+                        }
+                        // Deleting a sub child
+                        else {
+                            //Getting the parent
+                            var parent_1 = accessedTod_1.checkout[1];
+                            //Deleting selected task/caret from it's parent
+                            parent_1.deleteChild(accessedTod_1.path.taskID());
+                            //Flipping all parents state's
+                            accessedTod_1.checkout.forEach(function (n) {
+                                if (n.children().length != 0) {
+                                    n.flip();
+                                }
+                            });
+                        }
+                        editOPts_1.destroy();
+                        (0,_refresh__WEBPACK_IMPORTED_MODULE_1__.default)();
+                    },
                 });
             },
             delAllDone: function () {
@@ -20127,12 +20192,19 @@ var openTippy = function () {
                     }
                     //If the users is REMORSEFUL for such vile actions
                     else {
-                        (0,_alerts__WEBPACK_IMPORTED_MODULE_4__.swalNotification)('Action Cancelled', 'There were no changes', 'info');
+                        (0,_alerts__WEBPACK_IMPORTED_MODULE_4__.swalNotification)({
+                            title: 'Action Cancelled',
+                            message: 'There were no changes',
+                            icon: 'info',
+                        });
                     }
                 }
                 //If there aren't any done tasks
                 else {
-                    (0,_alerts__WEBPACK_IMPORTED_MODULE_4__.swalNotification)('There are no done tasks to delete', '', 'info');
+                    (0,_alerts__WEBPACK_IMPORTED_MODULE_4__.swalNotification)({
+                        title: 'There are no done tasks to delete',
+                        icon: 'info',
+                    });
                 }
             },
             delAll: function () {
@@ -20146,7 +20218,11 @@ var openTippy = function () {
                 }
                 //If users cancels the action
                 else {
-                    (0,_alerts__WEBPACK_IMPORTED_MODULE_4__.swalNotification)('Action Cancelled', 'There were no changes', 'info');
+                    (0,_alerts__WEBPACK_IMPORTED_MODULE_4__.swalNotification)({
+                        title: 'Action Cancelled',
+                        message: 'There were no changes',
+                        icon: 'info',
+                    });
                 }
             },
         };
@@ -20417,9 +20493,7 @@ $('#del-checked').click(function () {
     (0,_Ts_refresh__WEBPACK_IMPORTED_MODULE_5__.default)();
 });
 $('#add').click(function () {
-    _Ts_memoryConversions__WEBPACK_IMPORTED_MODULE_2__.rootEdits.addChild(function () {
-        (0,_Ts_refresh__WEBPACK_IMPORTED_MODULE_5__.default)();
-    });
+    _Ts_memoryConversions__WEBPACK_IMPORTED_MODULE_2__.rootEdits.addChild();
 });
 $('#del-all').click(function () {
     _Ts_memoryConversions__WEBPACK_IMPORTED_MODULE_2__.rootEdits.delAll();

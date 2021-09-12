@@ -18948,7 +18948,6 @@ var todS = /** @class */ (function () {
         var _this = this;
         var addNewChildren = function (newTasks) {
             newTasks.forEach(function (n) {
-                console.log("Adding " + n);
                 _this.Children.unshift(new todS(n));
             });
         };
@@ -18956,6 +18955,7 @@ var todS = /** @class */ (function () {
             siblings: this.Children,
             title: this.Title + "'s new Children",
             success: function (newTasks) {
+                newTasks = newTasks.reverse();
                 addNewChildren(newTasks);
                 success === undefined ? function () { } : success();
             },
@@ -19513,6 +19513,7 @@ var rootEdits = {
             title: 'Add children to root',
             success: function (newTasks) {
                 // console.log(newTasks);
+                newTasks = newTasks.reverse();
                 newTasks.forEach(function (n) { return mem.unshift(new _class__WEBPACK_IMPORTED_MODULE_1__.todS(n)); });
                 success === undefined ? function () { } : success();
             },
